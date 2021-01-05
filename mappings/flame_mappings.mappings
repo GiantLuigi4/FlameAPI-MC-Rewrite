@@ -1,0 +1,16 @@
+net.minecraft.core.Registry : net.minecraft.registry.MainRegistry
+f-net.minecraft.registry.DefaultedRegistry->field_11142 : items
+f-net.minecraft.registry.DefaultedRegistry->ITEM : items
+f-net.minecraft.registry.DefaultedRegistry->BLOCK : blocks
+f-net.minecraft.registry.DefaultedRegistry->field_11146 : blocks
+
+net.minecraft.core.DefaultedRegistry : net.minecraft.registry.DefaultedRegistry
+
+net/minecraft/class_2348 : net.minecraft.registry.DefaultedRegistry
+
+net/minecraft/class_2378 : net.minecraft.registry.MainRegistry
+f-net.minecraft.registry.DefaultedRegistry->field_11142 : items
+f-net.minecraft.registry.DefaultedRegistry->ITEM : items
+f-net.minecraft.registry.DefaultedRegistry->BLOCK : blocks
+f-net.minecraft.registry.DefaultedRegistry->field_11146 : blocks
+
