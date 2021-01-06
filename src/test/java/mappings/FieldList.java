@@ -11,4 +11,9 @@ public class FieldList {
 		map.put(new FieldObject(type,secondary),primary);
 		return this;
 	}
+	
+	public FieldList add(String type, String secondary, String primary, boolean isStatic) {
+		map.put(new FieldObject(type,secondary,isStatic),primary);
+		return this;
+	}
 }

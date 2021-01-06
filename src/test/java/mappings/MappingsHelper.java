@@ -31,21 +31,21 @@ public class MappingsHelper {
 		classMap.put("net/minecraft/class_2246","net.minecraft.registry.BlockRegistry");
 		
 		fieldMap.put("net.minecraft.registry.MainRegistry",new FieldList()
-				.add("net.minecraft.registry.DefaultedRegistry","field_11146","blocks")
-				.add("net.minecraft.registry.DefaultedRegistry","BLOCK","blocks")
-				.add("net.minecraft.registry.DefaultedRegistry","field_11142","items")
-				.add("net.minecraft.registry.DefaultedRegistry","ITEM","items")
-				.add("net.minecraft.registry.DefaultedRegistry","field_11145","entities")
-				.add("net.minecraft.registry.DefaultedRegistry","ENTITY","entities")
-				.add("net.minecraft.registry.MainRegistry","field_11137","tile_entities")
-				.add("net.minecraft.registry.MainRegistry","BLOCK_ENTITY_TYPE","tile_entities")
+				.add("net.minecraft.registry.DefaultedRegistry","field_11146","blocks", true)
+				.add("net.minecraft.registry.DefaultedRegistry","BLOCK","blocks", true)
+				.add("net.minecraft.registry.DefaultedRegistry","field_11142","items", true)
+				.add("net.minecraft.registry.DefaultedRegistry","ITEM","items", true)
+				.add("net.minecraft.registry.DefaultedRegistry","field_11145","entities", true)
+				.add("net.minecraft.registry.DefaultedRegistry","ENTITY","entities", true)
+				.add("net.minecraft.registry.MainRegistry","field_11137","tile_entities", true)
+				.add("net.minecraft.registry.MainRegistry","BLOCK_ENTITY_TYPE","tile_entities", true)
 		);
 		
 		fieldMap.put("net.minecraft.registry.BlockRegistry",new FieldList()
-				.add("net.minecraft.world.blocks.Block","AIR","air")
-				.add("net.minecraft.world.blocks.Block","field_10124","air")
-				.add("net.minecraft.world.blocks.Block","STONE","stone")
-				.add("net.minecraft.world.blocks.Block","field_10340","stone")
+				.add("net.minecraft.world.blocks.Block","AIR","air", true)
+				.add("net.minecraft.world.blocks.Block","field_10124","air", true)
+				.add("net.minecraft.world.blocks.Block","STONE","stone", true)
+				.add("net.minecraft.world.blocks.Block","field_10340","stone", true)
 		);
 		
 		classMap.put("net.minecraft.world.level.block.Block","net.minecraft.world.blocks.Block");
@@ -117,7 +117,10 @@ public class MappingsHelper {
 			MethodList list = methodMap.get(clazz);
 			for (MethodObject methodObject : list.methodObjects) {
 				if (!methodObject.unmapped.contains("method")) {
-					wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_"+methodObject.mapped).append("\n");
+					if (methodObject.isStatic)
+						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("static.method_"+methodObject.mapped).append("\n");
+					else
+						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_"+methodObject.mapped).append("\n");
 				}
 			}
 		}
@@ -125,7 +128,10 @@ public class MappingsHelper {
 			FieldList listF = fieldMap.get(clazz);
 			listF.map.forEach((otherF,flame)->{
 				if (!otherF.name.contains("field")) {
-					wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("field_"+flame).append("\n");
+					if (otherF.isStatic)
+						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("static.field_" + flame).append("\n");
+					else
+						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("field_" + flame).append("\n");
 				}
 			});
 		}
