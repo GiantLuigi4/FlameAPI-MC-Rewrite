@@ -24,11 +24,9 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void init(String[] strings) {
-	
 	}
 	
 	@Override
 	public void postinit(String[] strings) {
-	
 	}
 }

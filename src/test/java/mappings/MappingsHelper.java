@@ -16,71 +16,88 @@ public class MappingsHelper {
 	private static final HashMap<String, String> classMap = new HashMap<>();
 	private static final HashMap<String, FieldList> fieldMap = new HashMap<>();
 	private static final HashMap<String, MethodList> methodMap = new HashMap<>();
+	private static final HashMap<String, ConstructorList> constructorMap = new HashMap<>();
 	
 	public static final MojmapHolder holder = Mojang.generate("1.16.4");
 	public static final Holder iholder = com.tfc.mappings.types.Intermediary.generate("1.16.4");
 	
 	static {
-		classMap.put("net.minecraft.core.Registry", "net.minecraft.registry.MainRegistry");
-		classMap.put("net/minecraft/class_2378", "net.minecraft.registry.MainRegistry");
+		try {
+			write(new File("mojmap.txt"), holder.toFancyString());
+			write(new File("intermediary.txt"), iholder.toFancyString());
+		} catch (Throwable ignored) {
+		}
 		
-		classMap.put("net.minecraft.core.DefaultedRegistry", "net.minecraft.registry.DefaultedRegistry");
-		classMap.put("net/minecraft/class_2348", "net.minecraft.registry.DefaultedRegistry");
 		
-		classMap.put("net.minecraft.world.level.block.Blocks", "net.minecraft.registry.BlockRegistry");
-		classMap.put("net/minecraft/class_2246", "net.minecraft.registry.BlockRegistry");
+		classMap.put("net/minecraft/core/Registry", "net/minecraft/registry/MainRegistry");
+		classMap.put("net/minecraft/class_2378", "net/minecraft/registry/MainRegistry");
 		
-		classMap.put("net.minecraft.resources.ResourceLocation", "net.minecraft.resource.ResourceLocation");
-		classMap.put("net/minecraft/class_2960", "net.minecraft.resource.ResourceLocation");
+		classMap.put("net/minecraft/core/DefaultedRegistry", "net/minecraft/registry/DefaultedRegistry");
+		classMap.put("net/minecraft/class_2348", "net/minecraft/registry/DefaultedRegistry");
 		
-		fieldMap.put("net.minecraft.registry.MainRegistry", new FieldList()
-				.add("net.minecraft.registry.DefaultedRegistry", "field_11146", "blocks", true)
-				.add("net.minecraft.registry.DefaultedRegistry", "BLOCK", "blocks", true)
-				.add("net.minecraft.registry.DefaultedRegistry", "field_11142", "items", true)
-				.add("net.minecraft.registry.DefaultedRegistry", "ITEM", "items", true)
-				.add("net.minecraft.registry.DefaultedRegistry", "field_11145", "entities", true)
-				.add("net.minecraft.registry.DefaultedRegistry", "ENTITY", "entities", true)
-				.add("net.minecraft.registry.MainRegistry", "field_11137", "tile_entities", true)
-				.add("net.minecraft.registry.MainRegistry", "BLOCK_ENTITY_TYPE", "tile_entities", true)
+		classMap.put("net/minecraft/world/level/block/Blocks", "net/minecraft/registry/BlockRegistry");
+		classMap.put("net/minecraft/class_2246", "net/minecraft/registry/BlockRegistry");
+		
+		fieldMap.put("net/minecraft/registry/MainRegistry", new FieldList()
+				.add("net/minecraft/registry/DefaultedRegistry", "field_11146", "blocks", true)
+				.add("net/minecraft/registry/DefaultedRegistry", "BLOCK", "blocks", true)
+				.add("net/minecraft/registry/DefaultedRegistry", "field_11142", "items", true)
+				.add("net/minecraft/registry/DefaultedRegistry", "ITEM", "items", true)
+				.add("net/minecraft/registry/DefaultedRegistry", "field_11145", "entities", true)
+				.add("net/minecraft/registry/DefaultedRegistry", "ENTITY", "entities", true)
+				.add("net/minecraft/registry/MainRegistry", "field_11137", "tile_entities", true)
+				.add("net/minecraft/registry/MainRegistry", "BLOCK_ENTITY_TYPE", "tile_entities", true)
 		);
 		
-		fieldMap.put("net.minecraft.registry.BlockRegistry", new FieldList()
-				.add("net.minecraft.world.blocks.Block", "AIR", "air", true)
-				.add("net.minecraft.world.blocks.Block", "field_10124", "air", true)
-				.add("net.minecraft.world.blocks.Block", "STONE", "stone", true)
-				.add("net.minecraft.world.blocks.Block", "field_10340", "stone", true)
+		fieldMap.put("net/minecraft/registry/BlockRegistry", new FieldList()
+				.add("net/minecraft/world/blocks/Block", "AIR", "air", true)
+				.add("net/minecraft/world/blocks/Block", "field_10124", "air", true)
+				.add("net/minecraft/world/blocks/Block", "STONE", "stone", true)
+				.add("net/minecraft/world/blocks/Block", "field_10340", "stone", true)
 		);
 		
-		classMap.put("net.minecraft.world.level.block.Block", "net.minecraft.world.blocks.Block");
-		classMap.put("net/minecraft/class_2248", "net.minecraft.world.blocks.Block");
 		
-		MethodList.add(methodMap, "net.minecraft.world.blocks.Block", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Block"),
-				"getFriction", "getFriction", "()F");
-		MethodList.add(methodMap, "net.minecraft.world.blocks.Block", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Block"),
-				"getSpeedFactor", "speedFactor", "()F");
-		MethodList.add(methodMap, "net.minecraft.world.blocks.Block", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Block"),
-				"getJumpFactor", "jumpFactor", "()F");
-		MethodList.add(methodMap, "net.minecraft.world.blocks.Block", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Block"),
-				"getExplosionResistance", "explosionResistance", "()F");
-		MethodList.add(methodMap, "net.minecraft.world.blocks.Block", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Block"),
-				"isPossibleToRespawnInThis", "blocksRespawning", "()Z");
-		
-		MethodList.add(methodMap, "net.minecraft.registry.BlockRegistry", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Blocks"),
+		{
+			classMap.put("net/minecraft/world/level/block/Block", "net/minecraft/world/blocks/Block");
+			classMap.put("net/minecraft/class_2248", "net/minecraft/world/blocks/Block");
+			
+			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
+					"getFriction", "getFriction", "()F");
+			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
+					"getSpeedFactor", "speedFactor", "()F");
+			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
+					"getJumpFactor", "jumpFactor", "()F");
+			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
+					"getExplosionResistance", "explosionResistance", "()F");
+			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
+					"isPossibleToRespawnInThis", "blocksRespawning", "()Z");
+		}
+		MethodList.add(methodMap, "net/minecraft/registry/BlockRegistry", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Blocks"),
 				"register", "register", "(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;", true);
 		
-		MethodList.add(methodMap, "net.minecraft.resource.ResourceLocation", Mojmap.getClassObsf("1.16.4", "net.minecraft.resources.ResourceLocation"),
-				"getPath", "getPath", "()Ljava/lang/String;", false);
-		MethodList.add(methodMap, "net.minecraft.resource.ResourceLocation", Mojmap.getClassObsf("1.16.4", "net.minecraft.resources.ResourceLocation"),
-				"getNamespace", "getNamespace", "()Ljava/lang/String;", false);
+		{
+			classMap.put("net/minecraft/resources/ResourceLocation", "net/minecraft/resource/ResourceLocation");
+			classMap.put("net/minecraft/class_2960", "net/minecraft/resource/ResourceLocation");
+			
+			constructorMap.put("net/minecraft/resource/ResourceLocation", new ConstructorList()
+					.add("(Ljava/lang/String;)V")
+					.add("(Ljava/lang/String;Ljava/lang/String;)V")
+			);
+			
+			MethodList.add(methodMap, "net/minecraft/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
+					"getPath", "getPath", "()Ljava/lang/String;", false);
+			MethodList.add(methodMap, "net/minecraft/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
+					"getNamespace", "getNamespace", "()Ljava/lang/String;", false);
+		}
 		
 		try {
 			StringBuilder wrapperProperties = new StringBuilder();
 			wrapperProperties
-					.append(generateWrapperFile("net.minecraft.world.blocks.Block", "Block")).append("\n")
-					.append(generateWrapperFile("net.minecraft.registry.BlockRegistry", "BlockRegistry")).append("\n")
-					.append(generateWrapperFile("net.minecraft.registry.MainRegistry", "MainRegistry")).append("\n")
-					.append(generateWrapperFile("net.minecraft.registry.DefaultedRegistry", "DefaultedRegistry")).append("\n")
-					.append(generateWrapperFile("net.minecraft.resource.ResourceLocation", "ResourceLocation")).append("\n")
+					.append(generateWrapperFile("net/minecraft/world/blocks/Block", "Block")).append("\n")
+					.append(generateWrapperFile("net/minecraft/registry/BlockRegistry", "BlockRegistry")).append("\n")
+					.append(generateWrapperFile("net/minecraft/registry/MainRegistry", "MainRegistry")).append("\n")
+					.append(generateWrapperFile("net/minecraft/registry/DefaultedRegistry", "DefaultedRegistry")).append("\n")
+					.append(generateWrapperFile("net/minecraft/resource/ResourceLocation", "ResourceLocation")).append("\n")
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
 		} catch (Throwable ignored) {
@@ -88,13 +105,11 @@ public class MappingsHelper {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		write(new File("mojmap.txt"), holder.toFancyString());
-		write(new File("intermediary.txt"), iholder.toFancyString());
 		StringBuilder mappingsFile = new StringBuilder();
 		classMap.forEach((other, flame) -> {
-			Class clazz = Mojmap.getClassObsf("1.16.4", other);
+			Class clazz = Mojmap.getClassFromMojmap("1.16.4", other);
 			
-			if (clazz == null) clazz = Intermediary.getClassObsf("1.16.4", other);
+			if (clazz == null) clazz = Intermediary.getClassFromInter("1.16.4", other);
 			if (clazz == null) System.out.println(other);
 			
 			mappingsFile.append(clazz.getPrimaryName()).append(" : ").append(flame).append("\n");
@@ -130,7 +145,7 @@ public class MappingsHelper {
 	public static String generateWrapperFile(String clazz, String fileName) throws IOException {
 		StringBuilder wrapper = new StringBuilder();
 		
-		StringBuilder wrapperClass = new StringBuilder("package ").append(clazz, 0, clazz.lastIndexOf(".")).append(";\npublic class ").append(fileName).append(" {\n");
+		StringBuilder wrapperClass = new StringBuilder("package ").append(clazz, 0, clazz.lastIndexOf("/")).append(";\npublic class ").append(fileName).append(" {\n");
 		
 		if (methodMap.containsKey(clazz)) {
 			wrapperClass.append("\t//Methods\n");
@@ -142,9 +157,9 @@ public class MappingsHelper {
 					
 					if (methodObject.isStatic) {
 						wrapperClass.append("static ");
-						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("static.method_" + methodObject.mapped).append("\n");
+						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("static.method_").append(methodObject.mapped).append("\n");
 					} else {
-						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_" + methodObject.mapped).append("\n");
+						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_").append(methodObject.mapped).append("\n");
 					}
 					
 					String type = getFlameFor(methodObject.getReturnType());
@@ -180,9 +195,9 @@ public class MappingsHelper {
 					
 					if (otherF.isStatic) {
 						wrapperClass.append("static ");
-						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("static.field_" + flame).append("\n");
+						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("static.field_").append(flame).append("\n");
 					} else {
-						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("field_" + flame).append("\n");
+						wrapper.append(otherF.name).append("|").append(otherF.type).append("=").append("field_").append(flame).append("\n");
 					}
 					
 					String returnVal = " null";
@@ -194,8 +209,19 @@ public class MappingsHelper {
 					
 					String thisCase = flame.substring(0, 1).toUpperCase() + flame.substring(1);
 					if (!otherF.isStatic) wrapperClass.append("final ");
-					wrapperClass.append(getFlameFor(otherF.type)).append(" ").append("get").append(thisCase).append("(){return"+returnVal+";}\n");
+					wrapperClass.append(getFlameFor(otherF.type)).append(" ").append("get").append(thisCase).append("(){return").append(returnVal).append(";}\n");
 				}
+			});
+		}
+		
+		if (constructorMap.containsKey(clazz)) {
+			if (methodMap.containsKey(clazz) || fieldMap.containsKey(clazz))
+				wrapperClass.append("\n\n");
+			
+			wrapperClass.append("\t//Constructors\n");
+			ConstructorList listF = constructorMap.get(clazz);
+			listF.constructorObjects.forEach((constructorObject) -> {
+				wrapperClass.append("\tpublic ").append(fileName).append("(").append(parseParams(constructorObject.desc.substring(1, constructorObject.desc.length() - 2))).append("){}\n");
 			});
 		}
 		
@@ -203,7 +229,7 @@ public class MappingsHelper {
 		System.out.println(wrapperClass.toString());
 		
 		write(new File("src/main/resources/wrappers/" + fileName + ".properties"), wrapper.toString());
-		write(new File("src/main/java/" + clazz.replace(".", "/") + ".java"), wrapperClass.toString());
+		write(new File("src/main/java/" + clazz.replace(".", "/") + ".java"), wrapperClass.toString().replace("/", ".").replace("..", "//").replace(", )", ")"));
 		
 		return clazz + "=" + fileName;
 	}
@@ -232,7 +258,7 @@ public class MappingsHelper {
 	
 	public static String getFlameFor(String clazz) {
 		for (String key : classMap.keySet()) {
-			if (key.equals(clazz) || key.replace(".", "/").equals(clazz)) {
+			if (key.replace("/", ".").equals(clazz) || key.replace(".", "/").equals(clazz)) {
 				return classMap.get(key);
 			}
 		}

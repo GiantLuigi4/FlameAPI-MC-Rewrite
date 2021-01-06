@@ -20,32 +20,26 @@ public class Mojmap {
 		mojmapHolderHashMap.put(version, Mojang.generate(version));
 	}
 	
-	public static Class getClassObsf(String version, String name) {
+	public static Class getClassFromMojmap(String version, String name) {
 		if (!mojmapHolderHashMap.containsKey(version))
 			load(version);
 		return mojmapHolderHashMap.get(version).getFromPrimaryName(name);
 	}
 	
-	/**
-	 * Gets the obsfucated name of a mojmap class for the current version
-	 *
-	 * @param name the name of the class
-	 * @return the obsfucated name
-	 */
-	public static Class getClassObsf(String name) {
-		return getClassObsf(GameInstance.INSTANCE.versionMap, name);
+	public static Class getClassFromMojmap(String name) {
+		return getClassFromMojmap(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static Class getClassMojmap(String version, String name) {
+	public static Class getClassFromObsf(String version, String name) {
 		if (!mojmapHolderHashMap.containsKey(version))
 			load(version);
 		return mojmapHolderHashMap.get(version).getFromSecondaryName(name);
 	}
 	
-	public static Class getClassMojmap(String name) {
-		return getClassMojmap(GameInstance.INSTANCE.versionMap, name);
+	public static Class getClassFromObsf(String name) {
+		return getClassFromObsf(GameInstance.INSTANCE.versionMap, name);
 	}
-
+	
 	public static BiObject<String, java.lang.reflect.Method> getMethodBetter(java.lang.Class<?> clazz, Class mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
 		java.lang.reflect.Method returnVal;
 		String info;

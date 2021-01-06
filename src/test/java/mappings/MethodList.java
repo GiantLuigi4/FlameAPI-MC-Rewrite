@@ -11,7 +11,7 @@ public class MethodList {
 	public final ArrayList<MethodObject> methodObjects = new ArrayList<>();
 	
 	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc) {
-		Class intermediary = Intermediary.getClassInter("1.16.4", clazzMojmap.getSecondaryName());
+		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
 		Method methodMojmap = scanFor(clazzMojmap, method, desc);
 		Method methodInter = intermediary.getMethodSecondary(methodMojmap.getSecondary());
 		
@@ -22,7 +22,7 @@ public class MethodList {
 	}
 	
 	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc, boolean isStatic) {
-		Class intermediary = Intermediary.getClassInter("1.16.4", clazzMojmap.getSecondaryName());
+		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
 		Method methodMojmap = scanFor(clazzMojmap, method, desc);
 		Method methodInter = intermediary.getMethodSecondary(methodMojmap.getSecondary());
 		

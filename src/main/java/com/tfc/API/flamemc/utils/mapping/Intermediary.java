@@ -13,23 +13,23 @@ public class Intermediary {
 		holderHashMap.put(version, com.tfc.mappings.types.Intermediary.generate(version));
 	}
 	
-	public static Class getClassObsf(String version, String name) {
+	public static Class getClassFromInter(String version, String name) {
 		if (!holderHashMap.containsKey(version))
 			load(version);
 		return holderHashMap.get(version).getFromPrimaryName(name);
 	}
 	
-	public static Class getClassObsf(String name) {
-		return getClassObsf(GameInstance.INSTANCE.versionMap, name);
+	public static Class getClassFromInter(String name) {
+		return getClassFromInter(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static Class getClassInter(String version, String name) {
+	public static Class getClassFromObsf(String version, String name) {
 		if (!holderHashMap.containsKey(version))
 			load(version);
 		return holderHashMap.get(version).getFromSecondaryName(name);
 	}
 	
-	public static Class getClassInter(String name) {
-		return Intermediary.getClassInter(GameInstance.INSTANCE.versionMap, name);
+	public static Class getClassFromObsf(String name) {
+		return Intermediary.getClassFromObsf(GameInstance.INSTANCE.versionMap, name);
 	}
 }
