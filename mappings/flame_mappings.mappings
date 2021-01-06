@@ -8,9 +8,13 @@ f-net.minecraft.registry.DefaultedRegistry : field_11145->entities
 f-net.minecraft.registry.MainRegistry : field_11137->tile_entities
 f-net.minecraft.registry.DefaultedRegistry : ENTITY->entities
 
+net.minecraft.resources.ResourceLocation : net.minecraft.resource.ResourceLocation
+
 net.minecraft.core.DefaultedRegistry : net.minecraft.registry.DefaultedRegistry
 
 net/minecraft/class_2348 : net.minecraft.registry.DefaultedRegistry
+
+net/minecraft/class_2960 : net.minecraft.resource.ResourceLocation
 
 net/minecraft/class_2378 : net.minecraft.registry.MainRegistry
 f-net.minecraft.registry.DefaultedRegistry : ITEM->items

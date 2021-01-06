@@ -16,4 +16,15 @@ public class MethodObject {
 		this.desc = desc;
 		this.isStatic = isStatic;
 	}
+	
+	public String getReturnType() {
+		String type = desc.substring(desc.lastIndexOf(")")+1);
+		if (type.startsWith("L"))
+			type = type.substring(1,type.length()-1);
+		return type.replace("/",".");
+	}
+	
+	public String getDescriptorForMethod() {
+		return ("("+MappingsHelper.parseParams(this.desc.substring(1,desc.lastIndexOf(")"))).replace("/",".")+")").replace(", )",")");
+	}
 }
