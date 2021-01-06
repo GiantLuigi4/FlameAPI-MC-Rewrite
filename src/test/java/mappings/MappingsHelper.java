@@ -68,6 +68,11 @@ public class MappingsHelper {
 		MethodList.add(methodMap, "net.minecraft.registry.BlockRegistry", Mojmap.getClassObsf("1.16.4", "net.minecraft.world.level.block.Blocks"),
 				"register", "register", "(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;", true);
 		
+		MethodList.add(methodMap, "net.minecraft.resource.ResourceLocation", Mojmap.getClassObsf("1.16.4", "net.minecraft.resources.ResourceLocation"),
+				"getPath", "getPath", "()Ljava/lang/String;", false);
+		MethodList.add(methodMap, "net.minecraft.resource.ResourceLocation", Mojmap.getClassObsf("1.16.4", "net.minecraft.resources.ResourceLocation"),
+				"getNamespace", "getNamespace", "()Ljava/lang/String;", false);
+		
 		try {
 			StringBuilder wrapperProperties = new StringBuilder();
 			wrapperProperties
@@ -75,6 +80,7 @@ public class MappingsHelper {
 					.append(generateWrapperFile("net.minecraft.registry.BlockRegistry", "BlockRegistry")).append("\n")
 					.append(generateWrapperFile("net.minecraft.registry.MainRegistry", "MainRegistry")).append("\n")
 					.append(generateWrapperFile("net.minecraft.registry.DefaultedRegistry", "DefaultedRegistry")).append("\n")
+					.append(generateWrapperFile("net.minecraft.resource.ResourceLocation", "ResourceLocation")).append("\n")
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
 		} catch (Throwable ignored) {
@@ -141,10 +147,10 @@ public class MappingsHelper {
 						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_" + methodObject.mapped).append("\n");
 					}
 					
-					String type = getFlameFor(parseSourceDescFromBytecodeDesc(methodObject.getReturnType()));
+					String type = getFlameFor(methodObject.getReturnType());
 					String returnVal = " null";
 					
-					if (type.equals("")) {
+					if (methodObject.getReturnType().equals("void")) {
 						type = "void";
 						returnVal = "";
 					} else if (!parseSourceDescFromBytecodeDesc(methodObject.getReturnType()).equals(methodObject.getReturnType())) {
@@ -152,6 +158,10 @@ public class MappingsHelper {
 						if (methodObject.getReturnType().equals("Z")) returnVal = " false";
 						else if (methodObject.getReturnType().equals("V")) returnVal = "";
 					}
+					
+					if (isNative(parseSourceDescFromBytecodeDesc(methodObject.getReturnType())))
+						type = parseSourceDescFromBytecodeDesc(type);
+					else returnVal = " null";
 					
 					wrapperClass.append(type).append(" ").append(methodObject.mapped).append(methodObject.getDescriptorForMethod()).append("{return").append(returnVal).append(";}\n");
 				}

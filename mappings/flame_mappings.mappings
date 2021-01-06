@@ -9,12 +9,20 @@ f-net.minecraft.registry.MainRegistry : field_11137->tile_entities
 f-net.minecraft.registry.DefaultedRegistry : ENTITY->entities
 
 net.minecraft.resources.ResourceLocation : net.minecraft.resource.ResourceLocation
+m-()Ljava/lang/String; : getPath->getPath
+m-()Ljava/lang/String; : method_12832->getPath
+m-()Ljava/lang/String; : getNamespace->getNamespace
+m-()Ljava/lang/String; : method_12836->getNamespace
 
 net.minecraft.core.DefaultedRegistry : net.minecraft.registry.DefaultedRegistry
 
 net/minecraft/class_2348 : net.minecraft.registry.DefaultedRegistry
 
 net/minecraft/class_2960 : net.minecraft.resource.ResourceLocation
+m-()Ljava/lang/String; : getPath->getPath
+m-()Ljava/lang/String; : method_12832->getPath
+m-()Ljava/lang/String; : getNamespace->getNamespace
+m-()Ljava/lang/String; : method_12836->getNamespace
 
 net/minecraft/class_2378 : net.minecraft.registry.MainRegistry
 f-net.minecraft.registry.DefaultedRegistry : ITEM->items
