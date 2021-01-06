@@ -1,3 +1,5 @@
+package mappings;
+
 public class FieldObject {
 	public String type, name;
 	

@@ -1,3 +1,5 @@
+package mappings;
+
 import java.util.HashMap;
 
 public class FieldList {
