@@ -1,76 +1,23 @@
-net/minecraft/resources/ResourceLocation : net/minecraft/resource/ResourceLocation
-m-()Ljava/lang/String; : getPath->getPath
-m-()Ljava/lang/String; : method_12832->getPath
-m-()Ljava/lang/String; : getNamespace->getNamespace
-m-()Ljava/lang/String; : method_12836->getNamespace
-
 net/minecraft/class_2348 : net/minecraft/registry/DefaultedRegistry
 
-net/minecraft/core/Registry : net/minecraft/registry/MainRegistry
-f-net/minecraft/registry/DefaultedRegistry : field_11142->items
-f-net/minecraft/registry/DefaultedRegistry : BLOCK->blocks
-f-net/minecraft/registry/MainRegistry : field_11137->tile_entities
-f-net/minecraft/registry/DefaultedRegistry : field_11146->blocks
-f-net/minecraft/registry/MainRegistry : BLOCK_ENTITY_TYPE->tile_entities
-f-net/minecraft/registry/DefaultedRegistry : ITEM->items
-f-net/minecraft/registry/DefaultedRegistry : ENTITY->entities
-f-net/minecraft/registry/DefaultedRegistry : field_11145->entities
-
-net/minecraft/world/level/block/Block : net/minecraft/world/blocks/Block
-m-()F : getFriction->getFriction
-m-()F : method_9499->getFriction
-m-()F : getSpeedFactor->speedFactor
-m-()F : method_23349->speedFactor
-m-()F : getJumpFactor->jumpFactor
-m-()F : method_23350->jumpFactor
-m-()F : getExplosionResistance->explosionResistance
-m-()F : method_9520->explosionResistance
-m-()Z : isPossibleToRespawnInThis->blocksRespawning
-m-()Z : method_9538->blocksRespawning
-
 net/minecraft/class_2960 : net/minecraft/resource/ResourceLocation
-m-()Ljava/lang/String; : getPath->getPath
 m-()Ljava/lang/String; : method_12832->getPath
-m-()Ljava/lang/String; : getNamespace->getNamespace
 m-()Ljava/lang/String; : method_12836->getNamespace
 
 net/minecraft/class_2378 : net/minecraft/registry/MainRegistry
 f-net/minecraft/registry/DefaultedRegistry : field_11142->items
-f-net/minecraft/registry/DefaultedRegistry : BLOCK->blocks
 f-net/minecraft/registry/MainRegistry : field_11137->tile_entities
 f-net/minecraft/registry/DefaultedRegistry : field_11146->blocks
-f-net/minecraft/registry/MainRegistry : BLOCK_ENTITY_TYPE->tile_entities
-f-net/minecraft/registry/DefaultedRegistry : ITEM->items
-f-net/minecraft/registry/DefaultedRegistry : ENTITY->entities
 f-net/minecraft/registry/DefaultedRegistry : field_11145->entities
 
-net/minecraft/world/level/block/Blocks : net/minecraft/registry/BlockRegistry
-f-net/minecraft/world/blocks/Block : AIR->air
-f-net/minecraft/world/blocks/Block : field_10340->stone
-f-net/minecraft/world/blocks/Block : STONE->stone
-f-net/minecraft/world/blocks/Block : field_10124->air
-m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
-m-()V : method_26979->register
-
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
-f-net/minecraft/world/blocks/Block : AIR->air
 f-net/minecraft/world/blocks/Block : field_10340->stone
-f-net/minecraft/world/blocks/Block : STONE->stone
 f-net/minecraft/world/blocks/Block : field_10124->air
-m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
-m-()V : method_26979->register
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
-m-()F : getFriction->getFriction
 m-()F : method_9499->getFriction
-m-()F : getSpeedFactor->speedFactor
 m-()F : method_23349->speedFactor
-m-()F : getJumpFactor->jumpFactor
 m-()F : method_23350->jumpFactor
-m-()F : getExplosionResistance->explosionResistance
 m-()F : method_9520->explosionResistance
-m-()Z : isPossibleToRespawnInThis->blocksRespawning
 m-()Z : method_9538->blocksRespawning
-
-net/minecraft/core/DefaultedRegistry : net/minecraft/registry/DefaultedRegistry
 

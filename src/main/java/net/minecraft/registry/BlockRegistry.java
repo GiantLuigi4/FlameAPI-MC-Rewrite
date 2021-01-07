@@ -7,11 +7,11 @@ public class BlockRegistry {
 	
 	
 	//Fields
-	public static net.minecraft.world.blocks.Block getAir() {
+	public static net.minecraft.world.blocks.Block getStone() {
 		return null;
 	}
 	
-	public static net.minecraft.world.blocks.Block getStone() {
+	public static net.minecraft.world.blocks.Block getAir() {
 		return null;
 	}
 }

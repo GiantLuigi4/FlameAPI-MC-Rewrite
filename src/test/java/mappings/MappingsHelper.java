@@ -45,8 +45,8 @@ public class MappingsHelper {
 				.add("net/minecraft/registry/DefaultedRegistry", "ITEM", "items", true)
 				.add("net/minecraft/registry/DefaultedRegistry", "field_11145", "entities", true)
 				.add("net/minecraft/registry/DefaultedRegistry", "ENTITY", "entities", true)
-				.add("net/minecraft/registry/MainRegistry", "field_11137", "tile_entities", true)
-				.add("net/minecraft/registry/MainRegistry", "BLOCK_ENTITY_TYPE", "tile_entities", true)
+				.add("net/minecraft/registry/MainRegistry", "field_11137", "tileEntities", true)
+				.add("net/minecraft/registry/MainRegistry", "BLOCK_ENTITY_TYPE", "tileEntities", true)
 		);
 		
 		fieldMap.put("net/minecraft/registry/BlockRegistry", new FieldList()
@@ -72,6 +72,7 @@ public class MappingsHelper {
 			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
 					"isPossibleToRespawnInThis", "blocksRespawning", "()Z");
 		}
+		
 		MethodList.add(methodMap, "net/minecraft/registry/BlockRegistry", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Blocks"),
 				"register", "register", "(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;", true);
 		
@@ -101,30 +102,39 @@ public class MappingsHelper {
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
 		} catch (Throwable ignored) {
+			ignored.printStackTrace();
 		}
 	}
 	
 	public static void main(String[] args) throws IOException {
 		StringBuilder mappingsFile = new StringBuilder();
 		classMap.forEach((other, flame) -> {
-			Class clazz = Mojmap.getClassFromMojmap("1.16.4", other);
-			
-			if (clazz == null) clazz = Intermediary.getClassFromInter("1.16.4", other);
-			if (clazz == null) System.out.println(other);
-			
-			mappingsFile.append(clazz.getPrimaryName()).append(" : ").append(flame).append("\n");
-			
-			if (fieldMap.containsKey(flame)) {
-				FieldList list = fieldMap.get(flame);
-				list.map.forEach((otherF, flameF) -> mappingsFile.append("f-").append(otherF.type).append(" : ").append(otherF.name).append("->").append(flameF).append("\n"));
+			if (other.contains("class_")) {
+				Class clazz = Mojmap.getClassFromMojmap("1.16.4", other);
+				
+				if (clazz == null) clazz = Intermediary.getClassFromInter("1.16.4", other);
+				if (clazz == null) System.out.println(other);
+				
+				mappingsFile.append(clazz.getPrimaryName()).append(" : ").append(flame).append("\n");
+				
+				if (fieldMap.containsKey(flame)) {
+					FieldList list = fieldMap.get(flame);
+					list.map.forEach((otherF, flameF) -> {
+						if (otherF.name.startsWith("field_"))
+							mappingsFile.append("f-").append(otherF.type).append(" : ").append(otherF.name).append("->").append(flameF).append("\n");
+					});
+				}
+				
+				if (methodMap.containsKey(flame)) {
+					MethodList list = methodMap.get(flame);
+					list.methodObjects.forEach((method) -> {
+						if (method.unmapped.startsWith("method_"))
+							mappingsFile.append("m-").append(method.desc).append(" : ").append(method.unmapped).append("->").append(method.mapped).append("\n");
+					});
+				}
+				
+				mappingsFile.append("\n");
 			}
-			
-			if (methodMap.containsKey(flame)) {
-				MethodList list = methodMap.get(flame);
-				list.methodObjects.forEach((method) -> mappingsFile.append("m-").append(method.desc).append(" : ").append(method.unmapped).append("->").append(method.mapped).append("\n"));
-			}
-			
-			mappingsFile.append("\n");
 		});
 		
 		write(new File("mappings/flame_mappings.mappings"), mappingsFile.toString());
@@ -152,14 +162,14 @@ public class MappingsHelper {
 			MethodList list = methodMap.get(clazz);
 			
 			for (MethodObject methodObject : list.methodObjects) {
-				if (!methodObject.unmapped.contains("method")) {
+				if (methodObject.shouldBeUsed) {
 					wrapperClass.append("\tpublic ");
 					
 					if (methodObject.isStatic) {
 						wrapperClass.append("static ");
-						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("static.method_").append(methodObject.mapped).append("\n");
+						wrapper.append(methodObject.unmapped).append(methodObject.desc).append("=").append("static.method_").append(methodObject.mapped).append("\n");
 					} else {
-						wrapper.append(methodObject.mapped).append(methodObject.desc).append("=").append("method_").append(methodObject.mapped).append("\n");
+						wrapper.append(methodObject.unmapped).append(methodObject.desc).append("=").append("method_").append(methodObject.mapped).append("\n");
 					}
 					
 					String type = getFlameFor(methodObject.getReturnType());
@@ -174,9 +184,13 @@ public class MappingsHelper {
 						else if (methodObject.getReturnType().equals("V")) returnVal = "";
 					}
 					
-					if (isNative(parseSourceDescFromBytecodeDesc(methodObject.getReturnType())))
+					if (type.equals("V")) {
+						type = "void";
+						returnVal = "";
+					} else if (isNative(parseSourceDescFromBytecodeDesc(methodObject.getReturnType())))
 						type = parseSourceDescFromBytecodeDesc(type);
 					else returnVal = " null";
+					
 					
 					wrapperClass.append(type).append(" ").append(methodObject.mapped).append(methodObject.getDescriptorForMethod()).append("{return").append(returnVal).append(";}\n");
 				}
@@ -190,7 +204,7 @@ public class MappingsHelper {
 			wrapperClass.append("\t//Fields\n");
 			FieldList listF = fieldMap.get(clazz);
 			listF.map.forEach((otherF, flame) -> {
-				if (!otherF.name.contains("field")) {
+				if (otherF.name.startsWith("field_")) {
 					wrapperClass.append("\tpublic ");
 					
 					if (otherF.isStatic) {

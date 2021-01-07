@@ -13,22 +13,28 @@ public class MethodList {
 	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc) {
 		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
 		Method methodMojmap = scanFor(clazzMojmap, method, desc);
-		Method methodInter = intermediary.getMethodSecondary(methodMojmap.getSecondary());
+		Method methodInter;
+		
+		if (desc.contains("net/minecraft")) methodInter = methodMojmap;
+		else methodInter = scanFor(intermediary, methodMojmap.getSecondary(), desc);
 		
 		MethodList interList = methodListHashMap.getOrDefault(clazzFlame, new MethodList());
-		interList.add(new MethodObject(methodMojmap.getPrimary(), mapped, methodMojmap.getDesc()));
-		interList.add(new MethodObject(methodInter.getPrimary(), mapped, methodInter.getDesc()));
+		interList.add(new MethodObject(methodMojmap.getPrimary(), mapped, methodMojmap.getDesc(), false, methodMojmap.equals(methodInter)));
+		interList.add(new MethodObject(methodInter.getPrimary(), mapped, methodInter.getDesc(), false, !methodMojmap.equals(methodInter)));
 		if (!methodListHashMap.containsKey(clazzFlame)) methodListHashMap.put(clazzFlame, interList);
 	}
 	
 	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc, boolean isStatic) {
 		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
 		Method methodMojmap = scanFor(clazzMojmap, method, desc);
-		Method methodInter = intermediary.getMethodSecondary(methodMojmap.getSecondary());
+		Method methodInter;
+		
+		if (desc.contains("net/minecraft")) methodInter = methodMojmap;
+		else methodInter = scanFor(intermediary, methodMojmap.getSecondary(), desc);
 		
 		MethodList interList = methodListHashMap.getOrDefault(clazzFlame, new MethodList());
-		interList.add(new MethodObject(methodMojmap.getPrimary(), mapped, methodMojmap.getDesc(), isStatic));
-		interList.add(new MethodObject(methodInter.getPrimary(), mapped, methodInter.getDesc(), isStatic));
+		interList.add(new MethodObject(methodMojmap.getPrimary(), mapped, methodMojmap.getDesc(), isStatic, methodMojmap.equals(methodInter)));
+		interList.add(new MethodObject(methodInter.getPrimary(), mapped, methodInter.getDesc(), isStatic, !methodMojmap.equals(methodInter)));
 		if (!methodListHashMap.containsKey(clazzFlame)) methodListHashMap.put(clazzFlame, interList);
 	}
 	
@@ -39,7 +45,7 @@ public class MethodList {
 	public static Method scanFor(Class clazz, String name, String desc) {
 		for (Method m : clazz.getMethods())
 			if (desc != null) {
-				if (m.getPrimary().equals(name) && m.getDesc().equals(desc) || m.getSecondary().equals(name) && m.getDesc().equals(desc))
+				if (m.getPrimary().equals(name) && m.getDesc().startsWith(desc) || m.getSecondary().equals(name) && m.getDesc().startsWith(desc))
 					return m;
 			} else if (m.getPrimary().equals(name) || m.getSecondary().equals(name))
 				return m;

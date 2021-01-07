@@ -1,7 +1,7 @@
 package net.minecraft.registry;
 public class MainRegistry {
 	//Fields
-	public static net.minecraft.registry.DefaultedRegistry getBlocks() {
+	public static net.minecraft.registry.DefaultedRegistry getItems() {
 		return null;
 	}
 	
@@ -9,7 +9,7 @@ public class MainRegistry {
 		return null;
 	}
 	
-	public static net.minecraft.registry.DefaultedRegistry getItems() {
+	public static net.minecraft.registry.DefaultedRegistry getBlocks() {
 		return null;
 	}
 	
