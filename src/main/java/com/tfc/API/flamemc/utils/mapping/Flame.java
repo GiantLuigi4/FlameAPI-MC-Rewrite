@@ -17,11 +17,11 @@ public class Flame {
 		}
 	}
 	
-	public Class getFromObsf(String obsf) {
+	public static Class getFromObsf(String obsf) {
 		return getFromObsf(GameInstance.INSTANCE.versionMap, obsf);
 	}
 	
-	public Class getFromObsf(String version, String obsf) {
+	public static Class getFromObsf(String version, String obsf) {
 		Class clazz = Intermediary.getClassFromObsf(version, obsf);
 		if (clazz != null) {
 			Class clazz2 = Intermediary.getClassFromInter("1.16.4", clazz.getSecondaryName());
@@ -32,7 +32,7 @@ public class Flame {
 		return null;
 	}
 	
-	public Class getFromMapped(String version, String mapped) {
+	public static Class getFromMapped(String version, String mapped) {
 		{
 			Class clazz = Mojmap.getClassFromMojmap(version, mapped);
 			if (clazz != null) return getFromObsf(version, clazz.getSecondaryName());
@@ -40,7 +40,7 @@ public class Flame {
 		}
 	}
 	
-	public Class getFromMapped(String mapped) {
+	public static Class getFromMapped(String mapped) {
 		return getFromMapped(GameInstance.INSTANCE.versionMap, mapped);
 	}
 }
