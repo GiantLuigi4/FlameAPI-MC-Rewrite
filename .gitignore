@@ -6,3 +6,8 @@
 /run/
 /libraries/
 /.idea/
+/intermediary.txt
+/mojmap.txt
+/versionJson.json
+/_build.gradle
+/out/
