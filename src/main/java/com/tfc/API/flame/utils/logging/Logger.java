@@ -8,8 +8,8 @@ public class Logger {
 			System.out.print((String) obj);
 			FlameConfig.field.append((String) obj);
 		} else {
-			System.out.print(obj + "");
-			FlameConfig.field.append(obj + "");
+			System.out.print(obj.toString());
+			FlameConfig.field.append(obj.toString());
 		}
 	}
 	
@@ -18,8 +18,8 @@ public class Logger {
 			System.out.print(obj + "\n");
 			FlameConfig.field.append(obj + "\n");
 		} else {
-			System.out.print(obj + "\n");
-			FlameConfig.field.append(obj + "" + "\n");
+			System.out.print(obj.toString() + "\n");
+			FlameConfig.field.append(obj.toString() + "\n");
 		}
 	}
 	
