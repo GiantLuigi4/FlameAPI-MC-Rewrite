@@ -8,10 +8,7 @@ public class ClassLoaderIO {
 		InputStream stream = ClassLoaderIO.class.getClassLoader().getResourceAsStream(resource);
 		byte[] bytes = new byte[stream.available()];
 		stream.read(bytes);
-		try {
-			stream.close();
-		} catch (Throwable ignored) {
-		}
+		stream.close();
 		return new String(bytes);
 	}
 }

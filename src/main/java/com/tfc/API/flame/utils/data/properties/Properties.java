@@ -1,9 +1,9 @@
 package com.tfc.API.flame.utils.data.properties;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -11,22 +11,7 @@ public class Properties {
 	private final HashMap<String, String> properties = new HashMap<>();
 	
 	public Properties(File toParse) throws IOException {
-		FileInputStream stream = new FileInputStream(toParse);
-		byte[] bytes = new byte[stream.available()];
-		stream.read(bytes);
-		stream.close();
-		String prop = new String(bytes);
-		String[] properties = prop.split("\n");
-		for (String s : properties) {
-			if (s.contains(":")) {
-				String[] split = s.split(":", 2);
-				this.properties.put(split[0].trim(), split[1].trim());
-			}
-			if (s.contains("=")) {
-				String[] split = s.split("=", 2);
-				this.properties.put(split[0].trim(), split[1].trim());
-			}
-		}
+		this(new String(Files.readAllBytes(toParse.toPath())));
 	}
 	
 	public Properties(String toParse) {

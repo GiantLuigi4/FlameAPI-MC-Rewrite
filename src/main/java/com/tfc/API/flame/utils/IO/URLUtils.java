@@ -3,12 +3,13 @@ package com.tfc.API.flame.utils.IO;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URL;
 
 public class URLUtils {
 	public static String readUrl(String urlString) throws IOException {
 		BufferedReader reader = null;
 		try {
-			java.net.URL url = new java.net.URL(urlString);
+			URL url = new URL(urlString);
 			reader = new BufferedReader(new InputStreamReader(url.openStream()));
 			StringBuilder builder = new StringBuilder();
 			int read;
