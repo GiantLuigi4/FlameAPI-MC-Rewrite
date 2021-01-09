@@ -41,7 +41,7 @@ public class VersionJsonToGradle {
 				"dependencies {\n" +
 				"    testCompile group: 'junit', name: 'junit', version: '4.12'\n" +
 				"\n" +
-				"    implementation 'com.github.GiantLuigi4:FlameMC:511f9669d8'\n" +
+				"    implementation 'com.github.GiantLuigi4:FlameMC:c01a4ba0ab'\n" +
 				"    implementation 'com.github.GiantLuigi4:Bytecode-Utils:509c9e4'\n" +
 				"    implementation 'com.github.GiantLuigi4:MCMappingsHelper:4ef43d5229'\n" +
 				"    compileOnly group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'\n" +

@@ -19,7 +19,7 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    implementation 'com.github.GiantLuigi4:FlameMC:511f9669d8'
+    implementation 'com.github.GiantLuigi4:FlameMC:c01a4ba0ab'
     implementation 'com.github.GiantLuigi4:Bytecode-Utils:509c9e4'
     implementation 'com.github.GiantLuigi4:MCMappingsHelper:4ef43d5229'
     compileOnly group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
