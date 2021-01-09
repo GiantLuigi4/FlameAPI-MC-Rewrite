@@ -4,7 +4,7 @@ import com.tfc.API.flamemc.GameInstance;
 import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.FlameMapHolder;
 
-import static com.tfc.API.flame.utils.IO.URL.readUrl;
+import static com.tfc.API.flame.utils.IO.URLUtils.readUrl;
 
 public class Flame {
 	public static final FlameMapHolder holder;

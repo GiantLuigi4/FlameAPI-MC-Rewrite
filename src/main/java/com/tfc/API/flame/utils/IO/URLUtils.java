@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class URL {
+public class URLUtils {
 	public static String readUrl(String urlString) throws IOException {
 		BufferedReader reader = null;
 		try {
