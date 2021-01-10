@@ -66,7 +66,6 @@ public class WrapperClassGen {
 							String otherName = entry.substring(0, entry.indexOf("|"));
 							String otherDesc = entry.substring(entry.indexOf("|") + 1);
 
-//							System.out.println(flameMappedClass);
 							Field field = Mapping.getField(flameMappedClass, otherName, otherDesc);
 
 //							classFile.append("\n\tpublic " + (isStatic ? "static " : "") + parseSourceDescFromBytecodeDesc(otherDesc) + " " + field.getPrimary() + ";");
@@ -81,48 +80,30 @@ public class WrapperClassGen {
 							
 							hasNonStatic = hasNonStatic || !isStatic;
 
-//							System.out.println(methodName);
-//							System.out.println(flameMappedClass.getMethodSecondary(nameAndType.substring("static.method_".length())));
-//							System.out.println(flameMappedClass.getMethodPrimary(nameAndType.substring("static.method_".length())));
-							
-							//register(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
 							String otherName = entry.substring(0, entry.indexOf("("));
 							String otherDesc = entry.substring(entry.indexOf("("));
 
-//							System.out.println(otherName);
-//							System.out.println(otherDesc);
-							
 							Method method = Mapping.getMethod(flameMappedClass, otherName, otherDesc);
 
-//							Method method1 = method.getPrimary();
-							System.out.println(method.getSecondary());
-							
 							Method otherMapped;
 							if (method.getSecondary().startsWith("method_")) {
 								otherMapped = Mapping.getMethod(Intermediary.getClassFromInter(flameMappedClass.getPrimaryName()), method.getSecondary(), otherDesc);
 							} else {
 								otherMapped = Mapping.getMethod(Mojmap.getClassFromObsf(Intermediary.getClassFromInter(flameMappedClass.getPrimaryName()).getSecondaryName()), method.getSecondary(), otherDesc);
 							}
-							System.out.println(otherMapped.getSecondary());
 							
 							String typeName = otherDesc.substring(otherDesc.indexOf(")"));
 							if (typeName.contains(";")) {
-//									typeName = otherDesc.substring(otherDesc.indexOf(")") + 2, typeName.length());
 								typeName = typeName.substring(2, typeName.length() - 1);
 							} else {
 								typeName = parseSourceDescFromBytecodeDesc(otherDesc.substring(otherDesc.indexOf(")") + 1));
 							}
 							
 							String type = getFlameFor(typeName);
-//							System.out.println(type);
 							String paramsStr = otherDesc.substring(1, otherDesc.indexOf(")"));
-//							System.out.println(paramsStr);
 							String params = parseParams(paramsStr);
 							
 							boolean hasReturn = !type.equals("void");
-							
-							System.out.println(className + "$" + method.getPrimary());
-							
 							
 							if (getAccess(className, method.getPrimary()).equals("public")) {
 								classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
@@ -187,8 +168,6 @@ public class WrapperClassGen {
 			} catch (Throwable throwable) {
 				throwable.printStackTrace();
 			}
-			//System.out.println(classFile.toString());
-//			}
 		}
 		return source;
 	}
