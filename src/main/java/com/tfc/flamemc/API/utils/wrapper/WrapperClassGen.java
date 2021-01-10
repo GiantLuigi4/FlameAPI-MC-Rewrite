@@ -1,5 +1,6 @@
 package com.tfc.flamemc.API.utils.wrapper;
 
+import com.tfc.bytecode.utils.Formatter;
 import com.tfc.flame.API.utils.IO.ClassLoaderIO;
 import com.tfc.flame.API.utils.IO.FileUtils;
 import com.tfc.flame.API.utils.data.properties.Properties;
@@ -132,7 +133,7 @@ public class WrapperClassGen {
 							} else {
 								String reflection =
 										"try {\n\t\t\t" +
-												"java.lang.reflect.Method m = " + superClass.getSecondaryName() + ".class" + ".getMethod(\"" + otherMapped.getSecondary() + "\"," + parseParams(paramsStr, false, true) + ");\n\t\t\t" +
+												"java.lang.reflect.Method m = " + superClass.getSecondaryName() + ".class" + ".getDeclaredMethod(\"" + otherMapped.getSecondary() + "\"," + parseParams(paramsStr, false, true) + ");\n\t\t\t" +
 												"m.setAccessible(true);\n\t\t\t" +
 												(hasReturn ? ("return (" + type + ")") : "") + "m.invoke(" + (isStatic ? "null" : "this") + "," + parseParams(paramsStr, false) + ");\n\t\t" +
 												"} catch (Throwable ignored) {}\n\t\t" +
@@ -167,13 +168,14 @@ public class WrapperClassGen {
 				
 				if (FlameLauncher.getLoader().getResource("wrappers/" + className + "Constructor.java") != null) {
 					String string = ClassLoaderIO.readAsString("wrappers/" + className + "Constructor.java");
-					classFile.append(string);
+					classFile.append(string.replace("%super_class%", superClass.getSecondaryName()));
+					classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n");
 				}
+				classFile.append("}");
 				
-				classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n}");
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
-				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), classFileStr);
+				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), Formatter.formatForCompile(classFileStr));
 				
 				byte[] bytes;
 				

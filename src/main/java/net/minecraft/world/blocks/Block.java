@@ -26,4 +26,7 @@ public class Block {
 	public final net.minecraft.world.blocks.Block getProperties() {
 		return null;
 	}
+	
+	public Block(BlockProperties properties) {
+	}
 }
