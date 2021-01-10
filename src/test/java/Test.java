@@ -21,3 +21,4 @@ public class Test {
 		FlameLauncher.main(args);
 	}
 }
+//<:GWchadThink:787396691032539197>

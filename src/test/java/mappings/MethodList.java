@@ -1,6 +1,6 @@
 package mappings;
 
-import com.tfc.API.flamemc.utils.mapping.Intermediary;
+import com.tfc.flamemc.API.utils.mapping.Intermediary;
 import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.Method;
 

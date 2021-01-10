@@ -1,7 +1,7 @@
 package mappings;
 
-import com.tfc.API.flamemc.utils.mapping.Intermediary;
-import com.tfc.API.flamemc.utils.mapping.Mojmap;
+import com.tfc.flamemc.API.utils.mapping.Intermediary;
+import com.tfc.flamemc.API.utils.mapping.Mojmap;
 import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.Holder;
 import com.tfc.mappings.structure.MojmapHolder;
@@ -130,7 +130,7 @@ public class MappingsHelper {
 				if (methodMap.containsKey(flame)) {
 					MethodList list = methodMap.get(flame);
 					list.methodObjects.forEach((method) -> {
-						if (method.unmapped.startsWith("method_"))
+						if (method.shouldBeUsed)
 							mappingsFile.append("m-").append(method.desc).append(" : ").append(method.unmapped).append("->").append(method.mapped).append("\n");
 					});
 				}
