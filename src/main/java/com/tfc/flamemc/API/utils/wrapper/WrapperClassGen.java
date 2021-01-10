@@ -66,9 +66,28 @@ public class WrapperClassGen {
 							String otherName = entry.substring(0, entry.indexOf("|"));
 							String otherDesc = entry.substring(entry.indexOf("|") + 1);
 
+//							System.out.println(otherDesc);
+							
 							Field field = Mapping.getField(flameMappedClass, otherName, otherDesc);
+							
+							Class inter = Intermediary.getClassFromInter(flameMappedClass.getPrimaryName());
+							Field field1 = Mapping.scanForField(inter, otherName, null);
 
-//							classFile.append("\n\tpublic " + (isStatic ? "static " : "") + parseSourceDescFromBytecodeDesc(otherDesc) + " " + field.getPrimary() + ";");
+//							try {
+//								System.out.println(field1.getSecondary());
+//							} catch (Throwable ignored) {
+//								System.out.println(field.getPrimary());
+//								System.out.println(field.getSecondary());
+//								ignored.printStackTrace();
+//							}
+							
+							String ThisCase = field.getPrimary().substring(0, 1).toUpperCase() + field.getPrimary().substring(1);
+							classFile.append("\n\tpublic " + (isStatic ? "static " : "") + otherDesc.replace("/", ".") + " get" + ThisCase + "(){\n\t\t" +
+									"return new " + otherDesc.replace("/", ".") + "(" + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + field1.getSecondary() + ");\n\t" +
+									"}\n");
+//							classFile.append("\tpublic " + (isStatic ? "static " : "") + otherDesc.replace("/", ".") + " get" + ThisCase + "(){\n\t\t" +
+//									"return new " + otherDesc.replace("/", ".") + "(" + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + field1.getSecondary() + ");\n\t" +
+//									"}\n");
 						} catch (Throwable err) {
 							err.printStackTrace();
 						}
@@ -146,7 +165,9 @@ public class WrapperClassGen {
 //					ignored.printStackTrace();
 //				}
 				
-				classFile.append("}");
+				if ()
+					
+					classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n}");
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), classFileStr);

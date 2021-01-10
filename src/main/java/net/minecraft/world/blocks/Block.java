@@ -20,4 +20,10 @@ public class Block {
 	public boolean blocksRespawning() {
 		return false;
 	}
+	
+	
+	//Fields
+	public final net.minecraft.world.blocks.Block getProperties() {
+		return null;
+	}
 }
