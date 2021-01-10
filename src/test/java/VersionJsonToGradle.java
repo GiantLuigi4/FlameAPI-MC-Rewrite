@@ -1,4 +1,5 @@
 import com.google.gson.*;
+import com.tfc.flame.API.utils.data.properties.Properties;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,6 +20,15 @@ public class VersionJsonToGradle {
 		stream.write(gson.toJson(object).getBytes());
 		stream.close();
 		
+		Properties properties = new Properties(new File("settings.gradle"));
+		String flameMCVersion = properties.getValue("gradle.ext.flameMCVersion");
+		String bytecodeUtilsVersion = properties.getValue("gradle.ext.bytecodeUtilsVersion");
+		String MCMappingsHelperVersion = properties.getValue("gradle.ext.MCMappingsHelperVersion");
+		
+		flameMCVersion = flameMCVersion.substring(1, flameMCVersion.length() - 1);
+		bytecodeUtilsVersion = bytecodeUtilsVersion.substring(1, bytecodeUtilsVersion.length() - 1);
+		MCMappingsHelperVersion = MCMappingsHelperVersion.substring(1, MCMappingsHelperVersion.length() - 1);
+		
 		JsonArray array = object.getAsJsonArray("libraries");
 		StringBuilder gradle = new StringBuilder("plugins {\n" +
 				"    id 'java'\n" +
@@ -29,6 +39,12 @@ public class VersionJsonToGradle {
 				"\n" +
 				"sourceCompatibility = JavaVersion.VERSION_1_8\n" +
 				"targetCompatibility = JavaVersion.VERSION_1_8\n" +
+				"\n" +
+				"ext {\n" +
+				"    flameMCVersion = '" + flameMCVersion + "'\n" +
+				"    bytecodeUtilsVersion = '" + bytecodeUtilsVersion + "'\n" +
+				"    MCMappingsHelperVersion = '" + MCMappingsHelperVersion + "'\n" +
+				"}\n" +
 				"\n" +
 				"repositories {\n" +
 				"    mavenCentral()\n" +
@@ -41,9 +57,9 @@ public class VersionJsonToGradle {
 				"dependencies {\n" +
 				"    testCompile group: 'junit', name: 'junit', version: '4.12'\n" +
 				"\n" +
-				"    implementation 'com.github.GiantLuigi4:FlameMC:c01a4ba0ab'\n" +
-				"    implementation 'com.github.GiantLuigi4:Bytecode-Utils:509c9e4'\n" +
-				"    implementation 'com.github.GiantLuigi4:MCMappingsHelper:4ef43d5229'\n" +
+				"    implementation \"com.github.GiantLuigi4:FlameMC:$flameMCVersion\"\n" +
+				"    implementation \"com.github.GiantLuigi4:Bytecode-Utils:$bytecodeUtilsVersion\"\n" +
+				"    implementation \"com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion\"\n" +
 				"    compileOnly group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'\n" +
 				"    compileOnly 'org.codehaus.janino:janino:3.1.2'\n" +
 				"    compileOnly 'org.codehaus.janino:commons-compiler:3.1.2'\n" +
@@ -54,8 +70,16 @@ public class VersionJsonToGradle {
 			String lib = object1.getAsJsonPrimitive("name").getAsString();
 			gradle.append("    runtimeOnly '").append(lib).append("'\n");
 		}
-		gradle.append("}");
-//		System.out.println(gradle);
+		gradle.append("}\n\n" +
+				"//jars the mod directly into flame_mods folder\n" +
+				"jar {\n" +
+				"    File dest = new File(System.getProperty(\"user.dir\") + \"\\\\run\\\\flame_mods\\\\\")\n" +
+				"    if (!dest.exists()) {\n" +
+				"        dest.getParentFile().mkdirs()\n" +
+				"        dest.mkdirs()\n" +
+				"    }\n" +
+				"    setDestinationDir(dest)\n" +
+				"}");
 		
 		File gradleFile = new File("_build.gradle");
 		if (!gradleFile.exists()) gradleFile.createNewFile();

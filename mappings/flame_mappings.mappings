@@ -5,14 +5,15 @@ m-()Ljava/lang/String; : method_12832->getPath
 m-()Ljava/lang/String; : method_12836->getNamespace
 
 net/minecraft/class_2378 : net/minecraft/registry/MainRegistry
-f-net/minecraft/registry/DefaultedRegistry : field_11142->items
-f-net/minecraft/registry/MainRegistry : field_11137->tile_entities
 f-net/minecraft/registry/DefaultedRegistry : field_11146->blocks
+f-net/minecraft/registry/MainRegistry : field_11137->tileEntities
 f-net/minecraft/registry/DefaultedRegistry : field_11145->entities
+f-net/minecraft/registry/DefaultedRegistry : field_11142->items
 
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
-f-net/minecraft/world/blocks/Block : field_10340->stone
 f-net/minecraft/world/blocks/Block : field_10124->air
+f-net/minecraft/world/blocks/Block : field_10340->stone
+m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
 m-()F : method_9499->getFriction
