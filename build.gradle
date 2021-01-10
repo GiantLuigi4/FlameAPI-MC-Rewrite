@@ -8,6 +8,12 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+ext {
+    flameMCVersion = 'd41042b077'
+    bytecodeUtilsVersion = '455c3d13b7'
+    MCMappingsHelperVersion = '3edf7efa3d'
+}
+
 repositories {
     mavenCentral()
     maven { url 'https://repo1.maven.org/maven2' }
@@ -19,13 +25,13 @@ repositories {
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    implementation 'com.github.GiantLuigi4:FlameMC:c01a4ba0ab'
-    implementation 'com.github.GiantLuigi4:Bytecode-Utils:509c9e4'
-    implementation 'com.github.GiantLuigi4:MCMappingsHelper:4ef43d5229'
-    compileOnly group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
-    compileOnly 'org.codehaus.janino:janino:3.1.2'
-    compileOnly 'org.codehaus.janino:commons-compiler:3.1.2'
-    compileOnly 'org.codehaus.janino:commons-compiler-jdk:3.1.2'
+    implementation "com.github.GiantLuigi4:FlameMC:$flameMCVersion"
+    implementation "com.github.GiantLuigi4:Bytecode-Utils:$bytecodeUtilsVersion"
+    implementation "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
+    implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
+    implementation 'org.codehaus.janino:janino:3.1.2'
+    implementation 'org.codehaus.janino:commons-compiler:3.1.2'
+    implementation 'org.codehaus.janino:commons-compiler-jdk:3.1.2'
 
 
     runtimeOnly 'com.mojang:patchy:1.1'
@@ -85,4 +91,14 @@ dependencies {
     runtimeOnly 'com.mojang:text2speech:1.11.3'
     runtimeOnly 'ca.weblite:java-objc-bridge:1.0.0'
     runtimeOnly 'ca.weblite:java-objc-bridge:1.0.0'
+}
+
+//jars the mod directly into flame_mods folder
+jar {
+    File dest = new File(System.getProperty("user.dir") + "\\run\\flame_mods\\")
+    if (!dest.exists()) {
+        dest.getParentFile().mkdirs()
+        dest.mkdirs()
+    }
+    setDestinationDir(dest)
 }

@@ -1,4 +1,4 @@
-package com.tfc.API.flame.utils.IO;
+package com.tfc.flame.API.utils.IO;
 
 import java.io.IOException;
 import java.io.InputStream;

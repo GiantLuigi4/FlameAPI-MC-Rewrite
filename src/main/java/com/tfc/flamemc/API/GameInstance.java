@@ -1,20 +1,36 @@
-package com.tfc.API.flamemc;
+package com.tfc.flamemc.API;
 
-import com.tfc.API.flame.utils.logging.Logger;
-import com.tfc.API.flame_asm.annotations.Unmodifiable;
-import entries.FlameAPI.Main;
+import com.tfc.flame.API.utils.logging.Logger;
+import com.tfc.flame_asm.annotations.Unmodifiable;
+
+import java.io.File;
 
 @Unmodifiable
 public class GameInstance {
-	public static final GameInstance INSTANCE = new GameInstance(Main.getArgs());
+	public static final GameInstance INSTANCE = new GameInstance();
 	
-	public final String versionMap;
-	public final String version;
-	public final String gameDir;
-	public final String assetVersion;
-	public final boolean isMappedVersion;
+	public String versionMap;
+	public String version;
+	public String gameDir;
+	public String execDir;
+	public String assetVersion;
+	public boolean isMappedVersion;
+	public File dataDirectory = null;
 	
 	public GameInstance(String[] args) {
+		setup(args);
+	}
+	
+	public GameInstance() {
+	}
+	
+	public static void init(String[] args) {
+		//just allows INSTANCE to be initialized before any mods can switch the args
+		INSTANCE.setup(args);
+	}
+	
+	private void setup(String[] args) {
+		
 		String version = "";
 		String versionMap = "";
 		String gameDir = "";
@@ -25,6 +41,9 @@ public class GameInstance {
 			boolean isAssetIndex = false;
 			boolean isVersion = false;
 			boolean isDir = false;
+			
+			System.out.println(args);
+			
 			for (String s : args) {
 				if (s.equals("--version")) {
 					isVersion = true;
@@ -56,9 +75,7 @@ public class GameInstance {
 		this.gameDir = gameDir;
 		this.assetVersion = assetVersion;
 		this.isMappedVersion = isMappedVersion;
-	}
-	
-	public static void init() {
-		//just allows INSTANCE to be initialized before any mods can switch the args
+		
+		this.execDir = System.getProperty("user.dir");
 	}
 }

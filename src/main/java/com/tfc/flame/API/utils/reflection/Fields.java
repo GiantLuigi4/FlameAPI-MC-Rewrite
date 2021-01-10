@@ -1,6 +1,6 @@
-package com.tfc.API.flame.utils.reflection;
+package com.tfc.flame.API.utils.reflection;
 
-import com.tfc.API.flame_asm.annotations.Unmodifiable;
+import com.tfc.flame_asm.annotations.Unmodifiable;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

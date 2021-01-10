@@ -1,4 +1,4 @@
-package com.tfc.API.flame_asm.annotations;
+package com.tfc.flame_asm.annotations;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

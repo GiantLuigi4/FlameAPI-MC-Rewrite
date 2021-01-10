@@ -1,8 +1,8 @@
-package com.tfc.API.flamemc.utils.mapping;
+package com.tfc.flamemc.API.utils.mapping;
 
-import com.tfc.API.flame.utils.logging.Logger;
-import com.tfc.API.flame.utils.reflection.Methods;
-import com.tfc.API.flamemc.GameInstance;
+import com.tfc.flame.API.utils.logging.Logger;
+import com.tfc.flame.API.utils.reflection.Methods;
+import com.tfc.flamemc.API.GameInstance;
 import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.Method;
 import com.tfc.mappings.structure.MojmapHolder;

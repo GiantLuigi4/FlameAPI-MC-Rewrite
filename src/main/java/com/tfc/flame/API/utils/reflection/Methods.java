@@ -1,9 +1,9 @@
-package com.tfc.API.flame.utils.reflection;
+package com.tfc.flame.API.utils.reflection;
 
-import com.tfc.API.flame.utils.logging.Logger;
-import com.tfc.API.flame_asm.annotations.Unmodifiable;
+import com.tfc.flame.API.utils.IO.classes.ClassScanningUtils;
+import com.tfc.flame.API.utils.logging.Logger;
+import com.tfc.flame_asm.annotations.Unmodifiable;
 import com.tfc.utils.BiObject;
-import com.tfc.API.flame.utils.IO.classes.ClassScanningUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
