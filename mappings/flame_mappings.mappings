@@ -16,7 +16,7 @@ f-net/minecraft/world/blocks/Block : field_10340->stone
 m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
-f-net/minecraft/world/blocks/Block : field_23155->properties
+f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-()F : method_9499->getFriction
 m-()F : method_23349->speedFactor
 m-()F : method_23350->jumpFactor

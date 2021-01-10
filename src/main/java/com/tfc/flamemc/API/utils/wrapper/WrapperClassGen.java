@@ -191,6 +191,12 @@ public class WrapperClassGen {
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".class"), bytes);
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + "_source.class"), source);
 				
+				if (
+						className.equals("BlockProperties") ||
+								className.equals("net.minecraft.world.blocks.BlockProperties")
+				) {
+					return source;
+				}
 				return bytes;
 			} catch (Throwable throwable) {
 				throwable.printStackTrace();

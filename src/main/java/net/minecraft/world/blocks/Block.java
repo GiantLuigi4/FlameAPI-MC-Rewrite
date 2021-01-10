@@ -1,5 +1,9 @@
 package net.minecraft.world.blocks;
 public class Block {
+	public Block(BlockProperties properties) {
+	
+	}
+	
 	//Methods
 	public float getFriction() {
 		return 0;
@@ -23,10 +27,7 @@ public class Block {
 	
 	
 	//Fields
-	public final net.minecraft.world.blocks.Block getProperties() {
+	public final net.minecraft.world.blocks.BlockProperties getProperties() {
 		return null;
-	}
-	
-	public Block(BlockPropertiesE properties) {
 	}
 }

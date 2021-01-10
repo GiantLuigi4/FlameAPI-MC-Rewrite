@@ -10,7 +10,7 @@ import com.tfc.mappings.structure.Field;
 import java.lang.reflect.Constructor;
 
 public class PropertiesAccessor {
-	public static BlockPropertiesE getProperties(Object block) {
+	public static BlockProperties getProperties(Object block) {
 		Class flameMappedClass = Flame.getFromFlame("net/minecraft/world/blocks/Block");
 		String otherDesc = ("net/minecraft/world/blocks/BlockProperties");
 		Field field = Mapping.getField(flameMappedClass, "properties", otherDesc);
@@ -22,16 +22,16 @@ public class PropertiesAccessor {
 			java.lang.reflect.Field f = block.getClass().getField(field1.getSecondary());
 			Object properties = f.get(block);
 			
-			BlockPropertiesE properties1 = null;
+			BlockProperties properties1 = null;
 			
-			for (Constructor<?> constructor : BlockPropertiesE.class.getConstructors()) {
+			for (Constructor<?> constructor : BlockProperties.class.getConstructors()) {
 				try {
-					properties1 = (BlockPropertiesE) constructor.newInstance(block);
+					properties1 = (BlockProperties) constructor.newInstance(block);
 				} catch (Throwable ignored) {
 				}
 			}
 			
-			BlockPropertiesE finalProperties = properties1;
+			BlockProperties finalProperties = properties1;
 			Fields.forEach(properties.getClass(), (field2) -> {
 				try {
 					field2.setAccessible(true);
