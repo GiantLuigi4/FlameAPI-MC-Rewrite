@@ -61,6 +61,11 @@ public class MappingsHelper {
 			classMap.put("net/minecraft/world/level/block/Block", "net/minecraft/world/blocks/Block");
 			classMap.put("net/minecraft/class_2248", "net/minecraft/world/blocks/Block");
 			
+			fieldMap.put("net/minecraft/world/blocks/Block", new FieldList()
+					.add("net/minecraft/world/blocks/Block", "properties", "properties", false)
+					.add("net/minecraft/world/blocks/Block", "field_23155", "properties", false)
+			);
+			
 			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
 					"getFriction", "getFriction", "()F");
 			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
@@ -71,6 +76,11 @@ public class MappingsHelper {
 					"getExplosionResistance", "explosionResistance", "()F");
 			MethodList.add(methodMap, "net/minecraft/world/blocks/Block", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Block"),
 					"isPossibleToRespawnInThis", "blocksRespawning", "()Z");
+		}
+		
+		{
+			classMap.put("net.minecraft.world.level.block.state.BlockBehaviour$Properties", "net/minecraft/world/blocks/BlockProperties");
+			classMap.put("net/minecraft/class_4970$class_2251", "net/minecraft/world/blocks/BlockProperties");
 		}
 		
 		MethodList.add(methodMap, "net/minecraft/registry/BlockRegistry", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/world/level/block/Blocks"),
@@ -99,6 +109,7 @@ public class MappingsHelper {
 					.append(generateWrapperFile("net/minecraft/registry/MainRegistry", "MainRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/registry/DefaultedRegistry", "DefaultedRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/resource/ResourceLocation", "ResourceLocation")).append("\n")
+					.append(generateWrapperFile("net/minecraft/world/blocks/BlockProperties", "BlockProperties")).append("\n")
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
 		} catch (Throwable ignored) {

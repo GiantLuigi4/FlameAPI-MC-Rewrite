@@ -5,10 +5,10 @@ m-()Ljava/lang/String; : method_12832->getPath
 m-()Ljava/lang/String; : method_12836->getNamespace
 
 net/minecraft/class_2378 : net/minecraft/registry/MainRegistry
-f-net/minecraft/registry/DefaultedRegistry : field_11146->blocks
-f-net/minecraft/registry/MainRegistry : field_11137->tileEntities
 f-net/minecraft/registry/DefaultedRegistry : field_11145->entities
+f-net/minecraft/registry/DefaultedRegistry : field_11146->blocks
 f-net/minecraft/registry/DefaultedRegistry : field_11142->items
+f-net/minecraft/registry/MainRegistry : field_11137->tileEntities
 
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
 f-net/minecraft/world/blocks/Block : field_10124->air
@@ -16,9 +16,12 @@ f-net/minecraft/world/blocks/Block : field_10340->stone
 m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
+f-net/minecraft/world/blocks/Block : field_23155->properties
 m-()F : method_9499->getFriction
 m-()F : method_23349->speedFactor
 m-()F : method_23350->jumpFactor
 m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
+
+net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
 
