@@ -351,8 +351,8 @@ public class MappingsHelper {
 
 	private static String parseBytecodeFromSourceDescDesc(String desc) {
 		String out = "";
-		String desc1 = desc.replace("[", "").trim();
-		for (int i = 0; i < desc.split("\\[]").length ; i++) {
+		String desc1 = desc.replace("[]", "").trim();
+		for (int i = 0; i < desc.split("\\[]").length; i++) {
 			out += "[";
 		}
 		if (desc1.equals("long")) out = "J";
