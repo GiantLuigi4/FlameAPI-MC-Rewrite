@@ -109,7 +109,7 @@ public class MappingsHelper {
 					.append(generateWrapperFile("net/minecraft/registry/MainRegistry", "MainRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/registry/DefaultedRegistry", "DefaultedRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/resource/ResourceLocation", "ResourceLocation")).append("\n")
-					.append(generateWrapperFile("net/minecraft/world/blocks/BlockProperties", "BlockPropertiesE")).append("\n")
+					.append(generateWrapperFile("net/minecraft/world/blocks/BlockProperties", "BlockProperties")).append("\n")
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
 		} catch (Throwable ignored) {
