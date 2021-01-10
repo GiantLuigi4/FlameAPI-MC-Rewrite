@@ -165,9 +165,12 @@ public class WrapperClassGen {
 //					ignored.printStackTrace();
 //				}
 				
-				if ()
-					
-					classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n}");
+				if (FlameLauncher.getLoader().getResource("wrappers/" + className + "Constructor.java") != null) {
+					String string = ClassLoaderIO.readAsString("wrappers/" + className + "Constructor.java");
+					classFile.append(string);
+				}
+				
+				classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n}");
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), classFileStr);
