@@ -28,7 +28,7 @@ public class MappingsHelper {
 		} catch (Throwable ignored) {
 		}
 		
-		
+
 		classMap.put("net/minecraft/core/Registry", "net/minecraft/registry/MainRegistry");
 		classMap.put("net/minecraft/class_2378", "net/minecraft/registry/MainRegistry");
 		
@@ -108,6 +108,8 @@ public class MappingsHelper {
 	
 	public static void main(String[] args) throws IOException {
 		StringBuilder mappingsFile = new StringBuilder();
+		System.out.println(parseSourceDescFromBytecodeDesc("[[[I"));
+		System.out.println(parseBytecodeFromSourceDescDesc("int[][][]"));
 		classMap.forEach((other, flame) -> {
 			if (other.contains("class_")) {
 				Class clazz = Mojmap.getClassFromMojmap("1.16.4", other);
@@ -341,7 +343,28 @@ public class MappingsHelper {
 		else if (desc1.equals("Z")) out = "boolean";
 		else if (desc1.equals("V")) out = "void";
 		else if (desc1.startsWith("L")) out = desc1.substring(1, desc1.length() - 1);
-		if (desc.startsWith("[")) out += "[]";
+		for (int i = 0; i < desc.split("\\[").length - 1; i++) {
+			out += "[]";
+		}
+		return out;
+	}
+
+	private static String parseBytecodeFromSourceDescDesc(String desc) {
+		String out = "";
+		String desc1 = desc.replace("[", "").trim();
+		for (int i = 0; i < desc.split("\\[]").length ; i++) {
+			out += "[";
+		}
+		if (desc1.equals("long")) out = "J";
+		else if (desc1.equals("int")) out = "I";
+		else if (desc1.equals("short")) out = "S";
+		else if (desc1.equals("byte")) out = "B";
+		else if (desc1.equals("char")) out = "C";
+		else if (desc1.equals("float")) out = "F";
+		else if (desc1.equals("double")) out = "D";
+		else if (desc1.equals("boolean")) out = "Z";
+		else if (desc1.equals("void")) out = "V";
+		else out = ("L" + desc1 + ";").replace(".", "/");
 		return out;
 	}
 }

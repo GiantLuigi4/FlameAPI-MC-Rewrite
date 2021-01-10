@@ -1,23 +1,9 @@
 package net.minecraft.world.blocks;
 public class Block {
 	//Methods
-	public float getFriction() {
-		return 0;
-	}
-	
-	public float speedFactor() {
-		return 0;
-	}
-	
-	public float jumpFactor() {
-		return 0;
-	}
-	
-	public float explosionResistance() {
-		return 0;
-	}
-	
-	public boolean blocksRespawning() {
-		return false;
-	}
+	public F getFriction(){return null;}
+	public F speedFactor(){return null;}
+	public F jumpFactor(){return null;}
+	public F explosionResistance(){return null;}
+	public Z blocksRespawning(){return null;}
 }
