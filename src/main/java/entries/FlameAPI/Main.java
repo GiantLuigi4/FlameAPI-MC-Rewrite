@@ -5,9 +5,7 @@ import com.tfc.flame_asm.annotations.Unmodifiable;
 import com.tfc.flamemc.API.GameInstance;
 import com.tfc.flamemc.API.utils.wrapper.WrapperClassGen;
 import com.tfc.flamemc.FlameLauncher;
-import net.minecraft.registry.BlockRegistry;
 import net.minecraft.resource.ResourceLocation;
-import net.minecraft.world.blocks.Block;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -96,8 +94,16 @@ public class Main implements IFlameAPIMod {
 	public void postinit(String[] strings) {
 		ResourceLocation location = new ResourceLocation("flame_api:test");
 		System.out.println(location);
-		new BlockRegistry();
-		
-		//BlockRegistry.register(location.toString(), new Block());
+
+//		System.out.println(MainRegistry.class);
+//		System.out.println(BlockRegistry.class);
+//		System.out.println(DefaultedRegistry.class);
+//		System.out.println(ResourceLocation.class);
+//		System.out.println(Block.class);
+
+//		System.out.println(MainRegistry.getBlocks());
+//		Block block = BlockRegistry.register("hi",null);
+
+//		BlockRegistry.register(location.toString(), new Block());
 	}
 }

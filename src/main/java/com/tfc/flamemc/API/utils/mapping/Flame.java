@@ -27,6 +27,8 @@ public class Flame {
 			if (clazz2 != null) {
 				Class from = holder.getFromPrimaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
+				from = holder.getFromSecondaryName(clazz2.getPrimaryName());
+				if (from != null) return from;
 			}
 		}
 		clazz = Mojmap.getClassFromObsf(version, obsf);
@@ -34,6 +36,8 @@ public class Flame {
 			Class clazz2 = Mojmap.getClassFromMojmap("1.16.4", clazz.getPrimaryName());
 			if (clazz2 != null) {
 				Class from = holder.getFromPrimaryName(clazz2.getPrimaryName());
+				if (from != null) return from;
+				from = holder.getFromSecondaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
 			}
 		}

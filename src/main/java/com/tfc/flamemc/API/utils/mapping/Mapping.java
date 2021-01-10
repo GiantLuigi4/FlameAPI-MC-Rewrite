@@ -58,28 +58,36 @@ public class Mapping {
 
 		Field field = scanForField(clazz, name, desc);
 		if (field != null) return field;
-
+		
 		clazz = Flame.getFromMapped(clazz.getPrimaryName());
 		field = scanForField(clazz, name, desc);
 		if (field != null) return field;
-
+		
 		clazz = Intermediary.getClassFromObsf(clazz.getSecondaryName());
 		field = scanForField(clazz, name, desc);
 		if (field != null) return field;
-
-		clazz = Flame.getFromMapped(clazz.getPrimaryName());
+		
+		clazz = Flame.getFromMapped(source.getPrimaryName());
 		field = scanForField(clazz, name, desc);
 		if (field != null) return field;
-
+		
 		clazz = Mojmap.getClassFromObsf(source.getSecondaryName());
 		field = scanForField(clazz, name, desc);
 		return field;
 	}
 	
 	public static Method scanForMethod(Class clazz, String name, String desc) {
+		if (clazz == null) return null;
 		for (Method m : clazz.getMethods())
 			if (desc != null) {
-				if (m.getPrimary().equals(name) && m.getDesc().startsWith(desc) || m.getSecondary().equals(name) && m.getDesc().startsWith(desc))
+				if (
+						(
+								m.getPrimary().equals(name) &&
+										m.getDesc().startsWith(desc) ||
+										m.getSecondary().equals(name) &&
+												m.getDesc().startsWith(desc)
+						)
+				)
 					return m;
 			} else if (m.getPrimary().equals(name) || m.getSecondary().equals(name))
 				return m;
@@ -87,9 +95,23 @@ public class Mapping {
 	}
 
 	public static Field scanForField(Class clazz, String name, String desc) {
+		if (clazz == null) return null;
 		for (Field f : clazz.getFields())
 			if (desc != null) {
-				if (f.getPrimary().equals(name) && f.getDesc().startsWith(desc) || f.getSecondary().equals(name) && f.getDesc().startsWith(desc))
+				if (
+						(
+								f.getPrimary().equals(name) &&
+										f.getDesc().startsWith(desc) ||
+										f.getSecondary().equals(name) &&
+												f.getDesc().startsWith(desc)
+						) ||
+								(
+										f.getPrimary().equals(name) &&
+												f.getDesc().startsWith("L" + desc) ||
+												f.getSecondary().equals(name) &&
+														f.getDesc().startsWith("L" + desc)
+								)
+				)
 					return f;
 			} else if (f.getPrimary().equals(name) || f.getSecondary().equals(name))
 				return f;

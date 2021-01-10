@@ -1,26 +1,30 @@
 package com.tfc.flamemc.API.utils.wrapper;
 
 import com.tfc.flame.API.utils.IO.ClassLoaderIO;
+import com.tfc.flame.API.utils.IO.FileUtils;
 import com.tfc.flame.API.utils.data.properties.Properties;
 import com.tfc.flamemc.API.utils.mapping.Flame;
+import com.tfc.flamemc.API.utils.mapping.Intermediary;
 import com.tfc.flamemc.API.utils.mapping.Mapping;
+import com.tfc.flamemc.API.utils.mapping.Mojmap;
 import com.tfc.flamemc.FlameLauncher;
 import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.Field;
 import com.tfc.mappings.structure.Method;
 
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.util.Enumeration;
 import java.util.HashMap;
 
 public class WrapperClassGen {
 	public static final Properties classes;
+	public static final Properties access;
 	
 	static {
-		FlameLauncher.getLoader().getReplacementGetters().put("flame_api:generate_wrapper", WrapperClassGen::generateWrapper);
+		FlameLauncher.getLoader().getAsmAppliers().put("flame_api:generate_wrapper", WrapperClassGen::generateWrapper);
 		try {
 			classes = new Properties(ClassLoaderIO.readAsString("wrapper_classes.properties"));
+			access = new Properties(ClassLoaderIO.readAsString("wrappers/access.properties"));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -30,7 +34,7 @@ public class WrapperClassGen {
 		//just class loads the class
 	}
 	
-	private static byte[] generateWrapper(String name) {
+	private static byte[] generateWrapper(String name, byte[] source) {
 //		Class flameMappedClass = Flame.getFromObsf(name.replace(".", "/"));
 //		if (flameMappedClass != null) {
 //			String flameName = flameMappedClass.getSecondaryName();
@@ -42,6 +46,7 @@ public class WrapperClassGen {
 //			if (classes.getEntries().contains(flameName)) {
 			String file = classes.getValue(flameName);
 			StringBuilder classFile = new StringBuilder("package ").append(flameName.replace("/", "."), 0, flameName.lastIndexOf("/")).append(";\n");
+			String className = flameName.substring(flameName.lastIndexOf("/") + 1);
 			classFile.append("public class ").append(flameName, flameName.lastIndexOf("/") + 1, flameName.length()).append(" extends ").append(superClass.getSecondaryName()).append(" {");
 			
 			boolean hasNonStatic = false;
@@ -51,83 +56,132 @@ public class WrapperClassGen {
 				
 				for (String entry : clazz.getEntries()) {
 					String nameAndType = clazz.getValue(entry);
-
+					
 					if (nameAndType.startsWith("static.field") || nameAndType.startsWith("field")) {
-						boolean isStatic = nameAndType.startsWith("static");
+						try {
+							boolean isStatic = nameAndType.startsWith("static");
+							
+							hasNonStatic = hasNonStatic || !isStatic;
+							
+							String otherName = entry.substring(0, entry.indexOf("|"));
+							String otherDesc = entry.substring(entry.indexOf("|") + 1);
 
-						hasNonStatic = hasNonStatic || !isStatic;
+//							System.out.println(flameMappedClass);
+							Field field = Mapping.getField(flameMappedClass, otherName, otherDesc);
 
-						String otherName = entry.substring(0, entry.indexOf("|"));
-						String otherDesc = entry.substring(entry.indexOf("|") + 1);
-
-						System.out.println(flameMappedClass);
-						Field field = Mapping.getField(flameMappedClass, otherName, otherDesc);
-
-						classFile.append("\n\tpublic " + (isStatic ? "static " : "") + parseSourceDescFromBytecodeDesc(otherDesc) + " " + field.getPrimary() + ";");
+//							classFile.append("\n\tpublic " + (isStatic ? "static " : "") + parseSourceDescFromBytecodeDesc(otherDesc) + " " + field.getPrimary() + ";");
+						} catch (Throwable err) {
+							err.printStackTrace();
+						}
 					}
-
+					
 					if (nameAndType.startsWith("static.method") || nameAndType.startsWith("method")) {
-						boolean isStatic = nameAndType.startsWith("static");
-						
-						hasNonStatic = hasNonStatic || !isStatic;
+						try {
+							boolean isStatic = nameAndType.startsWith("static");
+							
+							hasNonStatic = hasNonStatic || !isStatic;
 
 //							System.out.println(methodName);
 //							System.out.println(flameMappedClass.getMethodSecondary(nameAndType.substring("static.method_".length())));
 //							System.out.println(flameMappedClass.getMethodPrimary(nameAndType.substring("static.method_".length())));
-						
-						//register(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
-						String otherName = entry.substring(0, entry.indexOf("("));
-						String otherDesc = entry.substring(entry.indexOf("("));
+							
+							//register(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;
+							String otherName = entry.substring(0, entry.indexOf("("));
+							String otherDesc = entry.substring(entry.indexOf("("));
 
 //							System.out.println(otherName);
 //							System.out.println(otherDesc);
-						
-						Method method = Mapping.getMethod(flameMappedClass, otherName, otherDesc);
+							
+							Method method = Mapping.getMethod(flameMappedClass, otherName, otherDesc);
 
-						String typeName = otherDesc.substring(otherDesc.indexOf(")"));
-						if (typeName.contains(";")) {
-							typeName = otherDesc.substring(otherDesc.indexOf(")") + 2, typeName.length());
-						} else {
-							typeName = parseSourceDescFromBytecodeDesc(otherDesc.substring(otherDesc.indexOf(")") + 1));
-						}
-
-						String type = getFlameFor(typeName);
+//							Method method1 = method.getPrimary();
+							System.out.println(method.getSecondary());
+							
+							Method otherMapped;
+							if (method.getSecondary().startsWith("method_")) {
+								otherMapped = Mapping.getMethod(Intermediary.getClassFromInter(flameMappedClass.getPrimaryName()), method.getSecondary(), otherDesc);
+							} else {
+								otherMapped = Mapping.getMethod(Mojmap.getClassFromObsf(Intermediary.getClassFromInter(flameMappedClass.getPrimaryName()).getSecondaryName()), method.getSecondary(), otherDesc);
+							}
+							System.out.println(otherMapped.getSecondary());
+							
+							String typeName = otherDesc.substring(otherDesc.indexOf(")"));
+							if (typeName.contains(";")) {
+//									typeName = otherDesc.substring(otherDesc.indexOf(")") + 2, typeName.length());
+								typeName = typeName.substring(2, typeName.length() - 1);
+							} else {
+								typeName = parseSourceDescFromBytecodeDesc(otherDesc.substring(otherDesc.indexOf(")") + 1));
+							}
+							
+							String type = getFlameFor(typeName);
 //							System.out.println(type);
-						String paramsStr = otherDesc.substring(1, otherDesc.indexOf(")"));
+							String paramsStr = otherDesc.substring(1, otherDesc.indexOf(")"));
 //							System.out.println(paramsStr);
-						String params = parseParams(paramsStr);
-						
-						boolean hasReturn = !type.equals("void");
-						
-						classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
-								(hasReturn ? "return " : "") + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + method.getSecondary() +
-								";\n\t}\n");
+							String params = parseParams(paramsStr);
+							
+							boolean hasReturn = !type.equals("void");
+							
+							System.out.println(className + "$" + method.getPrimary());
+							
+							
+							if (getAccess(className, method.getPrimary()).equals("public")) {
+								classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
+										(hasReturn ? ("return (" + type + ")") : "") + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + otherMapped.getSecondary() +
+										"(" + parseParams(paramsStr, false) +
+										");\n\t}\n");
+							} else {
+								String reflection =
+										"try {\n\t\t\t" +
+												"java.lang.reflect.Method m = " + superClass.getSecondaryName() + ".class" + ".getMethod(\"" + otherMapped.getSecondary() + "\"," + parseParams(paramsStr, false, true) + ");\n\t\t\t" +
+												"m.setAccessible(true);\n\t\t\t" +
+												(hasReturn ? ("return (" + type + ")") : "") + "m.invoke(" + (isStatic ? "null" : "this") + "," + parseParams(paramsStr, false) + ");\n\t\t" +
+												"} catch (Throwable ignored) {}\n\t\t" +
+												(hasReturn ? "return null;" : "");
+								classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
+										reflection + "\n\t}\n");
+							}
+						} catch (Throwable err) {
+							err.printStackTrace();
+						}
 					}
 				}
+
+//				try {
+//					ClassReader reader = new ClassReader(source);
+//					ClassNode node = new ClassNode();
+//					ClassWriter writer =
+//							new ClassWriter(
+//									reader,
+//									ClassWriter.COMPUTE_FRAMES
+//							);
+//					node.accept(writer);
+//					for (MethodNode method : node.methods) {
+//						if (method.name.equals("<init>")) {
+//							classFile.append("public " + className + parseParams(method.desc.substring(1, method.desc.length() - 2)));
+//							classFile.append(" {\n\t\tsuper(" + parseParams(method.desc, false) + "\n\t}\n");
+//						}
+//					}
+//				} catch (Throwable ignored) {
+//					ignored.printStackTrace();
+//				}
+				
 				classFile.append("}");
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
-				System.out.println(classFileStr);
+				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), classFileStr);
 				
-				System.out.println(FlameLauncher.getLoader().getResource("vk.class"));
+				byte[] bytes;
 				
-				System.out.println(WrapperClassGen.class.getClassLoader().getResourceAsStream("vk".replace(".", "/") + ".class"));
-				System.out.println(WrapperClassGen.class.getClassLoader().getResourceAsStream("vk".replace(".", "/") + ""));
-				
-				if (!hasNonStatic) {
-					classFileStr = classFileStr.replace("extends " + superClass.getSecondaryName() + " ", "");
+				try {
+					bytes = CompilerHelper.compile(classFileStr, flameName.replace("/", "."));
+					if (bytes == null)
+						throw new RuntimeException("e");
+				} catch (Throwable ignored) {
+					bytes = CompilerHelper.compile(classFileStr.replace("extends " + superClass.getSecondaryName() + " ", ""), flameName.replace("/", "."));
 				}
 				
-				Enumeration<URL> urls = WrapperClassGen.class.getClassLoader().getResources("vk".replace(".", "/") + "");
-				
-				while (urls.hasMoreElements()) {
-					URL url = urls.nextElement();
-					System.out.println(url);
-				}
-				
-				byte[] bytes = CompilerHelper.compile(classFileStr, flameName.replace("/", "."));
-				
-				//System.out.println(new String(bytes));
+				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".class"), bytes);
+				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + "_source.class"), source);
 				
 				return bytes;
 			} catch (Throwable throwable) {
@@ -136,7 +190,73 @@ public class WrapperClassGen {
 			//System.out.println(classFile.toString());
 //			}
 		}
-		return null;
+		return source;
+	}
+	
+	private static String parseParams(String desc, boolean outputClasses, boolean outputWithClass) {
+		boolean inDesc = false;
+		
+		StringBuilder out = new StringBuilder();
+		StringBuilder type = new StringBuilder("L");
+		
+		HashMap<String, Integer> counts = new HashMap<>();
+		for (int i = 0; i < desc.length(); i++) {
+			if (inDesc) {
+				type.append(desc.charAt(i));
+				
+				if (desc.charAt(i) == ';') {
+					String val = getFlameFor(parseSourceDescFromBytecodeDesc(type.toString())).replace(".", "/");
+					String typeName = val.substring(val.lastIndexOf("/") + 1);
+					typeName = typeName.substring(0, 1).toLowerCase() + typeName.substring(1);
+					
+					if (!outputWithClass) {
+						if (!counts.containsKey(val)) {
+							out.append(outputClasses ? val : "").append(" ").append(typeName).append(", ");
+							counts.put(val, 1);
+						} else {
+							out.append(outputClasses ? val : "").append(" ").append(typeName).append(counts.get(typeName)).append(", ");
+							counts.remove(val, counts.get(val) + 1);
+						}
+					} else {
+						Class clazz = Flame.getFromFlame(val.replace(".", "/"));
+						if (clazz != null) {
+							Class other = Mapping.getWithoutFlame(clazz.getPrimaryName());
+							val = other.getSecondaryName();
+						}
+						
+						out.append(val).append(".class").append(", ");
+					}
+					
+					type = new StringBuilder("L");
+					inDesc = false;
+				}
+			} else {
+				if (desc.charAt(i) == 'L') {
+					inDesc = true;
+				} else {
+					String val = parseSourceDescFromBytecodeDesc(String.valueOf(desc.charAt(i)));
+					String typeName = String.valueOf(desc.charAt(i)).toLowerCase();
+					
+					if (!outputWithClass) {
+						if (!counts.containsKey(val)) {
+							out.append(outputClasses ? val : "").append(" ").append(typeName).append(", ");
+							counts.put(val, 1);
+						} else {
+							out.append(outputClasses ? val : "").append(" ").append(typeName).append(counts.get(typeName)).append(", ");
+							counts.remove(val, counts.get(val) + 1);
+						}
+					} else {
+						out.append(val).append(".class").append(", ");
+					}
+				}
+			}
+		}
+		
+		return out.toString();
+	}
+	
+	public static String getAccess(String clazz, String method) {
+		return access.getEntries().contains(clazz + "$" + method) ? access.getValue(clazz + "$" + method) : "public";
 	}
 	
 	public static String parseSourceDescFromBytecodeDesc(String desc) {
@@ -159,51 +279,65 @@ public class WrapperClassGen {
 	}
 	
 	public static String parseParams(String desc) {
-		boolean inDesc = false;
-		
-		StringBuilder out = new StringBuilder();
-		StringBuilder type = new StringBuilder("L");
-		
-		HashMap<String, Integer> counts = new HashMap<>();
-		for (int i = 0; i < desc.length(); i++) {
-			if (inDesc) {
-				type.append(desc.charAt(i));
-				
-				if (desc.charAt(i) == ';') {
-					String val = getFlameFor(parseSourceDescFromBytecodeDesc(type.toString())).replace(".", "/");
-					String typeName = val.substring(val.lastIndexOf("/") + 1);
-					typeName = typeName.substring(0, 1).toLowerCase() + typeName.substring(1);
-					
-					if (!counts.containsKey(val)) {
-						out.append(val).append(" ").append(typeName).append(", ");
-						counts.put(val, 1);
-					} else {
-						out.append(val).append(" ").append(typeName).append(counts.get(typeName)).append(", ");
-						counts.remove(val, counts.get(val) + 1);
-					}
-					
-					type = new StringBuilder("L");
-					inDesc = false;
-				}
-			} else {
-				if (desc.charAt(i) == 'L') {
-					inDesc = true;
-				} else {
-					String val = parseSourceDescFromBytecodeDesc(String.valueOf(desc.charAt(i)));
-					String typeName = String.valueOf(desc.charAt(i)).toLowerCase();
-					
-					if (!counts.containsKey(val)) {
-						out.append(val).append(" ").append(typeName).append(", ");
-						counts.put(val, 1);
-					} else {
-						out.append(val).append(" ").append(typeName).append(counts.get(typeName)).append(", ");
-						counts.remove(val, counts.get(val) + 1);
-					}
-				}
-			}
-		}
-		
-		return out.toString();
+		return parseParams(desc, true);
+	}
+
+//	public static java.lang.Class[] parseParamsClassList(String desc) throws ClassNotFoundException {
+//		ArrayList<java.lang.Class> classes = new ArrayList<>();
+//		boolean inDesc = false;
+//
+//		StringBuilder type = new StringBuilder("L");
+//
+//		for (int i = 0; i < desc.length(); i++) {
+//			if (inDesc) {
+//				type.append(desc.charAt(i));
+//
+//				if (desc.charAt(i) == ';') {
+//					String val = getFlameFor(parseSourceDescFromBytecodeDesc(type.toString())).replace(".", "/");
+//					String typeName = val.substring(val.lastIndexOf("/") + 1);
+//					typeName = typeName.substring(0, 1).toLowerCase() + typeName.substring(1);
+//
+//					if (!isNative(typeName)) {
+//						Class clazz = Mapping.getWithoutFlame(Mapping.get(typeName).getPrimaryName());
+//						classes.add(java.lang.Class.forName(clazz.getSecondaryName()));
+//					}
+//				}
+//			} else {
+//				if (desc.charAt(i) == 'L') {
+//					inDesc = true;
+//				} else {
+//					String typeName = parseSourceDescFromBytecodeDesc(String.valueOf(desc.charAt(i)).toLowerCase());
+//
+//					if (typeName.equals("int")) classes.add(int.class);
+//					else if (typeName.equals("long")) classes.add(long.class);
+//					else if (typeName.equals("double")) classes.add(double.class);
+//					else if (typeName.equals("byte")) classes.add(byte.class);
+//					else if (typeName.equals("boolean")) classes.add(boolean.class);
+//					else if (typeName.equals("short")) classes.add(short.class);
+//					else if (typeName.equals("float")) classes.add(float.class);
+//					else if (typeName.equals("char")) classes.add(char.class);
+//					else if (typeName.equals("void")) classes.add(void.class);
+//				}
+//			}
+//		}
+//
+//		return classes.toArray(new java.lang.Class[0]);
+//	}
+	
+	public static boolean isNative(String type) {
+		return
+				type.equals("int") ||
+						type.equals("byte") ||
+						type.equals("char") ||
+						type.equals("long") ||
+						type.equals("short") ||
+						type.equals("float") ||
+						type.equals("double") ||
+						type.equals("boolean");
+	}
+	
+	public static String parseParams(String desc, boolean outputClasses) {
+		return parseParams(desc, outputClasses, false);
 	}
 	
 	private static String getFlameFor(String name) {
