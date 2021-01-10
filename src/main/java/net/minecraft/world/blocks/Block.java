@@ -27,6 +27,6 @@ public class Block {
 		return null;
 	}
 	
-	public Block(BlockPropertiesE properties) {
+	public Block(BlockProperties properties) {
 	}
 }
