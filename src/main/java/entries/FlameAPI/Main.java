@@ -96,7 +96,8 @@ public class Main implements IFlameAPIMod {
 	public void postinit(String[] strings) {
 		ResourceLocation location = new ResourceLocation("flame_api:test");
 		System.out.println(location);
+		new BlockRegistry();
 		
-		BlockRegistry.register(location.toString(), new Block());
+		//BlockRegistry.register(location.toString(), new Block());
 	}
 }

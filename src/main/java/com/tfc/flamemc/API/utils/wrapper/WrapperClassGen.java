@@ -6,6 +6,7 @@ import com.tfc.flamemc.API.utils.mapping.Flame;
 import com.tfc.flamemc.API.utils.mapping.Mapping;
 import com.tfc.flamemc.FlameLauncher;
 import com.tfc.mappings.structure.Class;
+import com.tfc.mappings.structure.Field;
 import com.tfc.mappings.structure.Method;
 
 import java.io.IOException;
@@ -50,7 +51,21 @@ public class WrapperClassGen {
 				
 				for (String entry : clazz.getEntries()) {
 					String nameAndType = clazz.getValue(entry);
-					
+
+					if (nameAndType.startsWith("static.field") || nameAndType.startsWith("field")) {
+						boolean isStatic = nameAndType.startsWith("static");
+
+						hasNonStatic = hasNonStatic || !isStatic;
+
+						String otherName = entry.substring(0, entry.indexOf("|"));
+						String otherDesc = entry.substring(entry.indexOf("|") + 1);
+
+						System.out.println(flameMappedClass);
+						Field field = Mapping.getField(flameMappedClass, otherName, otherDesc);
+
+						classFile.append("\n\tpublic " + (isStatic ? "static " : "") + parseSourceDescFromBytecodeDesc(otherDesc) + " " + field.getPrimary() + ";");
+					}
+
 					if (nameAndType.startsWith("static.method") || nameAndType.startsWith("method")) {
 						boolean isStatic = nameAndType.startsWith("static");
 						
@@ -68,9 +83,14 @@ public class WrapperClassGen {
 //							System.out.println(otherDesc);
 						
 						Method method = Mapping.getMethod(flameMappedClass, otherName, otherDesc);
-						
-						String typeName = otherDesc.substring(otherDesc.indexOf(")") + 2, otherDesc.length() - 1);
-//							System.out.println(typeName);
+
+						String typeName = otherDesc.substring(otherDesc.indexOf(")"));
+						if (typeName.contains(";")) {
+							typeName = otherDesc.substring(otherDesc.indexOf(")") + 2, typeName.length());
+						} else {
+							typeName = parseSourceDescFromBytecodeDesc(otherDesc.substring(otherDesc.indexOf(")") + 1));
+						}
+
 						String type = getFlameFor(typeName);
 //							System.out.println(type);
 						String paramsStr = otherDesc.substring(1, otherDesc.indexOf(")"));
@@ -107,13 +127,13 @@ public class WrapperClassGen {
 				
 				byte[] bytes = CompilerHelper.compile(classFileStr, flameName.replace("/", "."));
 				
-				System.out.println(new String(bytes));
+				//System.out.println(new String(bytes));
 				
 				return bytes;
-			} catch (Throwable ignored) {
-				ignored.printStackTrace();
+			} catch (Throwable throwable) {
+				throwable.printStackTrace();
 			}
-			System.out.println(classFile.toString());
+			//System.out.println(classFile.toString());
 //			}
 		}
 		return null;
@@ -132,7 +152,9 @@ public class WrapperClassGen {
 		else if (desc1.equals("Z")) out = "boolean";
 		else if (desc1.equals("V")) out = "void";
 		else if (desc1.startsWith("L")) out = desc1.substring(1, desc1.length() - 1);
-		if (desc.startsWith("[")) out += "[]";
+		for (int i = 0; i < desc.split("\\[").length - 1; i++) {
+			out += "[]";
+		}
 		return out;
 	}
 	

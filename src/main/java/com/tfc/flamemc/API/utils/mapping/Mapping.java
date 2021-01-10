@@ -1,14 +1,9 @@
 package com.tfc.flamemc.API.utils.mapping;
 
-//import com.tfc.flame.API.utils.IO.classes.ClassScanningUtils;
-//import com.tfc.flamemc.API.utils.mapping.Flame;
-//import com.tfc.flamemc.API.utils.mapping.Intermediary;
-//import com.tfc.flamemc.API.utils.mapping.Mojmap;
-
 import com.tfc.flamemc.API.GameInstance;
 import com.tfc.mappings.structure.Class;
+import com.tfc.mappings.structure.Field;
 import com.tfc.mappings.structure.Method;
-//import entries.FlameAPI.Main;
 
 public class Mapping {
 	public static Class get(String name) {
@@ -38,35 +33,66 @@ public class Mapping {
 	public static Method getMethod(Class clazz, String name, String desc) {
 		Class source = clazz;
 		
-		Method method = scanFor(clazz, name, desc);
+		Method method = scanForMethod(clazz, name, desc);
 		if (method != null) return method;
 		
 		clazz = Flame.getFromMapped(clazz.getPrimaryName());
-		method = scanFor(clazz, name, desc);
+		method = scanForMethod(clazz, name, desc);
 		if (method != null) return method;
 		
 		clazz = Intermediary.getClassFromObsf(clazz.getSecondaryName());
-		method = scanFor(clazz, name, desc);
+		method = scanForMethod(clazz, name, desc);
 		if (method != null) return method;
 		
 		clazz = Flame.getFromMapped(clazz.getPrimaryName());
-		method = scanFor(clazz, name, desc);
+		method = scanForMethod(clazz, name, desc);
 		if (method != null) return method;
 		
 		clazz = Mojmap.getClassFromObsf(source.getSecondaryName());
-		method = scanFor(clazz, name, desc);
-		if (method != null) return method;
-		
-		return null;
+		method = scanForMethod(clazz, name, desc);
+		return method;
+	}
+
+	public static Field getField(Class clazz, String name, String desc) {
+		Class source = clazz;
+
+		Field field = scanForField(clazz, name, desc);
+		if (field != null) return field;
+
+		clazz = Flame.getFromMapped(clazz.getPrimaryName());
+		field = scanForField(clazz, name, desc);
+		if (field != null) return field;
+
+		clazz = Intermediary.getClassFromObsf(clazz.getSecondaryName());
+		field = scanForField(clazz, name, desc);
+		if (field != null) return field;
+
+		clazz = Flame.getFromMapped(clazz.getPrimaryName());
+		field = scanForField(clazz, name, desc);
+		if (field != null) return field;
+
+		clazz = Mojmap.getClassFromObsf(source.getSecondaryName());
+		field = scanForField(clazz, name, desc);
+		return field;
 	}
 	
-	public static Method scanFor(Class clazz, String name, String desc) {
+	public static Method scanForMethod(Class clazz, String name, String desc) {
 		for (Method m : clazz.getMethods())
 			if (desc != null) {
 				if (m.getPrimary().equals(name) && m.getDesc().startsWith(desc) || m.getSecondary().equals(name) && m.getDesc().startsWith(desc))
 					return m;
 			} else if (m.getPrimary().equals(name) || m.getSecondary().equals(name))
 				return m;
+		return null;
+	}
+
+	public static Field scanForField(Class clazz, String name, String desc) {
+		for (Field f : clazz.getFields())
+			if (desc != null) {
+				if (f.getPrimary().equals(name) && f.getDesc().startsWith(desc) || f.getSecondary().equals(name) && f.getDesc().startsWith(desc))
+					return f;
+			} else if (f.getPrimary().equals(name) || f.getSecondary().equals(name))
+				return f;
 		return null;
 	}
 

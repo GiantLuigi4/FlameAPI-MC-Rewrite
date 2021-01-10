@@ -22,3 +22,4 @@ public class Test {
 	}
 }
 //<:GWchadThink:787396691032539197>
+//LOL
