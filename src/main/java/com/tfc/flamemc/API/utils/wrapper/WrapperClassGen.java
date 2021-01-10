@@ -49,6 +49,7 @@ public class WrapperClassGen {
 			StringBuilder classFile = new StringBuilder("package ").append(flameName.replace("/", "."), 0, flameName.lastIndexOf("/")).append(";\n");
 			String className = flameName.substring(flameName.lastIndexOf("/") + 1);
 			classFile.append("public class ").append(flameName, flameName.lastIndexOf("/") + 1, flameName.length()).append(" extends ").append(superClass.getSecondaryName()).append(" {");
+			System.out.println(classFile);
 			
 			boolean hasNonStatic = false;
 			
