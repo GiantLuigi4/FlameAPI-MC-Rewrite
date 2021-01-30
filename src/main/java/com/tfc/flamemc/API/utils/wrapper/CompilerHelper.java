@@ -20,9 +20,7 @@ public class CompilerHelper {
 				if (value == EnumCompiler.ASM || value == EnumCompiler.BCEL) {
 					throw new RuntimeException("null");
 				}
-				byte[] bytes = Compiler.compile(value, classFile);
-				System.out.println(value);
-				return bytes;
+				return Compiler.compile(value, classFile);
 			} catch (Throwable err1) {
 				if (value == EnumCompiler.JAVASSIST) {
 					javassistErr = err1;

@@ -1,5 +1,7 @@
 package net.minecraft.world.blocks;
 
+import com.tfc.flamemc.API.utils.wrapper.PropertiesAccessor;
+
 public class BlockProperties {
 	public Object wrapped;
 	

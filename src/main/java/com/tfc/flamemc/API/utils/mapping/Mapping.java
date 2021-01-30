@@ -98,20 +98,10 @@ public class Mapping {
 		if (clazz == null) return null;
 		for (Field f : clazz.getFields())
 			if (desc != null) {
-				if (
-						(
-								f.getPrimary().equals(name) &&
-										f.getDesc().startsWith(desc) ||
-										f.getSecondary().equals(name) &&
-												f.getDesc().startsWith(desc)
-						) ||
-								(
-										f.getPrimary().equals(name) &&
-												f.getDesc().startsWith("L" + desc) ||
-												f.getSecondary().equals(name) &&
-														f.getDesc().startsWith("L" + desc)
-								)
-				)
+				if ((f.getPrimary().equals(name) && f.getDesc().startsWith(desc) ||
+					 f.getSecondary().equals(name) && f.getDesc().startsWith(desc)) ||
+					(f.getPrimary().equals(name) && f.getDesc().startsWith("L" + desc) ||
+							 f.getSecondary().equals(name) && f.getDesc().startsWith("L" + desc)))
 					return f;
 			} else if (f.getPrimary().equals(name) || f.getSecondary().equals(name))
 				return f;

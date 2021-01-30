@@ -49,8 +49,7 @@ public class WrapperClassGen {
 			StringBuilder classFile = new StringBuilder("package ").append(flameName.replace("/", "."), 0, flameName.lastIndexOf("/")).append(";\n");
 			String className = flameName.substring(flameName.lastIndexOf("/") + 1);
 			classFile.append("public class ").append(flameName, flameName.lastIndexOf("/") + 1, flameName.length()).append(" extends ").append(superClass.getSecondaryName()).append(" {");
-			System.out.println(classFile);
-			
+
 			boolean hasNonStatic = false;
 			
 			try {
@@ -73,10 +72,8 @@ public class WrapperClassGen {
 							Class inter = Intermediary.getClassFromInter(flameMappedClass.getPrimaryName());
 							Field field1 = Mapping.scanForField(inter, otherName, null);
 
-							String ThisCase = field.getPrimary().substring(0, 1).toUpperCase() + field.getPrimary().substring(1);
-							classFile.append("\n\tpublic " + (isStatic ? "static " : "") + otherDesc.replace("/", ".") + " get" + ThisCase + "(){\n\t\t" +
-									"return new " + otherDesc.replace("/", ".") + "(" + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + field1.getSecondary() + ");\n\t" +
-									"}\n");
+							String getter = field.getPrimary().substring(0, 1).toUpperCase() + field.getPrimary().substring(1);
+							classFile.append("\n\tpublic ").append(isStatic ? "static " : "").append(otherDesc.replace("/", ".")).append(" get").append(getter).append("(){\n\t\t").append("return new ").append(otherDesc.replace("/", ".")).append("(").append(isStatic ? (superClass.getSecondaryName() + ".") : "this.").append(field1.getSecondary()).append(");\n\t").append("}\n");
 						} catch (Throwable err) {
 							err.printStackTrace();
 						}
@@ -114,10 +111,7 @@ public class WrapperClassGen {
 							boolean hasReturn = !type.equals("void");
 							
 							if (getAccess(className, method.getPrimary()).equals("public")) {
-								classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
-										(hasReturn ? ("return (" + type + ")") : "") + (isStatic ? (superClass.getSecondaryName() + ".") : "this.") + otherMapped.getSecondary() +
-										"(" + parseParams(paramsStr, false) +
-										");\n\t}\n");
+								classFile.append("\n\tpublic ").append(isStatic ? "static " : "").append(type).append(" ").append(method.getPrimary()).append("(").append(params).append(") {\n\t\t").append(hasReturn ? ("return (" + type + ")") : "").append(isStatic ? (superClass.getSecondaryName() + ".") : "this.").append(otherMapped.getSecondary()).append("(").append(parseParams(paramsStr, false)).append(");\n\t}\n");
 							} else {
 								String reflection =
 										"try {\n\t\t\t" +
@@ -126,8 +120,7 @@ public class WrapperClassGen {
 												(hasReturn ? ("return (" + type + ")") : "") + "m.invoke(" + (isStatic ? "null" : "this") + "," + parseParams(paramsStr, false) + ");\n\t\t" +
 												"} catch (Throwable ignored) {}\n\t\t" +
 												(hasReturn ? "return null;" : "");
-								classFile.append("\n\tpublic " + (isStatic ? "static " : "") + type + " " + method.getPrimary() + "(" + params + ") {\n\t\t" +
-										reflection + "\n\t}\n");
+								classFile.append("\n\tpublic ").append(isStatic ? "static " : "").append(type).append(" ").append(method.getPrimary()).append("(").append(params).append(") {\n\t\t").append(reflection).append("\n\t}\n");
 							}
 						} catch (Throwable err) {
 							err.printStackTrace();
@@ -155,35 +148,28 @@ public class WrapperClassGen {
 //				}
 				
 				if (FlameLauncher.getLoader().getResource("wrappers/" + className + "Constructor.java") != null) {
-					String string = ClassLoaderIO.readAsString("wrappers/" + className + "Constructor.java");
-					classFile.append(string.replace("%super_class%", superClass.getSecondaryName()));
-					classFile.append("\tpublic " + superClass.getSecondaryName() + " wrapped = null;\n");
+					String string = ClassLoaderIO.readAsString("wrappers/" + className + "Constructor.java")
+							                .replace("%BlockProperties%", "BlockProperties")
+							                .replace("%super_class%", superClass.getSecondaryName());
+					classFile.append(string);
+					classFile.append("\tpublic ").append(superClass.getSecondaryName()).append(" wrapped = null;\n");
 				}
 				classFile.append("}");
 				
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
-				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), Formatter.formatForCompile(classFileStr));
-				
 				byte[] bytes;
-				
+
 				try {
-					bytes = CompilerHelper.compile(classFileStr, flameName.replace("/", "."));
-					if (bytes == null)
-						throw new RuntimeException("e");
-				} catch (Throwable ignored) {
-					bytes = CompilerHelper.compile(classFileStr.replace("extends " + superClass.getSecondaryName() + " ", ""), flameName.replace("/", "."));
+					bytes = CompilerHelper.compile(Formatter.formatForCompile(classFileStr), flameName.replace("/", "."));
+				} catch (Throwable ex) {
+					bytes = CompilerHelper.compile(Formatter.formatForCompile(classFileStr).replace("extends " + superClass.getSecondaryName() + " ", ""), flameName.replace("/", "."));
 				}
-				
+
+				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), Formatter.formatForCompile(classFileStr));
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".class"), bytes);
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + "_source.class"), source);
-				
-				if (
-						className.equals("BlockProperties") ||
-								className.equals("net.minecraft.world.blocks.BlockProperties")
-				) {
-					return source;
-				}
+
 				return bytes;
 			} catch (Throwable throwable) {
 				throwable.printStackTrace();
@@ -259,22 +245,22 @@ public class WrapperClassGen {
 	}
 	
 	public static String parseSourceDescFromBytecodeDesc(String desc) {
-		String out = "";
+		StringBuilder out = new StringBuilder();
 		String desc1 = desc.replace("[", "").trim();
-		if (desc1.equals("J")) out = "long";
-		else if (desc1.equals("I")) out = "int";
-		else if (desc1.equals("S")) out = "short";
-		else if (desc1.equals("B")) out = "byte";
-		else if (desc1.equals("C")) out = "char";
-		else if (desc1.equals("F")) out = "float";
-		else if (desc1.equals("D")) out = "double";
-		else if (desc1.equals("Z")) out = "boolean";
-		else if (desc1.equals("V")) out = "void";
-		else if (desc1.startsWith("L")) out = desc1.substring(1, desc1.length() - 1);
+		if (desc1.equals("J")) out = new StringBuilder("long");
+		else if (desc1.equals("I")) out = new StringBuilder("int");
+		else if (desc1.equals("S")) out = new StringBuilder("short");
+		else if (desc1.equals("B")) out = new StringBuilder("byte");
+		else if (desc1.equals("C")) out = new StringBuilder("char");
+		else if (desc1.equals("F")) out = new StringBuilder("float");
+		else if (desc1.equals("D")) out = new StringBuilder("double");
+		else if (desc1.equals("Z")) out = new StringBuilder("boolean");
+		else if (desc1.equals("V")) out = new StringBuilder("void");
+		else if (desc1.startsWith("L")) out = new StringBuilder(desc1.substring(1, desc1.length() - 1));
 		for (int i = 0; i < desc.split("\\[").length - 1; i++) {
-			out += "[]";
+			out.append("[]");
 		}
-		return out;
+		return out.toString();
 	}
 	
 	public static String parseParams(String desc) {

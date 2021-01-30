@@ -11,7 +11,6 @@ import net.minecraft.registry.MainRegistry;
 import net.minecraft.resource.ResourceLocation;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
-import net.minecraft.world.blocks.PropertiesAccessor;
 
 import java.io.File;
 import java.lang.reflect.Method;
@@ -80,8 +79,8 @@ public class Main implements IFlameAPIMod {
 			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler-jdk", "3.1.2");
 			//Mappings Helper
 			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "3edf7efa3d");
-		} catch (Throwable ignored) {
-			ignored.printStackTrace();
+		} catch (Throwable ex) {
+			ex.printStackTrace();
 		}
 		
 		WrapperClassGen.init();
@@ -100,17 +99,18 @@ public class Main implements IFlameAPIMod {
 	public void postinit(String[] strings) {
 		ResourceLocation location = new ResourceLocation("flame_api:test");
 		System.out.println(location);
-		System.out.println(location.getNamespace());
-		System.out.println(location.getPath());
-		
-		System.out.println(MainRegistry.class);
-		System.out.println(BlockProperties.class);
-		System.out.println(BlockRegistry.class);
-		System.out.println(DefaultedRegistry.class);
-		System.out.println(ResourceLocation.class);
+//		System.out.println(location.getNamespace());
+//		System.out.println(location.getPath());
+
 		System.out.println(Block.class);
-		
-		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
+		System.out.println(BlockProperties.class);
+		System.out.println(DefaultedRegistry.class);
+		System.out.println(MainRegistry.class);
+		System.out.println(BlockRegistry.class);
+
+
+
+//		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
 
 //		System.out.println(MainRegistry.getBlocks());
 //		Block block = BlockRegistry.register("hi",null);

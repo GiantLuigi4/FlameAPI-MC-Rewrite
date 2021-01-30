@@ -1,7 +1,7 @@
 public Block(%super_class% parent) {
-	super(net.minecraft.world.blocks.PropertiesAccessor.getProperties(parent).wrapped);
+	super(com.tfc.flamemc.API.utils.wrapper.PropertiesAccessor.getProperties(parent).wrapped);
 	this.wrapped = parent;
 }
-public Block(%BlockProperties% properties) {
-	super(properties.wrapped);
+public Block(%BlockProperties% blockProperties) {
+	super(blockProperties.wrapped);
 }
