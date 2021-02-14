@@ -3,6 +3,7 @@ package entries.FlameAPI;
 import com.tfc.flame.IFlameAPIMod;
 import com.tfc.flame_asm.annotations.Unmodifiable;
 import com.tfc.flamemc.API.GameInstance;
+import com.tfc.flamemc.API.utils.wrapper.PropertiesAccessor;
 import com.tfc.flamemc.API.utils.wrapper.WrapperClassGen;
 import com.tfc.flamemc.FlameLauncher;
 import net.minecraft.registry.BlockRegistry;
@@ -107,8 +108,6 @@ public class Main implements IFlameAPIMod {
 		System.out.println(DefaultedRegistry.class);
 		System.out.println(MainRegistry.class);
 		System.out.println(BlockRegistry.class);
-
-
 
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
 

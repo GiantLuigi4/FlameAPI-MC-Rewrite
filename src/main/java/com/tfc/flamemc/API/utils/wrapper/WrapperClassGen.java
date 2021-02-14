@@ -155,18 +155,19 @@ public class WrapperClassGen {
 					classFile.append("\tpublic ").append(superClass.getSecondaryName()).append(" wrapped = null;\n");
 				}
 				classFile.append("}");
-				
+
 				String classFileStr = classFile.toString().replace(", )", ")").replace("/", ".");
 				
 				byte[] bytes;
 
 				try {
 					bytes = CompilerHelper.compile(Formatter.formatForCompile(classFileStr), flameName.replace("/", "."));
+					FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), Formatter.formatForCompile(classFileStr));
 				} catch (Throwable ex) {
 					bytes = CompilerHelper.compile(Formatter.formatForCompile(classFileStr).replace("extends " + superClass.getSecondaryName() + " ", ""), flameName.replace("/", "."));
+					FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + "_thrown.java"), Formatter.formatForCompile(classFileStr).replace("extends " + superClass.getSecondaryName() + " ", ""));
 				}
 
-				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".java"), Formatter.formatForCompile(classFileStr));
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + ".class"), bytes);
 				FileUtils.write(new File("flame_asm/" + flameName.replace(".", "/") + "_source.class"), source);
 

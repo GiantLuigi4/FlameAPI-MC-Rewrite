@@ -4,4 +4,5 @@ public Block(%super_class% parent) {
 }
 public Block(%BlockProperties% blockProperties) {
 	super(blockProperties.wrapped);
+	java.lang.System.out.println("E");
 }

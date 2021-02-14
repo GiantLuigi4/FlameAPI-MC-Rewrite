@@ -3,7 +3,7 @@ public class Block {
 	public Block(BlockProperties properties) {
 	
 	}
-	
+
 	//Methods
 	public float getFriction() {
 		return 0;
