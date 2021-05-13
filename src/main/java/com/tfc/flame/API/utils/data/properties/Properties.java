@@ -52,8 +52,9 @@ public class Properties {
 					else if (f.getType().equals(boolean.class)) val = Boolean.valueOf((String) val);
 					else if (f.getType().equals(double.class)) val = Double.valueOf((String) val);
 					else if (f.getType().equals(float.class)) val = Float.valueOf((String) val);
-					else if (f.getType().equals(Long.class)) val = Long.valueOf((String) val);
-					else if (f.getType().equals(Byte.class)) val = Byte.valueOf((String) val);
+					else if (f.getType().equals(long.class)) val = Long.valueOf((String) val);
+					else if (f.getType().equals(byte.class)) val = Byte.valueOf((String) val);
+					else if (f.getType().equals(short.class)) val = Short.valueOf((String) val);
 					f.set(object, val);
 				} catch (Throwable ignored) {
 				}

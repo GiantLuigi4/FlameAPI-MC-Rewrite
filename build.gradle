@@ -33,6 +33,8 @@ dependencies {
     implementation 'org.codehaus.janino:commons-compiler:3.1.2'
     implementation 'org.codehaus.janino:commons-compiler-jdk:3.1.2'
 
+    compileOnly files('run/versions/1.16.4-flame/1.16.4-flame.jar')
+
 
     runtimeOnly 'com.mojang:patchy:1.1'
     runtimeOnly 'oshi-project:oshi-core:1.1'

@@ -13,30 +13,27 @@ public class CompilerHelper {
 	}
 	
 	public static byte[] compile(String classFile, String name) {
-		Throwable janinoErr = null;
+		return Compiler.compile(EnumCompiler.JAVASSIST, classFile);
+/*		Throwable janinoErr;
 		Throwable javassistErr = null;
+
 		for (EnumCompiler value : EnumCompiler.values()) {
 			try {
 				if (value == EnumCompiler.ASM || value == EnumCompiler.BCEL) {
 					throw new RuntimeException("null");
 				}
-				byte[] bytes = Compiler.compile(value, classFile);
-				System.out.println(value);
-				return bytes;
+				return Compiler.compile(value, classFile);
 			} catch (Throwable err1) {
-				if (value == EnumCompiler.JANINO) {
-					try {
-						return compiler.compile(classFile, name);
-					} catch (Throwable err) {
-						janinoErr = err;
-					}
-				} else if (value == EnumCompiler.JAVASSIST) {
+				if (value == EnumCompiler.JAVASSIST) {
 					javassistErr = err1;
+				} else if (value == EnumCompiler.JANINO) {
+					janinoErr = err1;
 				}
 			}
 		}
 		janinoErr.printStackTrace();
 		javassistErr.printStackTrace();
-		return null;
+		throw new RuntimeException(javassistErr);
+		return null;*/
 	}
 }

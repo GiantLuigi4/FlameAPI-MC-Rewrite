@@ -11,7 +11,7 @@ public class Test {
 				"--username", "GiantLuigi4",
 				"--version", "1.16.4-flame",
 				"--gameDir", f.getAbsolutePath() + "\\run",
-				"--assetsDir", FlameLauncher.findMCDir(false),
+				"--assetsDir", FlameLauncher.findMCDir(false) + "\\assets",
 				"--assetIndex", "1.16",
 				"--accessToken", "PLEASE_FLAME_WORK_I_BEG_YOU",
 				"--uuid", "ad1dbe37-ce3b-41d9-a4d0-8c2d67f99b39",
