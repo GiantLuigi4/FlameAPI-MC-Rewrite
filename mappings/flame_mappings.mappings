@@ -1,6 +1,6 @@
 net/minecraft/class_2348 : net/minecraft/registry/DefaultedRegistry
 
-net/minecraft/class_2960 : net/minecraft/resource/ResourceLocation
+net/minecraft/class_2960 : net/minecraft/resource/ResourceName
 m-()Ljava/lang/String; : method_12832->getPath
 m-()Ljava/lang/String; : method_12836->getNamespace
 
@@ -13,7 +13,7 @@ f-net/minecraft/registry/DefaultedRegistry : field_11142->items
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
 f-net/minecraft/world/blocks/Block : field_10124->air
 f-net/minecraft/world/blocks/Block : field_10340->stone
-m-(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block; : register->register
+m-(Ljava/lang/String;Lnet/minecraft/class_2248;)Lnet/minecraft/world/level/block/Block; : method_9492->register
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
 m-()F : method_9499->getFriction
