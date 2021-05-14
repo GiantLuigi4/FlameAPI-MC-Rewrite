@@ -24,3 +24,4 @@ m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
 
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
+m-(Lnet/minecraft/class_4970)net/minecraft/class_4970$class_2251 : method_9630->from
