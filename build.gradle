@@ -37,6 +37,7 @@ dependencies {
 
 //    compileOnly files('run/versions/1.16.4-flame/1.16.4-flame.jar')
     compileOnly files('run/versions/1.16.5/1.16.5.jar')
+    compileOnly files('run/flame_mods/FlameASM-1.0-SNAPSHOT.jar')
 //    compileOnly files('run/versions/1.16.5-OptiFine_HD_U_G7/1.16.5-OptiFine_HD_U_G7.jar')
 
 
