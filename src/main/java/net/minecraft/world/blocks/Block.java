@@ -5,7 +5,7 @@ public class Block {
 	}
 
 	//Methods
-	public float getFriction() {
+	public float friction() {
 		return 0;
 	}
 	
@@ -25,9 +25,6 @@ public class Block {
 		return false;
 	}
 	
-	
 	//Fields
-	public final net.minecraft.world.blocks.BlockProperties getProperties() {
-		return null;
-	}
+	public final net.minecraft.world.blocks.BlockProperties properties = null;
 }

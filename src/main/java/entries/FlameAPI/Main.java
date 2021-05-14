@@ -1,8 +1,8 @@
 package entries.FlameAPI;
 
-import com.tfc.flame.IFlameAPIMod;
+import tfc.flame.IFlameAPIMod;
 import com.tfc.flamemc.API.GameInstance;
-import com.tfc.flamemc.FlameLauncher;
+import tfc.flamemc.FlameLauncher;
 import net.minecraft.registry.BlockRegistry;
 import net.minecraft.registry.DefaultedRegistry;
 import net.minecraft.registry.BuiltinRegistries;
@@ -93,18 +93,8 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void postinit(String[] strings) {
-		ResourceName location = new ResourceName("flame_api:test");
-		System.out.println(location);
-		System.out.println(location.namespace());
-		System.out.println(location.path());
-		System.out.println(BuiltinRegistries.BLOCKS);
-
-		System.out.println(Block.class);
-		System.out.println(BlockProperties.class);
-		System.out.println(DefaultedRegistry.class);
-		System.out.println(BuiltinRegistries.class);
-		System.out.println(BlockRegistry.class);
-
+		MapperTest.init();
+		
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
 
 //		System.out.println(MainRegistry.getBlocks());

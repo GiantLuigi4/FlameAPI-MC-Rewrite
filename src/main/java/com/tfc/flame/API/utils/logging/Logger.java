@@ -1,6 +1,6 @@
 package com.tfc.flame.API.utils.logging;
 
-import com.tfc.flame.FlameConfig;
+import tfc.flame.FlameConfig;
 
 public class Logger {
 	public static void log(Object obj) {

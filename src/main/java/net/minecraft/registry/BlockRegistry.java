@@ -4,9 +4,8 @@ public class BlockRegistry {
 	public static net.minecraft.world.blocks.Block register(java.lang.String string, net.minecraft.world.blocks.Block block) {
 		return null;
 	}
-
-
-//	//Fields
-//	public static net.minecraft.world.blocks.Block getAir(){return null;}
-//	public static net.minecraft.world.blocks.Block getStone(){return null;}
+	
+	//Fields
+	public static net.minecraft.world.blocks.Block AIR;
+	public static net.minecraft.world.blocks.Block STONE_BLOCK;
 }

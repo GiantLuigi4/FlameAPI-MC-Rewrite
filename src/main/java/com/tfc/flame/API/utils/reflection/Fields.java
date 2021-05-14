@@ -1,13 +1,10 @@
 package com.tfc.flame.API.utils.reflection;
 
-import com.tfc.flame_asm.annotations.Unmodifiable;
-
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
-@Unmodifiable
 public class Fields {
 	/**
 	 * @param object      the object you want to access the field from

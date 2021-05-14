@@ -1,4 +1,4 @@
-import com.tfc.flamemc.FlameLauncher;
+import tfc.flamemc.FlameLauncher;
 
 import java.io.File;
 
@@ -9,7 +9,8 @@ public class Test {
 		File f = new File("");
 		args = new String[]{
 				"--username", "GiantLuigi4",
-				"--version", "1.16.4-flame",
+//				"--version", "OptiFine_1.16.5_HD_U_G7",
+				"--version", "1.16.5",
 				"--gameDir", f.getAbsolutePath() + "\\run",
 				"--assetsDir", FlameLauncher.findMCDir(false) + "\\assets",
 				"--assetIndex", "1.16",

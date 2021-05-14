@@ -1,9 +1,8 @@
 package com.tfc.flame.API.utils.reflection;
 
-import com.tfc.flame.API.utils.IO.classes.ClassScanningUtils;
+import com.tfc.flame.API.utils.IO.ClassScanningUtils;
 import com.tfc.flame.API.utils.logging.Logger;
-import com.tfc.flame_asm.annotations.Unmodifiable;
-import com.tfc.utils.BiObject;
+import tfc.utils.BiObject;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,7 +11,6 @@ import java.util.Objects;
 import java.util.function.Consumer;
 
 //TODO: javadocs
-@Unmodifiable
 public class Methods {
 	public static <A> A invoke(Object object, String name, Object[] args, Class<A> expectedReturnVal) {
 		try {

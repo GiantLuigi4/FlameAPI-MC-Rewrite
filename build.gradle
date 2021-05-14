@@ -9,7 +9,8 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
-    flameMCVersion = 'd41042b077'
+    flameMCVersion = '0840e53c1e'
+    flameASMVersion = '9eb3bad50f'
     bytecodeUtilsVersion = '455c3d13b7'
     MCMappingsHelperVersion = '3edf7efa3d'
 }
@@ -23,9 +24,10 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.12'
+//    testCompile group: 'junit', name: 'junit', version: '4.12'
 
     implementation "com.github.GiantLuigi4:FlameMC:$flameMCVersion"
+//    compileOnly "com.github.GiantLuigi4:FlameASM:$flameASMVersion"
     implementation "com.github.GiantLuigi4:Bytecode-Utils:$bytecodeUtilsVersion"
     implementation "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
     implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
@@ -33,7 +35,9 @@ dependencies {
     implementation 'org.codehaus.janino:commons-compiler:3.1.2'
     implementation 'org.codehaus.janino:commons-compiler-jdk:3.1.2'
 
-    compileOnly files('run/versions/1.16.4-flame/1.16.4-flame.jar')
+//    compileOnly files('run/versions/1.16.4-flame/1.16.4-flame.jar')
+    compileOnly files('run/versions/1.16.5/1.16.5.jar')
+//    compileOnly files('run/versions/1.16.5-OptiFine_HD_U_G7/1.16.5-OptiFine_HD_U_G7.jar')
 
 
     runtimeOnly 'com.mojang:patchy:1.1'

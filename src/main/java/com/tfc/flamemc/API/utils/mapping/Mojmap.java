@@ -7,7 +7,7 @@ import com.tfc.mappings.structure.Class;
 import com.tfc.mappings.structure.Method;
 import com.tfc.mappings.structure.MojmapHolder;
 import com.tfc.mappings.types.Mojang;
-import com.tfc.utils.BiObject;
+import tfc.utils.BiObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
