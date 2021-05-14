@@ -88,7 +88,7 @@ public class MappingsHelper {
 		
 		{
 			classMap.put("net/minecraft/resources/ResourceLocation", "net/minecraft/resource/ResourceLocation");
-			classMap.put("net/minecraft/class_2960", "net/minecraft/resource/ResourceLocation");
+			classMap.put("net/minecraft/class_2960", "net/minecraft/resource/ResourceName");
 			
 			constructorMap.put("net/minecraft/resource/ResourceLocation", new ConstructorList()
 					.add("(Ljava/lang/String;)V")

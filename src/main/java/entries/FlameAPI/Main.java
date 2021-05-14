@@ -1,22 +1,18 @@
 package entries.FlameAPI;
 
 import com.tfc.flame.IFlameAPIMod;
-import com.tfc.flame_asm.annotations.Unmodifiable;
 import com.tfc.flamemc.API.GameInstance;
-import com.tfc.flamemc.API.utils.wrapper.PropertiesAccessor;
-import com.tfc.flamemc.API.utils.wrapper.WrapperClassGen;
 import com.tfc.flamemc.FlameLauncher;
 import net.minecraft.registry.BlockRegistry;
 import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.registry.MainRegistry;
-import net.minecraft.resource.ResourceLocation;
+import net.minecraft.registry.BuiltinRegistries;
+import net.minecraft.resource.ResourceName;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
 
 import java.io.File;
 import java.lang.reflect.Method;
 
-@Unmodifiable
 public class Main implements IFlameAPIMod {
 	private static String[] gameArgs;
 	
@@ -73,18 +69,17 @@ public class Main implements IFlameAPIMod {
 				GameInstance.INSTANCE.dataDirectory = new File(Main.getExecDir() + "\\run");
 			//Bytecode-Utils
 			downloadBytecodeUtils();
+			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "FlameASM", "9eb3bad50f");
 			//Compilers
-			addDep("https://repo1.maven.org/maven2/", "org.javassist", "javassist", "3.27.0-GA");
-			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "janino", "3.1.2");
-			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler", "3.1.2");
-			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler-jdk", "3.1.2");
+//			addDep("https://repo1.maven.org/maven2/", "org.javassist", "javassist", "3.27.0-GA");
+//			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "janino", "3.1.2");
+//			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler", "3.1.2");
+//			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler-jdk", "3.1.2");
 			//Mappings Helper
 			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "3edf7efa3d");
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}
-		
-		WrapperClassGen.init();
 	}
 	
 	private void downloadBytecodeUtils() {
@@ -98,15 +93,16 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void postinit(String[] strings) {
-		ResourceLocation location = new ResourceLocation("flame_api:test");
+		ResourceName location = new ResourceName("flame_api:test");
 		System.out.println(location);
-//		System.out.println(location.getNamespace());
-//		System.out.println(location.getPath());
+		System.out.println(location.namespace());
+		System.out.println(location.path());
+		System.out.println(BuiltinRegistries.BLOCKS);
 
 		System.out.println(Block.class);
 		System.out.println(BlockProperties.class);
 		System.out.println(DefaultedRegistry.class);
-		System.out.println(MainRegistry.class);
+		System.out.println(BuiltinRegistries.class);
 		System.out.println(BlockRegistry.class);
 
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));

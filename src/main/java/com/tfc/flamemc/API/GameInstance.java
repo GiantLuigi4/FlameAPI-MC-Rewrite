@@ -1,11 +1,9 @@
 package com.tfc.flamemc.API;
 
 import com.tfc.flame.API.utils.logging.Logger;
-import com.tfc.flame_asm.annotations.Unmodifiable;
 
 import java.io.File;
 
-@Unmodifiable
 public class GameInstance {
 	public static final GameInstance INSTANCE = new GameInstance();
 	

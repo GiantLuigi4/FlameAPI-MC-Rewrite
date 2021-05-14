@@ -4,11 +4,11 @@ net/minecraft/class_2960 : net/minecraft/resource/ResourceName
 m-()Ljava/lang/String; : method_12832->path
 m-()Ljava/lang/String; : method_12836->namespace
 
-net/minecraft/class_2378 : net/minecraft/registry/MainRegistry
+net/minecraft/class_2378 : net/minecraft/registry/BuiltinRegistries
 f-net/minecraft/registry/DefaultedRegistry : field_11145->ENTITIES
 f-net/minecraft/registry/DefaultedRegistry : field_11146->BLOCKS
 f-net/minecraft/registry/DefaultedRegistry : field_11142->ITEMS
-f-net/minecraft/registry/MainRegistry : field_11137->tileEntities
+f-net/minecraft/registry/MainRegistry : field_11137->TILE_ENTITIES
 
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
 f-net/minecraft/world/blocks/Block : field_10124->AIR
@@ -24,4 +24,3 @@ m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
 
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
-
