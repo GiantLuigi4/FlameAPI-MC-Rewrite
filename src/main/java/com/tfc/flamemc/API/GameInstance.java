@@ -47,6 +47,15 @@ public class GameInstance {
 					isVersion = true;
 				} else if (isVersion) {
 					version = s;
+					if (version.contains("OptiFine")) {
+						version = version.replace("OptiFine","");
+						String ver = "";
+						for (char c : version.toCharArray()) {
+							if (c == '.' || Character.isDigit(c)) ver += c;
+							else break;
+						}
+						version = ver;
+					}
 					versionMap = version.replace("-flame", "");
 					isVersion = false;
 				} else if (s.equals("--gameDir")) {

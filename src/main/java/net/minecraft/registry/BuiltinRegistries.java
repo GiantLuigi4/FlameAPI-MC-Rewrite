@@ -8,4 +8,9 @@ public class BuiltinRegistries {
 	public static net.minecraft.registry.DefaultedRegistry ITEMS;
 	
 	public static BuiltinRegistries TILE_ENTITIES;
+	
+	//Methods
+	public static Object register(BuiltinRegistries register, String name, Object value) {
+		return value;
+	}
 }

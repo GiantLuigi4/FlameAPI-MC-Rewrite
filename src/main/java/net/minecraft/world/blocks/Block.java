@@ -1,7 +1,6 @@
 package net.minecraft.world.blocks;
-public class Block {
+public class Block extends AbstractBlock {
 	public Block(BlockProperties properties) {
-	
 	}
 
 	//Methods
@@ -24,7 +23,4 @@ public class Block {
 	public boolean blocksRespawning() {
 		return false;
 	}
-	
-	//Fields
-	public final net.minecraft.world.blocks.BlockProperties properties = null;
 }

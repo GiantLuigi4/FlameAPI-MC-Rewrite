@@ -9,6 +9,7 @@ f-net/minecraft/registry/DefaultedRegistry : field_11145->ENTITIES
 f-net/minecraft/registry/DefaultedRegistry : field_11146->BLOCKS
 f-net/minecraft/registry/DefaultedRegistry : field_11142->ITEMS
 f-net/minecraft/registry/MainRegistry : field_11137->TILE_ENTITIES
+m-(Lnet/minecraft/class_2378;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object; : method_10226->register
 
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
 f-net/minecraft/world/blocks/Block : field_10124->AIR
@@ -27,3 +28,31 @@ m-()Z : method_9538->blocksRespawning
 
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
 m-(Lnet/minecraft/class_4970)net/minecraft/class_4970$class_2251 : method_9630->from
+
+net/minecraft/class_1159 : net/minecraft/vecmath/Matrix4x4
+f-F : field_21652->m00
+f-F : field_21653->m01
+f-F : field_21654->m02
+f-F : field_21655->m03
+f-F : field_21656->m10
+f-F : field_21657->m11
+f-F : field_21658->m12
+f-F : field_21659->m13
+f-F : field_21660->m20
+f-F : field_21661->m21
+f-F : field_21662->m22
+f-F : field_21663->m23
+f-F : field_21664->m30
+f-F : field_21665->m31
+f-F : field_21666->m32
+f-F : field_21667->m33
+m-(Ljava.nio.FloatBuffer;)V : method_4932->toFloatBuffer
+m-()V : method_22668->identity
+m-(Lnet/minecraft/class_1158;)V : method_22670->rotate
+m-(F)V : method_22866->scale
+m-(Lnet/minecraft/class_1159;)V : method_22672->multiply
+m-(DFFF)net/minecraft/class_1159 : method_4929->perspectiveMatrix
+m-(FFFF)net/minecraft/class_1159 : method_4933->orthographicMatrix
+m-(FFF)net/minecraft/class_1159 : method_24021->translationMatrix
+m-(FFF)net/minecraft/class_1159 : method_24019->scaleMatrix
+m-()net/minecraft/class_1159 : method_22673->copy

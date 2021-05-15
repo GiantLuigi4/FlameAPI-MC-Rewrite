@@ -1,7 +1,12 @@
 package entries.FlameAPI;
 
+import com.tfc.flamemc.API.utils.mapping.Intermediary;
+import com.tfc.mappings.structure.Class;
+import com.tfc.mappings.structure.Field;
+import com.tfc.mappings.structure.FlameMapHolder;
 import tfc.flame.IFlameAPIMod;
 import com.tfc.flamemc.API.GameInstance;
+import tfc.flameasm.remapper.MappingApplicator;
 import tfc.flamemc.FlameLauncher;
 import net.minecraft.registry.BlockRegistry;
 import net.minecraft.registry.DefaultedRegistry;
@@ -10,7 +15,10 @@ import net.minecraft.resource.ResourceName;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.PrintStream;
 import java.lang.reflect.Method;
 
 public class Main implements IFlameAPIMod {
@@ -59,6 +67,20 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void setupAPI(String[] args) {
+		PrintStream oldStream = System.out;
+		System.setOut(new PrintStream(oldStream) {
+			@Override
+			public void write(int b) {
+				super.write(b);
+			}
+			
+			@Override
+			public void print(String s) {
+				super.print(s);
+				System.err.println(s);
+			}
+		});
+		
 		gameArgs = args;
 		GameInstance.init(args);
 		
@@ -93,6 +115,86 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void postinit(String[] strings) {
+		if (FlameLauncher.isDev) {
+			java.lang.Class<?> clazz = Block.class;
+			clazz = BlockProperties.class;
+			clazz = ResourceName.class;
+			clazz = DefaultedRegistry.class;
+			clazz = BuiltinRegistries.class;
+			clazz = BlockRegistry.class;
+			
+			File f = new File("mappings/flame_mappings.mappings");
+			if (f.exists()) {
+				byte[] bytes = null;
+				FileInputStream stream = null;
+				ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+				try {
+					stream = new FileInputStream(f);
+					int b;
+					while ((b = stream.read()) != -1) stream1.write(b);
+					bytes = stream1.toByteArray();
+				} catch (Throwable ignored) {
+					try {
+						try {
+							stream1.close();
+							stream1.flush();
+						} catch (Throwable ignored1) {
+						}
+						if (stream != null) stream1.close();
+					} catch (Throwable ignored1) {
+					}
+				}
+				if (bytes != null) {
+					FlameMapHolder flame = new FlameMapHolder(new String(bytes).replace("\r", ""));
+					MappingApplicator.classMapper = (name) -> {
+						Class clazzFlame = flame.getFromSecondaryName(name);
+						if (clazzFlame == null) return null;
+						String interName = clazzFlame.getPrimaryName();
+						Class interClass = Intermediary.getClassFromInter(interName);
+						if (interClass == null) return null;
+						return interClass.getSecondaryName();
+					};
+					MappingApplicator.methodMapper = (name, methodName) -> {
+						//TODO: make this work for when there are multiple methods with the same name
+						Class clazzFlame = flame.getFromSecondaryName(name);
+						if (clazzFlame == null) return null;
+						String interName = clazzFlame.getPrimaryName();
+						com.tfc.mappings.structure.Method m = clazzFlame.getMethodPrimary(methodName);
+						if (m == null) return null;
+						String interMethodName = m.getSecondary();
+						Class interClass = Intermediary.getClassFromInter(interName);
+						if (interClass == null) return null;
+						m = interClass.getMethodPrimary(interMethodName);
+						if (m == null) return null;
+						return m.getSecondary();
+					};
+					MappingApplicator.fieldMapper = (name, fieldName) -> {
+						Class clazzFlame = flame.getFromSecondaryName(name);
+						if (clazzFlame == null) return null;
+						String interName = clazzFlame.getPrimaryName();
+						Field selected = null;
+						for (Field field : clazzFlame.getFields())
+							if (field.getPrimary().equals(fieldName)) {
+								selected = field;
+								break;
+							}
+						if (selected == null) return null;
+						String interMethodName = selected.getSecondary();
+						Class interClass = Intermediary.getClassFromInter(interName);
+						if (interClass == null) return null;
+						selected = null;
+						for (Field field : interClass.getFields())
+							if (field.getPrimary().equals(interMethodName)) {
+								selected = field;
+								break;
+							}
+						if (selected == null) return null;
+						return selected.getSecondary();
+					};
+				}
+			}
+		}
+		
 		MapperTest.init();
 		
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
