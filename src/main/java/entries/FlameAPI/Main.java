@@ -67,20 +67,6 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void setupAPI(String[] args) {
-		PrintStream oldStream = System.out;
-		System.setOut(new PrintStream(oldStream) {
-			@Override
-			public void write(int b) {
-				super.write(b);
-			}
-			
-			@Override
-			public void print(String s) {
-				super.print(s);
-				System.err.println(s);
-			}
-		});
-		
 		gameArgs = args;
 		GameInstance.init(args);
 		
