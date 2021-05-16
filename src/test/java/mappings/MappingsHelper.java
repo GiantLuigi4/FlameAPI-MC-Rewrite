@@ -2,10 +2,10 @@ package mappings;
 
 import com.tfc.flamemc.API.utils.mapping.Intermediary;
 import com.tfc.flamemc.API.utils.mapping.Mojmap;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.Holder;
-import com.tfc.mappings.structure.MojmapHolder;
-import com.tfc.mappings.types.Mojang;
+import tfc.mappings.structure.MappingsClass;
+import tfc.mappings.structure.MappingsHolder;
+import tfc.mappings.structure.MojmapHolder;
+import tfc.mappings.types.Mojang;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -19,7 +19,7 @@ public class MappingsHelper {
 	private static final HashMap<String, ConstructorList> constructorMap = new HashMap<>();
 	
 	public static final MojmapHolder holder = Mojang.generate("1.16.4");
-	public static final Holder iholder = com.tfc.mappings.types.Intermediary.generate("1.16.4");
+	public static final MappingsHolder iholder = tfc.mappings.types.Intermediary.generate("1.16.4");
 	
 	static {
 		try {
@@ -123,7 +123,7 @@ public class MappingsHelper {
 		System.out.println(parseBytecodeFromSourceDescDesc("int[][][]"));
 		classMap.forEach((other, flame) -> {
 			if (other.contains("class_")) {
-				Class clazz = Mojmap.getClassFromMojmap("1.16.4", other);
+				MappingsClass clazz = Mojmap.getClassFromMojmap("1.16.4", other);
 				
 				if (clazz == null) clazz = Intermediary.getClassFromInter("1.16.4", other);
 				if (clazz == null) System.out.println(other);

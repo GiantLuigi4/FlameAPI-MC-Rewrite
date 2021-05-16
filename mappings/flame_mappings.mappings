@@ -63,7 +63,7 @@ f-D : field_1352->x
 f-D : field_1351->y
 f-D : field_1350->z
 m-()Lnet/minecraft/class_243; : method_1029->normalize
-m-(Lnet/minecraft/class_243;)net/minecraft/class_243 : method_1036->crossProduct
+m-(Lnet/minecraft/class_243;)Lnet/minecraft/class_243; : method_1036->crossProduct
 m-(Lnet/minecraft/class_243;)D : method_1026->dotProduct
 m-(DDD)Lnet/minecraft/class_243; : method_1023->subtract
 m-(DDD)Lnet/minecraft/class_243; : method_1031->add

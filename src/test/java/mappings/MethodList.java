@@ -1,8 +1,8 @@
 package mappings;
 
 import com.tfc.flamemc.API.utils.mapping.Intermediary;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.Method;
+import tfc.mappings.structure.MappingsClass;
+import tfc.mappings.structure.MappingsMethod;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,10 +10,10 @@ import java.util.HashMap;
 public class MethodList {
 	public final ArrayList<MethodObject> methodObjects = new ArrayList<>();
 	
-	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc) {
-		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
-		Method methodMojmap = scanFor(clazzMojmap, method, desc);
-		Method methodInter;
+	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, MappingsClass clazzMojmap, String method, String mapped, String desc) {
+		MappingsClass intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
+		MappingsMethod methodMojmap = scanFor(clazzMojmap, method, desc);
+		MappingsMethod methodInter;
 		
 		if (desc.contains("net/minecraft")) methodInter = methodMojmap;
 		else methodInter = scanFor(intermediary, methodMojmap.getSecondary(), desc);
@@ -24,10 +24,10 @@ public class MethodList {
 		if (!methodListHashMap.containsKey(clazzFlame)) methodListHashMap.put(clazzFlame, interList);
 	}
 	
-	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, Class clazzMojmap, String method, String mapped, String desc, boolean isStatic) {
-		Class intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
-		Method methodMojmap = scanFor(clazzMojmap, method, desc);
-		Method methodInter;
+	public static void add(HashMap<String, MethodList> methodListHashMap, String clazzFlame, MappingsClass clazzMojmap, String method, String mapped, String desc, boolean isStatic) {
+		MappingsClass intermediary = Intermediary.getClassFromObsf("1.16.4", clazzMojmap.getSecondaryName());
+		MappingsMethod methodMojmap = scanFor(clazzMojmap, method, desc);
+		MappingsMethod methodInter;
 		
 		if (desc.contains("net/minecraft")) methodInter = methodMojmap;
 		else methodInter = scanFor(intermediary, methodMojmap.getSecondary(), desc);
@@ -42,8 +42,8 @@ public class MethodList {
 		methodObjects.add(method);
 	}
 	
-	public static Method scanFor(Class clazz, String name, String desc) {
-		for (Method m : clazz.getMethods())
+	public static MappingsMethod scanFor(MappingsClass clazz, String name, String desc) {
+		for (MappingsMethod m : clazz.getMethods())
 			if (desc != null) {
 				if (m.getPrimary().equals(name) && m.getDesc().startsWith(desc) || m.getSecondary().equals(name) && m.getDesc().startsWith(desc))
 					return m;
