@@ -1,6 +1,6 @@
-package com.tfc.flamemc.API.utils.mapping;
+package tfc.flamemc.API.utils.mapping;
 
-import com.tfc.flamemc.API.GameInstance;
+import tfc.flamemc.API.GameInstance;
 import tfc.mappings.structure.MappingsClass;
 import tfc.mappings.structure.MappingsHolder;
 

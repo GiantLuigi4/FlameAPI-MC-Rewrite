@@ -9,7 +9,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
-    flameMCVersion = 'f15cba0f6a'
+    flameMCVersion = '5bf04c1d36'
     flameASMVersion = '02ba28bff6'
     bytecodeUtilsVersion = '455c3d13b7'
     MCMappingsHelperVersion = 'c9a20212d2'

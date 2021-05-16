@@ -1,7 +1,7 @@
-package com.tfc.flame.API.utils.reflection;
+package tfc.flame.API.utils.reflection;
 
-import com.tfc.flame.API.utils.IO.ClassScanningUtils;
-import com.tfc.flame.API.utils.logging.Logger;
+import tfc.flame.API.utils.IO.ClassScanningUtils;
+import tfc.flame.API.utils.logging.Logger;
 import tfc.utils.BiObject;
 
 import java.lang.reflect.Method;

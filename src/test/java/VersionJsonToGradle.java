@@ -1,5 +1,5 @@
 import com.google.gson.*;
-import com.tfc.flame.API.utils.data.properties.Properties;
+import tfc.flame.API.utils.data.properties.Properties;
 
 import java.io.File;
 import java.io.FileOutputStream;

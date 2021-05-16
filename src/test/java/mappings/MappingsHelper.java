@@ -1,7 +1,7 @@
 package mappings;
 
-import com.tfc.flamemc.API.utils.mapping.Intermediary;
-import com.tfc.flamemc.API.utils.mapping.Mojmap;
+import tfc.flamemc.API.utils.mapping.Intermediary;
+import tfc.flamemc.API.utils.mapping.Mojmap;
 import tfc.mappings.structure.MappingsClass;
 import tfc.mappings.structure.MappingsHolder;
 import tfc.mappings.structure.MojmapHolder;

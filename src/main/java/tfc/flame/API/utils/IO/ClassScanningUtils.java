@@ -1,4 +1,4 @@
-package com.tfc.flame.API.utils.IO;
+package tfc.flame.API.utils.IO;
 
 import java.io.InputStream;
 import java.util.HashMap;

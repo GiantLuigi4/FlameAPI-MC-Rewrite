@@ -1,4 +1,4 @@
-package com.tfc.flame.API.utils.data.properties;
+package tfc.flame.API.utils.data.properties;
 
 import java.io.File;
 import java.io.IOException;

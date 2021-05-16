@@ -1,4 +1,4 @@
-package com.tfc.flame.API.utils.reflection;
+package tfc.flame.API.utils.reflection;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

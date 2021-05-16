@@ -1,16 +1,10 @@
 package entries.FlameAPI;
 
 import tfc.flame.IFlameAPIMod;
-import com.tfc.flamemc.API.GameInstance;
+import tfc.flamemc.API.GameInstance;
 import tfc.flameasm.remapper.MappingApplicator;
 import tfc.flameasm.remapper.MappingsInfo;
 import tfc.flamemc.FlameLauncher;
-import net.minecraft.registry.BlockRegistry;
-import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.registry.BuiltinRegistries;
-import net.minecraft.resource.ResourceName;
-import net.minecraft.world.blocks.Block;
-import net.minecraft.world.blocks.BlockProperties;
 import tfc.mappings.structure.FlameMapHolder;
 
 import java.io.ByteArrayOutputStream;

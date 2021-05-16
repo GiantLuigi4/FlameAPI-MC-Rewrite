@@ -1,4 +1,4 @@
-package com.tfc.flame.API.utils.logging;
+package tfc.flame.API.utils.logging;
 
 import tfc.flame.FlameConfig;
 

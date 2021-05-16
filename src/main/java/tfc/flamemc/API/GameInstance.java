@@ -1,10 +1,9 @@
-package com.tfc.flamemc.API;
+package tfc.flamemc.API;
 
-import com.tfc.flame.API.utils.logging.Logger;
+import tfc.flame.API.utils.logging.Logger;
 import entries.FlameAPI.Main;
 import tfc.flame.FlameURLLoader;
 import tfc.flameasm.remapper.MappingApplicator;
-import tfc.flamemc.FlameLauncher;
 
 import java.io.File;
 import java.net.URL;
