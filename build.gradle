@@ -9,7 +9,7 @@ sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
-    flameMCVersion = '5e00f69269'
+    flameMCVersion = 'f15cba0f6a'
     flameASMVersion = '02ba28bff6'
     bytecodeUtilsVersion = '455c3d13b7'
     MCMappingsHelperVersion = 'c9a20212d2'
@@ -41,7 +41,9 @@ dependencies {
 //    compileOnly files('run/versions/1.16.5/1.16.5.jar')
 //    implementation files('run/FlameInstaller.jar')
     implementation files('run/flame_mods/FlameASM-1.0-SNAPSHOT.jar')
-    implementation files('run/versions/fabric-loader-0.11.3-1.16.5.jar/fabric-loader-0.11.3-1.16.5.jar')
+    compileOnly files('run/versions/fabric-loader-0.11.3-1.16.5/fabric-loader-0.11.3-1.16.5.jar')
+    compileOnly files('run/versions/1.16.5-forge-36.1.6/1.16.5-forge-36.1.6.jar')
+    compileOnly files('run/versions/1.16.5-srg/1.16.5-srg.jar')
 //    compileOnly files('run/versions/1.16.5-OptiFine_HD_U_G7/1.16.5-OptiFine_HD_U_G7.jar')
 
 
@@ -104,19 +106,34 @@ dependencies {
     runtimeOnly 'ca.weblite:java-objc-bridge:1.0.0'
 
 
+//    ArrayList<File> files = new ArrayList<>()
+//    ArrayList<File> toIter = new ArrayList<>()
+//    toIter.addAll(Arrays.asList(new File("libraries").listFiles()))
+//    do {
+//        files.clear()
+//        files.addAll(toIter)
+//        toIter.clear()
+//        for (File f : files) {
+//            if (f.isDirectory()) {
+//                toIter.add(f)
+//            } else {
+////                compileOnly files(f.toString().replace("\\","/"))
+//            }
+//        }
+//    } while (!toIter.isEmpty())
     compileOnly 'net.fabricmc:fabric-loader:0.11.3'
-    compileOnly 'net.fabricmc:intermediary:1.16.5'
-    compileOnly 'org.ow2.asm:asm-util:9.1'
-    compileOnly 'org.ow2.asm:asm-tree:9.1'
-    compileOnly 'org.ow2.asm:asm-commons:9.1'
-    compileOnly 'org.ow2.asm:asm-analysis:9.1'
-    compileOnly 'org.ow2.asm:asm:9.1'
-    compileOnly 'com.google.jimfs:jimfs:1.2-fabric'
-    compileOnly 'net.fabricmc:fabric-loader-sat4j:2.3.5.4'
-    compileOnly 'net.fabricmc:access-widener:1.0.0'
-    compileOnly 'net.fabricmc:tiny-remapper:0.3.0.70'
+//    compileOnly 'net.fabricmc:intermediary:1.16.5'
+//    compileOnly 'org.ow2.asm:asm-util:9.1'
+//    compileOnly 'org.ow2.asm:asm-tree:9.1'
+//    compileOnly 'org.ow2.asm:asm-commons:9.1'
+//    compileOnly 'org.ow2.asm:asm-analysis:9.1'
+//    compileOnly 'org.ow2.asm:asm:9.1'
+//    compileOnly 'com.google.jimfs:jimfs:1.2-fabric'
+//    compileOnly 'net.fabricmc:fabric-loader-sat4j:2.3.5.4'
+//    compileOnly 'net.fabricmc:access-widener:1.0.0'
+//    compileOnly 'net.fabricmc:tiny-remapper:0.3.0.70'
     compileOnly 'net.fabricmc:sponge-mixin:0.9.2+mixin.0.8.2'
-    compileOnly 'net.fabricmc:tiny-mappings-parser:0.2.2.14'
+//    compileOnly 'net.fabricmc:tiny-mappings-parser:0.2.2.14'
 }
 
 //jars the mod directly into flame_mods folder

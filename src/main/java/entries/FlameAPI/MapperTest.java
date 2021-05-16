@@ -50,12 +50,12 @@ public class MapperTest {
 			
 			try {
 				System.out.println(BlockPropertiesHelper.getProperties(BlockRegistry.STONE_BLOCK));
-//				Method m = BlockRegistry.class.getDeclaredMethod(
-//						MappingApplicator.methodMapper.apply("net/minecraft/registry/BlockRegistry;register"),
-//						String.class, Block.class
-//				);
-//				m.setAccessible(true);
-//				m.invoke(null, location.toString(), new Block(BlockPropertiesHelper.getProperties(BlockRegistry.STONE_BLOCK)));
+				Method m = BlockRegistry.class.getDeclaredMethod(
+						MappingApplicator.methodMapper.apply("net/minecraft/registry/BlockRegistry;register(Ljava/lang/String;Lnet/minecraft/world/blocks/Block;)Lnet/minecraft/world/blocks/Block;", MappingApplicator.getSteps("FLAME", MappingApplicator.targetMappings)),
+						String.class, Block.class
+				);
+				m.setAccessible(true);
+				System.out.println(m.invoke(null, location.toString(), new Block(BlockPropertiesHelper.getProperties(BlockRegistry.STONE_BLOCK))));
 			} catch (Throwable err) {
 				err.printStackTrace();
 			}

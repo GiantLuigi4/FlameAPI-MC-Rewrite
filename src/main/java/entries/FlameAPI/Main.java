@@ -59,7 +59,7 @@ public class Main implements IFlameAPIMod {
 //				"de.oceanlabs.mcp.mcp_config",
 //				"1.16.5","20210115.111550"
 //		);
-//		MappingApplicator.targetMappings = "SEARGE";
+		MappingApplicator.targetMappings = "OBFUSCATION";
 	}
 	
 	@Override
@@ -107,12 +107,12 @@ public class Main implements IFlameAPIMod {
 	@Override
 	public void postinit(String[] strings) {
 		if (FlameLauncher.isDev) {
-			java.lang.Class<?> clazz = Block.class;
-			clazz = BlockProperties.class;
-			clazz = ResourceName.class;
-			clazz = DefaultedRegistry.class;
-			clazz = BuiltinRegistries.class;
-			clazz = BlockRegistry.class;
+//			java.lang.Class<?> clazz = Block.class;
+//			clazz = BlockProperties.class;
+//			clazz = ResourceName.class;
+//			clazz = DefaultedRegistry.class;
+//			clazz = BuiltinRegistries.class;
+//			clazz = BlockRegistry.class;
 			
 			File f = new File("mappings/flame_mappings.mappings");
 			if (f.exists()) {

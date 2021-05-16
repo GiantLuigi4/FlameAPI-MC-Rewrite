@@ -9,11 +9,11 @@ import java.lang.reflect.Field;
 
 public class BlockPropertiesHelper {
 	
-//	private static final Field f;
+	private static final Field f;
 	static {
 		try {
-//			f = AbstractBlock.class.getDeclaredField(MappingApplicator.fieldMapper.apply("net/minecraft/world/blocks/AbstractBlock", "properties"));
-//			f.setAccessible(true);
+			f = AbstractBlock.class.getDeclaredField(MappingApplicator.fieldMapper.apply("net/minecraft/world/blocks/AbstractBlock;properties", MappingApplicator.getSteps("FLAME", MappingApplicator.targetMappings)));
+			f.setAccessible(true);
 		} catch (Throwable err) {
 			throw new RuntimeException(err);
 		}
@@ -21,7 +21,7 @@ public class BlockPropertiesHelper {
 	
 	public static BlockProperties getProperties(Block block) {
 		try {
-//			return (BlockProperties) f.get(block); // TODO: make this be a copy of the properties
+			return (BlockProperties) f.get(block); // TODO: make this be a copy of the properties
 		} catch (Throwable ignored) {
 		}
 		return null;

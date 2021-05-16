@@ -10,8 +10,9 @@ public class Test {
 		args = new String[]{
 				"--username", "GiantLuigi4",
 //				"--version", "fabric-loader-0.11.3-1.16.5",
-				"--version", "1.16.5-srg",
-//				"--version", "1.16.5",
+//				"--version", "1.16.5-srg",
+//				"--version", "1.16.5-forge-36.1.6",
+				"--version", "1.16.5",
 				"--gameDir", f.getAbsolutePath() + "\\run",
 				"--assetsDir", FlameLauncher.findMCDir(false) + "\\assets",
 				"--assetIndex", "1.16",

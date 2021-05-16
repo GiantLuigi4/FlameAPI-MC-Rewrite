@@ -12,3 +12,5 @@
 /_build.gradle
 /out/
 /flameasm/
+/.mixin.out/
+/logs/
