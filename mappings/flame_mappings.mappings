@@ -14,7 +14,7 @@ m-(Lnet/minecraft/class_2378;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Obj
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
 f-net/minecraft/world/blocks/Block : field_10124->AIR
 f-net/minecraft/world/blocks/Block : field_10340->STONE_BLOCK
-m-(Ljava/lang/String;Lnet/minecraft/class_2248;)Lnet/minecraft/world/level/block/Block; : method_9492->register
+m-(Ljava/lang/String;Lnet/minecraft/class_2248;)Lnet/minecraft/class_2248; : method_9492->register
 
 net/minecraft/class_4970 : net/minecraft/world/blocks/AbstractBlock
 f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
