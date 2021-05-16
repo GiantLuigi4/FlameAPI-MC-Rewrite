@@ -27,7 +27,7 @@ m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
 
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
-m-(Lnet/minecraft/class_4970)net/minecraft/class_4970$class_2251 : method_9630->from
+m-(Lnet/minecraft/class_4970;)Lnet/minecraft/class_4970$class_2251; : method_9630->from
 
 net/minecraft/class_1159 : net/minecraft/vecmath/Matrix4
 f-F : field_21652->m00
@@ -51,22 +51,22 @@ m-()V : method_22668->identity
 m-(Lnet/minecraft/class_1158;)V : method_22670->rotate
 m-(F)V : method_22866->scale
 m-(Lnet/minecraft/class_1159;)V : method_22672->multiply
-m-(DFFF)net/minecraft/class_1159 : method_4929->perspectiveMatrix
-m-(FFFF)net/minecraft/class_1159 : method_4933->orthographicMatrix
-m-(FFF)net/minecraft/class_1159 : method_24021->translationMatrix
-m-(FFF)net/minecraft/class_1159 : method_24019->scaleMatrix
-m-()net/minecraft/class_1159 : method_22673->copy
+m-(DFFF)Lnet/minecraft/class_1159; : method_4929->perspectiveMatrix
+m-(FFFF)Lnet/minecraft/class_1159; : method_4933->orthographicMatrix
+m-(FFF)Lnet/minecraft/class_1159; : method_24021->translationMatrix
+m-(FFF)Lnet/minecraft/class_1159; : method_24019->scaleMatrix
+m-()Lnet/minecraft/class_1159; : method_22673->copy
 
 net/minecraft/class_243 : net/minecraft/vecmath/Vector3d
 f-net/minecraft/class_243 : field_1353->ZERO
 f-D : field_1352->x
 f-D : field_1351->y
 f-D : field_1350->z
-m-()net/minecraft/class_243 : method_1029->normalize
-m-(net/minecraft/class_243)net/minecraft/class_243 : method_1036->crossProduct
-m-(net/minecraft/class_243)D : method_1026->dotProduct
-m-(DDD)net/minecraft/class_243 : method_1023->subtract
-m-(DDD)net/minecraft/class_243 : method_1031->add
-m-(DDD)net/minecraft/class_243 : method_18805->multiply
-m-(D)net/minecraft/class_243 : method_1021->scale
-m-()net/minecraft/class_243 : method_22882->invert
+m-()Lnet/minecraft/class_243; : method_1029->normalize
+m-(Lnet/minecraft/class_243;)net/minecraft/class_243 : method_1036->crossProduct
+m-(Lnet/minecraft/class_243;)D : method_1026->dotProduct
+m-(DDD)Lnet/minecraft/class_243; : method_1023->subtract
+m-(DDD)Lnet/minecraft/class_243; : method_1031->add
+m-(DDD)Lnet/minecraft/class_243; : method_18805->multiply
+m-(D)Lnet/minecraft/class_243; : method_1021->scale
+m-()Lnet/minecraft/class_243; : method_22882->invert
