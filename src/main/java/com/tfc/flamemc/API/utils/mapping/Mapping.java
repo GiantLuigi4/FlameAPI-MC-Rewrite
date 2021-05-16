@@ -1,21 +1,21 @@
 package com.tfc.flamemc.API.utils.mapping;
 
 import com.tfc.flamemc.API.GameInstance;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.Field;
-import com.tfc.mappings.structure.Method;
+import tfc.mappings.structure.MappingsClass;
+import tfc.mappings.structure.MappingsField;
+import tfc.mappings.structure.MappingsMethod;
 
 public class Mapping {
-	public static Class get(String name) {
+	public static MappingsClass get(String name) {
 		return get(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static Class getWithoutFlame(String name) {
+	public static MappingsClass getWithoutFlame(String name) {
 		return getWithoutFlame(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static Class get(String version, String name) {
-		Class clazz = Mojmap.getClassFromMojmap(version, name);
+	public static MappingsClass get(String version, String name) {
+		MappingsClass clazz = Mojmap.getClassFromMojmap(version, name);
 		if (clazz == null) clazz = Flame.getFromObsf(version, name);
 		if (clazz == null) clazz = Flame.getFromMapped(version, name);
 		if (clazz == null) clazz = Intermediary.getClassFromInter(version, name);
@@ -23,17 +23,17 @@ public class Mapping {
 		return clazz;
 	}
 	
-	public static Class getWithoutFlame(String version, String name) {
-		Class clazz = Mojmap.getClassFromMojmap(version, name);
+	public static MappingsClass getWithoutFlame(String version, String name) {
+		MappingsClass clazz = Mojmap.getClassFromMojmap(version, name);
 		if (clazz == null) clazz = Intermediary.getClassFromInter(version, name);
 		if (clazz == null) clazz = Mojmap.getClassFromObsf(version, name);
 		return clazz;
 	}
 	
-	public static Method getMethod(Class clazz, String name, String desc) {
-		Class source = clazz;
+	public static MappingsMethod getMethod(MappingsClass clazz, String name, String desc) {
+		MappingsClass source = clazz;
 		
-		Method method = scanForMethod(clazz, name, desc);
+		MappingsMethod method = scanForMethod(clazz, name, desc);
 		if (method != null) return method;
 		
 		clazz = Flame.getFromMapped(clazz.getPrimaryName());
@@ -53,10 +53,10 @@ public class Mapping {
 		return method;
 	}
 
-	public static Field getField(Class clazz, String name, String desc) {
-		Class source = clazz;
-
-		Field field = scanForField(clazz, name, desc);
+	public static MappingsField getField(MappingsClass clazz, String name, String desc) {
+		MappingsClass source = clazz;
+		
+		MappingsField field = scanForField(clazz, name, desc);
 		if (field != null) return field;
 		
 		clazz = Flame.getFromMapped(clazz.getPrimaryName());
@@ -76,9 +76,9 @@ public class Mapping {
 		return field;
 	}
 	
-	public static Method scanForMethod(Class clazz, String name, String desc) {
+	public static MappingsMethod scanForMethod(MappingsClass clazz, String name, String desc) {
 		if (clazz == null) return null;
-		for (Method m : clazz.getMethods())
+		for (MappingsMethod m : clazz.getMethods())
 			if (desc != null) {
 				if (
 						(
@@ -94,9 +94,9 @@ public class Mapping {
 		return null;
 	}
 
-	public static Field scanForField(Class clazz, String name, String desc) {
+	public static MappingsField scanForField(MappingsClass clazz, String name, String desc) {
 		if (clazz == null) return null;
-		for (Field f : clazz.getFields())
+		for (MappingsField f : clazz.getFields())
 			if (desc != null) {
 				if ((f.getPrimary().equals(name) && f.getDesc().startsWith(desc) ||
 					 f.getSecondary().equals(name) && f.getDesc().startsWith(desc)) ||

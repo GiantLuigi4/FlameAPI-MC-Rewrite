@@ -3,10 +3,11 @@ package com.tfc.flamemc.API.utils.mapping;
 import com.tfc.flame.API.utils.logging.Logger;
 import com.tfc.flame.API.utils.reflection.Methods;
 import com.tfc.flamemc.API.GameInstance;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.Method;
-import com.tfc.mappings.structure.MojmapHolder;
-import com.tfc.mappings.types.Mojang;
+import org.spongepowered.asm.obfuscation.mapping.common.MappingMethod;
+import tfc.mappings.structure.MappingsClass;
+import tfc.mappings.structure.MappingsMethod;
+import tfc.mappings.structure.MojmapHolder;
+import tfc.mappings.types.Mojang;
 import tfc.utils.BiObject;
 
 import java.util.ArrayList;
@@ -20,30 +21,30 @@ public class Mojmap {
 		mojmapHolderHashMap.put(version, Mojang.generate(version));
 	}
 	
-	public static Class getClassFromMojmap(String version, String name) {
+	public static MappingsClass getClassFromMojmap(String version, String name) {
 		if (!mojmapHolderHashMap.containsKey(version))
 			load(version);
 		return mojmapHolderHashMap.get(version).getFromPrimaryName(name);
 	}
 	
-	public static Class getClassFromMojmap(String name) {
+	public static MappingsClass getClassFromMojmap(String name) {
 		return getClassFromMojmap(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static Class getClassFromObsf(String version, String name) {
+	public static MappingsClass getClassFromObsf(String version, String name) {
 		if (!mojmapHolderHashMap.containsKey(version))
 			load(version);
 		return mojmapHolderHashMap.get(version).getFromSecondaryName(name);
 	}
 	
-	public static Class getClassFromObsf(String name) {
+	public static MappingsClass getClassFromObsf(String name) {
 		return getClassFromObsf(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static BiObject<String, java.lang.reflect.Method> getMethodBetter(java.lang.Class<?> clazz, Class mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
+	public static BiObject<String, java.lang.reflect.Method> getMethodBetter(Class<?> clazz, MappingsClass mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
 		java.lang.reflect.Method returnVal;
 		String info;
-		AtomicReference<Method> mA = new AtomicReference<>();
+		AtomicReference<MappingsMethod> mA = new AtomicReference<>();
 		mappingsClass.getMethods().forEach((method) -> {
 			if (method.getDesc().startsWith(descriptor)) {
 				if (method.getPrimary().equals(name)) {
@@ -51,7 +52,7 @@ public class Mojmap {
 				}
 			}
 		});
-		Method m = mA.get();
+		MappingsMethod m = mA.get();
 		String desc = m.getDesc();
 		for (BiObject<String, String> biObject : replacements) {
 			desc = desc.replace(biObject.getObject1(), biObject.getObject2());
@@ -131,10 +132,10 @@ public class Mojmap {
 		return returnV.toString();
 	}
 
-	public static BiObject<String, java.lang.reflect.Method> getMethod(java.lang.Class<?> clazz, Class mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
+	public static BiObject<String, java.lang.reflect.Method> getMethod(java.lang.Class<?> clazz, MappingsClass mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
 		java.lang.reflect.Method returnVal;
 		String info;
-		AtomicReference<Method> mA = new AtomicReference<>();
+		AtomicReference<MappingsMethod> mA = new AtomicReference<>();
 		mappingsClass.getMethods().forEach((method) -> {
 			if (method.getDesc().startsWith(descriptor)) {
 				if (method.getPrimary().equals(name)) {
@@ -142,7 +143,7 @@ public class Mojmap {
 				}
 			}
 		});
-		Method m = mA.get();
+		MappingsMethod m = mA.get();
 //		Logger.logLine("descriptor " + m.getDesc());
 //		Logger.logLine("prime name " + m.getPrimary());
 //		Logger.logLine("second name " + m.getSecondary());

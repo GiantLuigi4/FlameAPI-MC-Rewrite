@@ -1,12 +1,9 @@
 package entries.FlameAPI;
 
-import com.tfc.flamemc.API.utils.mapping.Intermediary;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.Field;
-import com.tfc.mappings.structure.FlameMapHolder;
 import tfc.flame.IFlameAPIMod;
 import com.tfc.flamemc.API.GameInstance;
 import tfc.flameasm.remapper.MappingApplicator;
+import tfc.flameasm.remapper.MappingsInfo;
 import tfc.flamemc.FlameLauncher;
 import net.minecraft.registry.BlockRegistry;
 import net.minecraft.registry.DefaultedRegistry;
@@ -14,12 +11,13 @@ import net.minecraft.registry.BuiltinRegistries;
 import net.minecraft.resource.ResourceName;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
+import tfc.mappings.structure.FlameMapHolder;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.PrintStream;
-import java.lang.reflect.Method;
+import java.lang.reflect.Field;
+import java.util.HashMap;
 
 public class Main implements IFlameAPIMod {
 	private static String[] gameArgs;
@@ -42,8 +40,9 @@ public class Main implements IFlameAPIMod {
 		String url = repo + path.replace(".", "/") + "/" + name + "/" + version + "/" + name + "-" + version + ".jar";
 		String name1 = path.replace(".", File.separatorChar + "") + File.separatorChar + name + File.separatorChar + version + File.separatorChar + name + "-" + version + ".jar";
 		try {
-			Method m = FlameLauncher.dependencyManager.getClass().getMethod("addFromURL", String.class);
-			m.invoke(FlameLauncher.dependencyManager, (FlameLauncher.isDev ? "run\\libraries\\" : "\\libraries\\" + name1 + "," + url));
+			FlameLauncher.downloadDep(name1, url);
+//			Method m = FlameLauncher.dependencyManager.getClass().getMethod("addFromURL", String.class);
+//			m.invoke(FlameLauncher.dependencyManager, (FlameLauncher.isDev ? "run\\libraries\\" : "\\libraries\\" + name1 + "," + url));
 		} catch (Throwable err) {
 			FlameLauncher.downloadDep(name1, url);
 		}
@@ -55,6 +54,12 @@ public class Main implements IFlameAPIMod {
 	
 	@Override
 	public void preinit(String[] strings) {
+//		addDep(
+//				"https://files.minecraftforge.net/",
+//				"de.oceanlabs.mcp.mcp_config",
+//				"1.16.5","20210115.111550"
+//		);
+//		MappingApplicator.targetMappings = "SEARGE";
 	}
 	
 	@Override
@@ -130,53 +135,15 @@ public class Main implements IFlameAPIMod {
 					} catch (Throwable ignored1) {
 					}
 				}
+				
 				if (bytes != null) {
-					FlameMapHolder flame = new FlameMapHolder(new String(bytes).replace("\r", ""));
-					MappingApplicator.classMapper = (name) -> {
-						Class clazzFlame = flame.getFromSecondaryName(name);
-						if (clazzFlame == null) return null;
-						String interName = clazzFlame.getPrimaryName();
-						Class interClass = Intermediary.getClassFromInter(interName);
-						if (interClass == null) return null;
-						return interClass.getSecondaryName();
-					};
-					MappingApplicator.methodMapper = (name, methodName) -> {
-						//TODO: make this work for when there are multiple methods with the same name
-						Class clazzFlame = flame.getFromSecondaryName(name);
-						if (clazzFlame == null) return null;
-						String interName = clazzFlame.getPrimaryName();
-						com.tfc.mappings.structure.Method m = clazzFlame.getMethodPrimary(methodName);
-						if (m == null) return null;
-						String interMethodName = m.getSecondary();
-						Class interClass = Intermediary.getClassFromInter(interName);
-						if (interClass == null) return null;
-						m = interClass.getMethodPrimary(interMethodName);
-						if (m == null) return null;
-						return m.getSecondary();
-					};
-					MappingApplicator.fieldMapper = (name, fieldName) -> {
-						Class clazzFlame = flame.getFromSecondaryName(name);
-						if (clazzFlame == null) return null;
-						String interName = clazzFlame.getPrimaryName();
-						Field selected = null;
-						for (Field field : clazzFlame.getFields())
-							if (field.getPrimary().equals(fieldName)) {
-								selected = field;
-								break;
-							}
-						if (selected == null) return null;
-						String interMethodName = selected.getSecondary();
-						Class interClass = Intermediary.getClassFromInter(interName);
-						if (interClass == null) return null;
-						selected = null;
-						for (Field field : interClass.getFields())
-							if (field.getPrimary().equals(interMethodName)) {
-								selected = field;
-								break;
-							}
-						if (selected == null) return null;
-						return selected.getSecondary();
-					};
+					try {
+						Field f1 = MappingApplicator.class.getDeclaredField("mappingsSystems");
+						f1.setAccessible(true);
+						HashMap<String, MappingsInfo> infos = (HashMap<String, MappingsInfo>) f1.get(null);
+						infos.replace("FLAME", new MappingsInfo(new FlameMapHolder(new String(bytes)), "INTERMEDIARY", "FLAME"));
+					} catch (Throwable ignored) {
+					}
 				}
 			}
 		}

@@ -1,8 +1,8 @@
 package com.tfc.flamemc.API.utils.mapping;
 
 import com.tfc.flamemc.API.GameInstance;
-import com.tfc.mappings.structure.Class;
-import com.tfc.mappings.structure.FlameMapHolder;
+import tfc.mappings.structure.FlameMapHolder;
+import tfc.mappings.structure.MappingsClass;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,16 +39,16 @@ public class Flame {
 		}
 	}
 	
-	public static Class getFromObsf(String obsf) {
+	public static MappingsClass getFromObsf(String obsf) {
 		return getFromObsf(GameInstance.INSTANCE.versionMap, obsf);
 	}
 	
-	public static Class getFromObsf(String version, String obsf) {
-		Class clazz = Intermediary.getClassFromObsf(version, obsf);
+	public static MappingsClass getFromObsf(String version, String obsf) {
+		MappingsClass clazz = Intermediary.getClassFromObsf(version, obsf);
 		if (clazz != null) {
-			Class clazz2 = Intermediary.getClassFromInter("1.16.4", clazz.getPrimaryName());
+			MappingsClass clazz2 = Intermediary.getClassFromInter("1.16.4", clazz.getPrimaryName());
 			if (clazz2 != null) {
-				Class from = holder.getFromPrimaryName(clazz2.getPrimaryName());
+				MappingsClass from = holder.getFromPrimaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
 				from = holder.getFromSecondaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
@@ -56,9 +56,9 @@ public class Flame {
 		}
 		clazz = Mojmap.getClassFromObsf(version, obsf);
 		if (clazz != null) {
-			Class clazz2 = Mojmap.getClassFromMojmap("1.16.4", clazz.getPrimaryName());
+			MappingsClass clazz2 = Mojmap.getClassFromMojmap("1.16.4", clazz.getPrimaryName());
 			if (clazz2 != null) {
-				Class from = holder.getFromPrimaryName(clazz2.getPrimaryName());
+				MappingsClass from = holder.getFromPrimaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
 				from = holder.getFromSecondaryName(clazz2.getPrimaryName());
 				if (from != null) return from;
@@ -67,39 +67,39 @@ public class Flame {
 		return null;
 	}
 	
-	public static Class getFromMapped(String version, String mapped) {
+	public static MappingsClass getFromMapped(String version, String mapped) {
 		{
-			Class clazz = Mapping.getWithoutFlame(version, mapped.replace("/", "."));
+			MappingsClass clazz = Mapping.getWithoutFlame(version, mapped.replace("/", "."));
 			if (clazz != null) {
-				Class res = getFromObsf(version, clazz.getSecondaryName());
+				MappingsClass res = getFromObsf(version, clazz.getSecondaryName());
 				if (res != null) return res;
 			}
 			clazz = Mapping.getWithoutFlame(version, mapped.replace(".", "/"));
 			if (clazz != null) {
-				Class res = getFromObsf(version, clazz.getSecondaryName());
+				MappingsClass res = getFromObsf(version, clazz.getSecondaryName());
 				if (res != null) return res;
 			}
 			
 			clazz = Mojmap.getClassFromMojmap(version, mapped);
 			if (clazz != null) {
-				Class res = getFromObsf(version, clazz.getSecondaryName());
+				MappingsClass res = getFromObsf(version, clazz.getSecondaryName());
 				if (res != null) return res;
 			}
 			clazz = Intermediary.getClassFromInter(version, mapped);
 			if (clazz != null) {
-				Class res = getFromObsf(version, clazz.getSecondaryName());
+				MappingsClass res = getFromObsf(version, clazz.getSecondaryName());
 				if (res != null) return res;
 			}
 		}
 		return null;
 	}
 	
-	public static Class getFromMapped(String mapped) {
+	public static MappingsClass getFromMapped(String mapped) {
 		return getFromMapped(GameInstance.INSTANCE.versionMap, mapped);
 	}
 	
-	public static Class getFromFlame(String name) {
-		Class clazz = holder.getFromSecondaryName(name.replace(".", "/"));
+	public static MappingsClass getFromFlame(String name) {
+		MappingsClass clazz = holder.getFromSecondaryName(name.replace(".", "/"));
 		if (clazz != null) return clazz;
 		return holder.getFromSecondaryName(name.replace("/", "."));
 	}
