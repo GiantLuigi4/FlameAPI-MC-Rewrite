@@ -12,7 +12,7 @@ ext {
     flameMCVersion = '5bf04c1d36'
     flameASMVersion = 'f9fce1e401'
     bytecodeUtilsVersion = '455c3d13b7'
-    MCMappingsHelperVersion = 'c9a20212d2'
+    MCMappingsHelperVersion = '92190f30a4'
 }
 
 repositories {

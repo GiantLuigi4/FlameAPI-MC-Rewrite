@@ -17,9 +17,9 @@ f-net/minecraft/world/blocks/Block : field_10340->STONE_BLOCK
 f-net/minecraft/world/blocks/Block : field_10124->AIR
 
 net/minecraft/class_4970 : net/minecraft/world/blocks/AbstractBlock
-m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_26178->entityCollision
-m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26222->collisionShape
-m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26218->shape
+m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_9548->entityCollision
+m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;net/minecraft/class_3726)Lnet/minecraft/class_265; : method_26220->collisionShape
+m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_25959->shape
 f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-()Z : method_26219->canProvidePower
 m-()Z : method_26211->hasTransparency
