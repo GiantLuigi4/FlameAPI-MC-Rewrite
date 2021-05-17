@@ -1,5 +1,6 @@
 package entries.FlameAPI;
 
+import net.minecraft.util.context.ISelectionContext;
 import net.minecraft.util.vecmath.Vector3d;
 import net.minecraft.util.collision.voxel.VoxelShape;
 import net.minecraft.util.collision.voxel.VoxelShapeHelper;
@@ -22,12 +23,30 @@ public class TestBlock extends Block {
 	}
 	
 	@Override
-	public VoxelShape shape(IBlockContainer reader, BlockPosition position) {
-		return VoxelShapeHelper.createShape(0.1, 0.1, 0.1, 15.9, 15.9, 15.9);
+	public boolean canProvidePower() {
+		return true;
 	}
 	
 	@Override
-	public VoxelShape collisionShape(IBlockContainer reader, BlockPosition position) {
+	public float jumpFactor() {
+		return 0;
+	}
+	
+	@Override
+	public VoxelShape shape(BlockState state, IBlockContainer reader, BlockPosition position) {
+		return shape();
+	}
+	
+	@Override
+	public VoxelShape collisionShape(BlockState state, IBlockContainer reader, BlockPosition position, ISelectionContext context) {
+		return collisionShape();
+	}
+	
+	public VoxelShape shape() {
+		return VoxelShapeHelper.createShape(0.1, 0.1, 0.1, 15.9, 15.9, 15.9);
+	}
+	
+	public VoxelShape collisionShape() {
 		return VoxelShapeHelper.createShape(0.1, 0.1, 0.1, 15.9, 15.9, 15.9);
 	}
 }

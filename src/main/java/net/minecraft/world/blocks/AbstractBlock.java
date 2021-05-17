@@ -1,6 +1,7 @@
 package net.minecraft.world.blocks;
 
 import net.minecraft.util.collision.voxel.VoxelShape;
+import net.minecraft.util.context.ISelectionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.entities.AbstractEntity;
 import net.minecraft.world.interfaces.IBlockContainer;
@@ -21,15 +22,11 @@ public class AbstractBlock {
 		return false;
 	}
 	
-	public VoxelShape shape(IBlockContainer reader, BlockPosition position) {
+	public VoxelShape shape(BlockState state, IBlockContainer reader, BlockPosition position) {
 		return null;
 	}
 	
-	public VoxelShape collisionShape(IBlockContainer reader, BlockPosition position) {
-		return null;
-	}
-	
-	public VoxelShape collisionShape(IBlockContainer reader, BlockPosition position) {
+	public VoxelShape collisionShape(BlockState state, IBlockContainer reader, BlockPosition position, ISelectionContext context) {
 		return null;
 	}
 }
