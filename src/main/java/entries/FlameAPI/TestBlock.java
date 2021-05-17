@@ -27,7 +27,7 @@ public class TestBlock extends Block {
 	}
 	
 	@Override
-	public VoxelShape collisionShape(BlockState state, IBlockContainer reader, BlockPosition position) {
+	public VoxelShape collisionShape(IBlockContainer reader, BlockPosition position) {
 		return VoxelShapeHelper.createShape(0.1, 0.1, 0.1, 15.9, 15.9, 15.9);
 	}
 }

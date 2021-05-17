@@ -47,7 +47,10 @@ public class MapperTest {
 			
 			try {
 				System.out.println(Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test"), new Block(BlockProperties.from(BlockRegistry.STONE_BLOCK))));
-				System.out.println(Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test1"), new TestBlock(BlockProperties.from(BlockRegistry.STONE_BLOCK))));
+//				Block b = Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test1"), new TestBlock(BlockProperties.from(BlockRegistry.STONE_BLOCK)));
+				System.out.println(Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test1"), new TestBlock(BlockProperties.from(BlockRegistry.STONE_BLOCK))).getClass());
+//				System.out.println(b);
+//				System.out.println(b.getClass());
 				System.out.println(BlockProperties.from(BlockRegistry.STONE_BLOCK));
 			} catch (Throwable err) {
 				err.printStackTrace();
