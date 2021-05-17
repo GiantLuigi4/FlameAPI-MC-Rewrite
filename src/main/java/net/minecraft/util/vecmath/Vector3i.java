@@ -1,4 +1,4 @@
-package net.minecraft.vecmath;
+package net.minecraft.util.vecmath;
 
 @SuppressWarnings("FieldMayBeFinal")
 public class Vector3i {

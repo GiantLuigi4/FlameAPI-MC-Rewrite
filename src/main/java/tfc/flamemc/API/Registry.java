@@ -1,19 +1,23 @@
 package tfc.flamemc.API;
 
 import net.minecraft.registry.BlockRegistry;
-import net.minecraft.resource.ResourceName;
+import net.minecraft.util.resource.ResourceName;
 import net.minecraft.world.blocks.Block;
 import tfc.flameasm.remapper.MappingApplicator;
+import tfc.flameasm.remapper.NoRemap;
 
 import java.lang.reflect.Method;
 
+//TODO: figure out why the remapper doesn't get applied to this class in FlameAPI dev envro
 public class Registry {
+	@NoRemap
 	public enum Register {
 		BLOCKS
 	}
 	
 	private static final Method doRegister;
 	static {
+		System.out.println("hello");
 		//TODO: access modifiers instead of reflection
 		Method m = null;
 		try {

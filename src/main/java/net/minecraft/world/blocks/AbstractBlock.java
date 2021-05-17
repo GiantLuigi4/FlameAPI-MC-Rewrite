@@ -1,7 +1,9 @@
 package net.minecraft.world.blocks;
 
+import net.minecraft.util.voxel.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraft.world.entities.AbstractEntity;
+import net.minecraft.world.interfaces.IBlockContainer;
 import net.minecraft.world.position.BlockPosition;
 
 @SuppressWarnings({"unused", "RedundantSuppression"})
@@ -17,5 +19,9 @@ public class AbstractBlock {
 	
 	public boolean hasTransparency() {
 		return false;
+	}
+	
+	public VoxelShape shape(IBlockContainer reader, BlockPosition position) {
+		return null;
 	}
 }

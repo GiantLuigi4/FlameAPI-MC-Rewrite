@@ -3,16 +3,13 @@ package entries.FlameAPI;
 import net.minecraft.registry.BlockRegistry;
 import net.minecraft.registry.BuiltinRegistries;
 import net.minecraft.registry.DefaultedRegistry;
-import net.minecraft.resource.ResourceName;
-import net.minecraft.vecmath.Matrix4;
-import net.minecraft.vecmath.Vector3d;
+import net.minecraft.util.resource.ResourceName;
+import net.minecraft.util.vecmath.Matrix4;
+import net.minecraft.util.vecmath.Vector3d;
 import net.minecraft.world.blocks.AbstractBlock;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
-import tfc.flameasm.remapper.MappingApplicator;
 import tfc.flamemc.API.Registry;
-
-import java.lang.reflect.Method;
 
 public class MapperTest {
 	static {

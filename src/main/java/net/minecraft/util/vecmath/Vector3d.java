@@ -1,4 +1,4 @@
-package net.minecraft.vecmath;
+package net.minecraft.util.vecmath;
 
 public class Vector3d {
 	public static final Vector3d ZERO = new Vector3d();

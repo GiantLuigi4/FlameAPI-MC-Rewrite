@@ -1,7 +1,7 @@
 package net.minecraft.world.position;
 
-import net.minecraft.vecmath.Vector3d;
-import net.minecraft.vecmath.Vector3i;
+import net.minecraft.util.vecmath.Vector3d;
+import net.minecraft.util.vecmath.Vector3i;
 
 @SuppressWarnings({"unused", "RedundantSuppression"})
 public class BlockPosition extends Vector3i {

@@ -10,7 +10,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
     flameMCVersion = '5bf04c1d36'
-    flameASMVersion = '02ba28bff6'
+    flameASMVersion = 'f9fce1e401'
     bytecodeUtilsVersion = '455c3d13b7'
     MCMappingsHelperVersion = 'c9a20212d2'
 }
@@ -22,7 +22,7 @@ repositories {
     maven { url 'https://clojars.org/repo/' }
     maven { url 'https://jitpack.io' }
 
-    maven { url 'https://maven.fabricmc.net/' }
+//    maven { url 'https://maven.fabricmc.net/' }
 }
 
 dependencies {
@@ -121,7 +121,7 @@ dependencies {
 //            }
 //        }
 //    } while (!toIter.isEmpty())
-    compileOnly 'net.fabricmc:fabric-loader:0.11.3'
+//    compileOnly 'net.fabricmc:fabric-loader:0.11.3'
 //    compileOnly 'net.fabricmc:intermediary:1.16.5'
 //    compileOnly 'org.ow2.asm:asm-util:9.1'
 //    compileOnly 'org.ow2.asm:asm-tree:9.1'
@@ -132,7 +132,7 @@ dependencies {
 //    compileOnly 'net.fabricmc:fabric-loader-sat4j:2.3.5.4'
 //    compileOnly 'net.fabricmc:access-widener:1.0.0'
 //    compileOnly 'net.fabricmc:tiny-remapper:0.3.0.70'
-    compileOnly 'net.fabricmc:sponge-mixin:0.9.2+mixin.0.8.2'
+//    compileOnly 'net.fabricmc:sponge-mixin:0.9.2+mixin.0.8.2'
 //    compileOnly 'net.fabricmc:tiny-mappings-parser:0.2.2.14'
 }
 

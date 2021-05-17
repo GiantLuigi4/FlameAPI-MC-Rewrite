@@ -1,6 +1,6 @@
 package net.minecraft.world.entities;
 
-import net.minecraft.vecmath.Vector3d;
+import net.minecraft.util.vecmath.Vector3d;
 
 @SuppressWarnings({"unused", "RedundantSuppression"})
 public abstract class AbstractEntity {

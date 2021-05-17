@@ -87,17 +87,17 @@ public class MappingsHelper {
 				"register", "register", "(Ljava/lang/String;Lnet/minecraft/world/level/block/Block;)Lnet/minecraft/world/level/block/Block;", true);
 		
 		{
-			classMap.put("net/minecraft/resources/ResourceLocation", "net/minecraft/resource/ResourceLocation");
-			classMap.put("net/minecraft/class_2960", "net/minecraft/resource/ResourceName");
+			classMap.put("net/minecraft/resources/ResourceLocation", "net/minecraft/util/resource/ResourceLocation");
+			classMap.put("net/minecraft/class_2960", "net/minecraft/util/resource/ResourceName");
 			
-			constructorMap.put("net/minecraft/resource/ResourceLocation", new ConstructorList()
+			constructorMap.put("net/minecraft/util/resource/ResourceLocation", new ConstructorList()
 					.add("(Ljava/lang/String;)V")
 					.add("(Ljava/lang/String;Ljava/lang/String;)V")
 			);
 			
-			MethodList.add(methodMap, "net/minecraft/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
+			MethodList.add(methodMap, "net/minecraft/util/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
 					"getPath", "getPath", "()Ljava/lang/String;", false);
-			MethodList.add(methodMap, "net/minecraft/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
+			MethodList.add(methodMap, "net/minecraft/util/resource/ResourceLocation", Mojmap.getClassFromMojmap("1.16.4", "net/minecraft/resources/ResourceLocation"),
 					"getNamespace", "getNamespace", "()Ljava/lang/String;", false);
 		}
 		
@@ -108,7 +108,7 @@ public class MappingsHelper {
 					.append(generateWrapperFile("net/minecraft/registry/BlockRegistry", "BlockRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/registry/MainRegistry", "MainRegistry")).append("\n")
 					.append(generateWrapperFile("net/minecraft/registry/DefaultedRegistry", "DefaultedRegistry")).append("\n")
-					.append(generateWrapperFile("net/minecraft/resource/ResourceLocation", "ResourceLocation")).append("\n")
+					.append(generateWrapperFile("net/minecraft/util/resource/ResourceLocation", "ResourceLocation")).append("\n")
 					.append(generateWrapperFile("net/minecraft/world/blocks/BlockProperties", "BlockProperties")).append("\n")
 			;
 			write(new File("src/main/resources/wrapper_classes.properties"), wrapperProperties.toString());
