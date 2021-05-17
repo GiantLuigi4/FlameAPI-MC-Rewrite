@@ -1,9 +1,8 @@
 package entries.FlameAPI;
 
 import net.minecraft.util.vecmath.Vector3d;
-import net.minecraft.util.voxel.VoxelShape;
-import net.minecraft.util.voxel.VoxelShapeHelper;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.util.collision.voxel.VoxelShape;
+import net.minecraft.util.collision.voxel.VoxelShapeHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;

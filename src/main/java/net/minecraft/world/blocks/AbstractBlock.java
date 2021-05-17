@@ -1,6 +1,6 @@
 package net.minecraft.world.blocks;
 
-import net.minecraft.util.voxel.VoxelShape;
+import net.minecraft.util.collision.voxel.VoxelShape;
 import net.minecraft.world.World;
 import net.minecraft.world.entities.AbstractEntity;
 import net.minecraft.world.interfaces.IBlockContainer;
