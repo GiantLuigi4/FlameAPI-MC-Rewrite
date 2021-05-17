@@ -18,6 +18,9 @@ m-(Ljava/lang/String;Lnet/minecraft/class_2248;)Lnet/minecraft/class_2248; : met
 
 net/minecraft/class_4970 : net/minecraft/world/blocks/AbstractBlock
 f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
+m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_26178->entityCollision
+m-()Z : method_26219->canProvidePower
+m-()Z : method_26211->hasTransparency
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
 m-()F : method_9499->friction
@@ -25,6 +28,12 @@ m-()F : method_23349->speedFactor
 m-()F : method_23350->jumpFactor
 m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
+
+net/minecraft/class_2338 : net/minecraft/world/position/BlockPosition
+
+net/minecraft/class_1937 : net/minecraft/world/World
+
+net/minecraft/class_2680 : net/minecraft/world/blocks/BlockState
 
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
 m-(Lnet/minecraft/class_4970;)Lnet/minecraft/class_4970$class_2251; : method_9630->from
@@ -57,6 +66,14 @@ m-(FFF)Lnet/minecraft/class_1159; : method_24021->translationMatrix
 m-(FFF)Lnet/minecraft/class_1159; : method_24019->scaleMatrix
 m-()Lnet/minecraft/class_1159; : method_22673->copy
 
+net/minecraft/class_2382 : net/minecraft/vecmath/Vector3i
+m-()I : method_10263->getX
+m-()I : method_10264->getY
+m-()I : method_10260->getZ
+f-I : field_11175->x
+f-I : field_11174->y
+f-I : field_11173->z
+
 net/minecraft/class_243 : net/minecraft/vecmath/Vector3d
 f-net/minecraft/class_243 : field_1353->ZERO
 f-D : field_1352->x
@@ -70,3 +87,13 @@ m-(DDD)Lnet/minecraft/class_243; : method_1031->add
 m-(DDD)Lnet/minecraft/class_243; : method_18805->multiply
 m-(D)Lnet/minecraft/class_243; : method_1021->scale
 m-()Lnet/minecraft/class_243; : method_22882->invert
+
+net/minecraft/class_1297 : net/minecraft/world/entities/AbstractEntity
+m-()V : func_187226_a->registerData
+m-(DDD)V : method_18800->setMot
+m-()D : method_23317->getPosX
+m-()D : method_23318->getPosY
+m-()D : method_23321->getPosZ
+m-()Lnet/minecraft/class_243; : method_19538->getPos
+m-()Lnet/minecraft/class_243; : method_18798->getMot
+m-()F : method_5751->getStandingEyeHeight

@@ -10,6 +10,7 @@ import net.minecraft.world.blocks.AbstractBlock;
 import net.minecraft.world.blocks.Block;
 import net.minecraft.world.blocks.BlockProperties;
 import tfc.flameasm.remapper.MappingApplicator;
+import tfc.flamemc.API.Registry;
 
 import java.lang.reflect.Method;
 
@@ -48,17 +49,8 @@ public class MapperTest {
 			System.out.println(Vector3d.class);
 			
 			try {
-				Method m = BlockRegistry.class.getDeclaredMethod(
-						MappingApplicator.methodMapper.apply("net/minecraft/registry/BlockRegistry;register(Ljava/lang/String;Lnet/minecraft/world/blocks/Block;)Lnet/minecraft/world/blocks/Block;", MappingApplicator.getSteps("FLAME", MappingApplicator.targetMappings)),
-						String.class, Block.class
-				);
-//				Method m = ReflectionObsfucator.getMethod(
-//						BlockRegistry.class, "register",
-//						String.class, Block.class
-//				);
-				m.setAccessible(true);
-//				System.out.println(m.invoke(null, location.toString(), new Block(BlockPropertiesHelper.getProperties(BlockRegistry.STONE_BLOCK))));
-				System.out.println(m.invoke(null, location.toString(), new Block(BlockProperties.from(BlockRegistry.STONE_BLOCK))));
+				System.out.println(Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test"), new Block(BlockProperties.from(BlockRegistry.STONE_BLOCK))));
+				System.out.println(Registry.register(Registry.Register.BLOCKS, new ResourceName("flameapi:test1"), new TestBlock(BlockProperties.from(BlockRegistry.STONE_BLOCK))));
 				System.out.println(BlockProperties.from(BlockRegistry.STONE_BLOCK));
 			} catch (Throwable err) {
 				err.printStackTrace();

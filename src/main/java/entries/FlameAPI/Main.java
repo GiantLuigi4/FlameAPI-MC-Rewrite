@@ -53,7 +53,7 @@ public class Main implements IFlameAPIMod {
 //				"de.oceanlabs.mcp.mcp_config",
 //				"1.16.5","20210115.111550"
 //		);
-		MappingApplicator.targetMappings = "OBFUSCATION";
+//		MappingApplicator.targetMappings = "OBFUSCATION";
 	}
 	
 	@Override

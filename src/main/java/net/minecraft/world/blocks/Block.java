@@ -1,4 +1,6 @@
 package net.minecraft.world.blocks;
+
+@SuppressWarnings({"unused", "RedundantSuppression"})
 public class Block extends AbstractBlock {
 	public Block(BlockProperties properties) {
 	}
