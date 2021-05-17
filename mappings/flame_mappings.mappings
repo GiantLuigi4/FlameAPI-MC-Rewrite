@@ -18,6 +18,8 @@ f-net/minecraft/world/blocks/Block : field_10124->AIR
 
 net/minecraft/class_4970 : net/minecraft/world/blocks/AbstractBlock
 m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_26178->entityCollision
+m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26222->collisionShape
+m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26222->collisionShape
 m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26218->shape
 f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-()Z : method_26219->canProvidePower
@@ -31,6 +33,8 @@ m-()F : method_23350->jumpFactor
 m-()F : method_9499->friction
 
 m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_26178->entityCollision
+m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26222->collisionShape
+m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26222->collisionShape
 m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26218->shape
 f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-()Z : method_26219->canProvidePower

@@ -24,4 +24,12 @@ public class AbstractBlock {
 	public VoxelShape shape(IBlockContainer reader, BlockPosition position) {
 		return null;
 	}
+	
+	public VoxelShape collisionShape(IBlockContainer reader, BlockPosition position) {
+		return null;
+	}
+	
+	public VoxelShape collisionShape(BlockState state, IBlockContainer reader, BlockPosition position) {
+		return null;
+	}
 }
