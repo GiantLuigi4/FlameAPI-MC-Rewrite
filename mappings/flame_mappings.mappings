@@ -1,33 +1,40 @@
 net/minecraft/class_2348 : net/minecraft/registry/DefaultedRegistry
 
-net/minecraft/class_2960 : net/minecraft/resource/ResourceName
-m-()Ljava/lang/String; : method_12832->path
+net/minecraft/class_2960 : net/minecraft/util/resource/ResourceName
 m-()Ljava/lang/String; : method_12836->namespace
+m-()Ljava/lang/String; : method_12832->path
 
 net/minecraft/class_2378 : net/minecraft/registry/BuiltinRegistries
+m-(Lnet/minecraft/class_2378;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object; : method_10226->register
 f-net/minecraft/registry/DefaultedRegistry : field_11145->ENTITIES
+f-net/minecraft/registry/MainRegistry : field_11137->TILE_ENTITIES
 f-net/minecraft/registry/DefaultedRegistry : field_11146->BLOCKS
 f-net/minecraft/registry/DefaultedRegistry : field_11142->ITEMS
-f-net/minecraft/registry/MainRegistry : field_11137->TILE_ENTITIES
-m-(Lnet/minecraft/class_2378;Ljava/lang/String;Ljava/lang/Object;)Ljava/lang/Object; : method_10226->register
 
 net/minecraft/class_2246 : net/minecraft/registry/BlockRegistry
-f-net/minecraft/world/blocks/Block : field_10124->AIR
-f-net/minecraft/world/blocks/Block : field_10340->STONE_BLOCK
 m-(Ljava/lang/String;Lnet/minecraft/class_2248;)Lnet/minecraft/class_2248; : method_9492->register
+f-net/minecraft/world/blocks/Block : field_10340->STONE_BLOCK
+f-net/minecraft/world/blocks/Block : field_10124->AIR
 
 net/minecraft/class_4970 : net/minecraft/world/blocks/AbstractBlock
-f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-(Lnet/minecraft/class_2680;Lnet/minecraft/class_1937;Lnet/minecraft/class_2338;Lnet/minecraft/class_1297;)V : method_26178->entityCollision
+m-(Lnet/minecraft/class_1922;Lnet/minecraft/class_2338;)Lnet/minecraft/class_265; : method_26218->shape
+f-net/minecraft/world/blocks/BlockProperties : field_23155->properties
 m-()Z : method_26219->canProvidePower
 m-()Z : method_26211->hasTransparency
 
 net/minecraft/class_2248 : net/minecraft/world/blocks/Block
-m-()F : method_9499->friction
-m-()F : method_23349->speedFactor
-m-()F : method_23350->jumpFactor
 m-()F : method_9520->explosionResistance
 m-()Z : method_9538->blocksRespawning
+m-()F : method_23349->speedFactor
+m-()F : method_23350->jumpFactor
+m-()F : method_9499->friction
+
+net/minecraft/class_1922 : net/minecraft/world/interfaces/IBlockContainer
+m-(Lnet/minecraft/class_2338;)Lnet/minecraft/class_2680; : method_8320->getBlockState
+m-(Lnet/minecraft/class_2338;)I : method_8317->getLight
+m-()I : method_8315->getMaxLight
+m-()I : method_8322->getMaxY
 
 net/minecraft/class_2338 : net/minecraft/world/position/BlockPosition
 
@@ -38,7 +45,17 @@ net/minecraft/class_2680 : net/minecraft/world/blocks/BlockState
 net/minecraft/class_4970$class_2251 : net/minecraft/world/blocks/BlockProperties
 m-(Lnet/minecraft/class_4970;)Lnet/minecraft/class_4970$class_2251; : method_9630->from
 
-net/minecraft/class_1159 : net/minecraft/vecmath/Matrix4
+net/minecraft/class_1159 : net/minecraft/util/vecmath/Matrix4
+m-(FFFF)Lnet/minecraft/class_1159; : method_4933->orthographicMatrix
+m-(DFFF)Lnet/minecraft/class_1159; : method_4929->perspectiveMatrix
+m-(FFF)Lnet/minecraft/class_1159; : method_24021->translationMatrix
+m-(FFF)Lnet/minecraft/class_1159; : method_24019->scaleMatrix
+m-(Ljava.nio.FloatBuffer;)V : method_4932->toFloatBuffer
+m-(Lnet/minecraft/class_1159;)V : method_22672->multiply
+m-(Lnet/minecraft/class_1158;)V : method_22670->rotate
+m-()Lnet/minecraft/class_1159; : method_22673->copy
+m-()V : method_22668->identity
+m-(F)V : method_22866->scale
 f-F : field_21652->m00
 f-F : field_21653->m01
 f-F : field_21654->m02
@@ -55,18 +72,8 @@ f-F : field_21664->m30
 f-F : field_21665->m31
 f-F : field_21666->m32
 f-F : field_21667->m33
-m-(Ljava.nio.FloatBuffer;)V : method_4932->toFloatBuffer
-m-()V : method_22668->identity
-m-(Lnet/minecraft/class_1158;)V : method_22670->rotate
-m-(F)V : method_22866->scale
-m-(Lnet/minecraft/class_1159;)V : method_22672->multiply
-m-(DFFF)Lnet/minecraft/class_1159; : method_4929->perspectiveMatrix
-m-(FFFF)Lnet/minecraft/class_1159; : method_4933->orthographicMatrix
-m-(FFF)Lnet/minecraft/class_1159; : method_24021->translationMatrix
-m-(FFF)Lnet/minecraft/class_1159; : method_24019->scaleMatrix
-m-()Lnet/minecraft/class_1159; : method_22673->copy
 
-net/minecraft/class_2382 : net/minecraft/vecmath/Vector3i
+net/minecraft/class_2382 : net/minecraft/util/vecmath/Vector3i
 m-()I : method_10263->getX
 m-()I : method_10264->getY
 m-()I : method_10260->getZ
@@ -74,26 +81,32 @@ f-I : field_11175->x
 f-I : field_11174->y
 f-I : field_11173->z
 
-net/minecraft/class_243 : net/minecraft/vecmath/Vector3d
+net/minecraft/class_243 : net/minecraft/util/vecmath/Vector3d
+m-(Lnet/minecraft/class_243;)Lnet/minecraft/class_243; : method_1036->crossProduct
+m-(DDD)Lnet/minecraft/class_243; : method_18805->multiply
+m-(Lnet/minecraft/class_243;)D : method_1026->dotProduct
+m-(DDD)Lnet/minecraft/class_243; : method_1023->subtract
+m-()Lnet/minecraft/class_243; : method_1029->normalize
+m-()Lnet/minecraft/class_243; : method_22882->invert
+m-(DDD)Lnet/minecraft/class_243; : method_1031->add
+m-(D)Lnet/minecraft/class_243; : method_1021->scale
 f-net/minecraft/class_243 : field_1353->ZERO
 f-D : field_1352->x
 f-D : field_1351->y
 f-D : field_1350->z
-m-()Lnet/minecraft/class_243; : method_1029->normalize
-m-(Lnet/minecraft/class_243;)Lnet/minecraft/class_243; : method_1036->crossProduct
-m-(Lnet/minecraft/class_243;)D : method_1026->dotProduct
-m-(DDD)Lnet/minecraft/class_243; : method_1023->subtract
-m-(DDD)Lnet/minecraft/class_243; : method_1031->add
-m-(DDD)Lnet/minecraft/class_243; : method_18805->multiply
-m-(D)Lnet/minecraft/class_243; : method_1021->scale
-m-()Lnet/minecraft/class_243; : method_22882->invert
 
 net/minecraft/class_1297 : net/minecraft/world/entities/AbstractEntity
+m-()Lnet/minecraft/class_243; : method_19538->getPos
+m-()Lnet/minecraft/class_243; : method_18798->getMot
+m-()F : method_5751->getStandingEyeHeight
 m-()V : func_187226_a->registerData
 m-(DDD)V : method_18800->setMot
 m-()D : method_23317->getPosX
 m-()D : method_23318->getPosY
 m-()D : method_23321->getPosZ
-m-()Lnet/minecraft/class_243; : method_19538->getPos
-m-()Lnet/minecraft/class_243; : method_18798->getMot
-m-()F : method_5751->getStandingEyeHeight
+
+net/minecraft/class_265 : net/minecraft/util/collision/voxel/VoxelShape
+
+net/minecraft/class_259 : net/minecraft/util/collision/voxel/VoxelShapeHelper
+m-(Lnet/minecraft/class_265;[Lnet/minecraft/class_265;)Lnet/minecraft/class_265; : method_17786->or
+m-(DDDDDD)Lnet/minecraft/class_265; : method_1081->createShape
