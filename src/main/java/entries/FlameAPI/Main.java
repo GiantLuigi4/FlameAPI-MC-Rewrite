@@ -83,7 +83,7 @@ public class Main implements IFlameAPIMod {
 //			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler", "3.1.2");
 //			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler-jdk", "3.1.2");
 			//Mappings Helper
-			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "3edf7efa3d");
+			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "92190f30a4");
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}

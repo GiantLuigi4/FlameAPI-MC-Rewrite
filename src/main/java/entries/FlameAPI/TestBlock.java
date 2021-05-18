@@ -19,7 +19,7 @@ public class TestBlock extends Block {
 	
 	@Override
 	public void entityCollision(BlockState state, World world, BlockPosition pos, AbstractEntity entity) {
-		entity.setMot(new Vector3d(0, 1, 1));
+		entity.setMot(0, 1, 1);
 	}
 	
 	@Override
