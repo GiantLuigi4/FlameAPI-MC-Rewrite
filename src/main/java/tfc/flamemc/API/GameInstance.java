@@ -80,26 +80,26 @@ public class GameInstance {
 //						Main.addDep("https://repo1.maven.org/maven2/", "javax.servlet", "javax.servlet-api", "3.0.1");
 //						Main.addDep("https://repo1.maven.org/maven2/", "org.apache.logging.log4j", "log4j-web", "2.14.1");
 //					}
-					if (version.startsWith("fabric-loader")) {
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "fabric-loader", "0.11.3");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "intermediary", "1.16.5");
-//						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-util", "9.1");
-//						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-tree", "9.1");
-//						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-analysis", "9.1");
-//						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm", "9.1");
-//						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-commons", "9.1");
-						Main.addDep("https://maven.fabricmc.net/", "com.google.jimfs", "jimfs", "1.2-fabric");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "fabric-loader-sat4j", "2.3.5.4");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "access-widener", "1.0.0");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "tiny-remapper", "0.3.0.70");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "sponge-mixin", "0.9.2+mixin.0.8.2");
-						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "tiny-mappings-parser", "0.2.2.14");
-						Main.addDep("https://jitpack.io/", "com.github.cpw", "modlauncher", "8.1");
-						Main.addDep("https://jitpack.io/", "com.github.Mojang", "LegacyLauncher", "a4801b70f8");
-						MappingApplicator.targetMappings = "INTERMEDIARY";
-						version = version.substring("fabric-loader-".length());
-						version = version.substring(version.indexOf("-") + 1);
-					}
+//					if (version.startsWith("fabric-loader")) {
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "fabric-loader", "0.11.3");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "intermediary", "1.16.5");
+////						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-util", "9.1");
+////						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-tree", "9.1");
+////						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-analysis", "9.1");
+////						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm", "9.1");
+////						Main.addDep("https://maven.fabricmc.net/", "org.ow2.asm", "asm-commons", "9.1");
+//						Main.addDep("https://maven.fabricmc.net/", "com.google.jimfs", "jimfs", "1.2-fabric");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "fabric-loader-sat4j", "2.3.5.4");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "access-widener", "1.0.0");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "tiny-remapper", "0.3.0.70");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "sponge-mixin", "0.9.2+mixin.0.8.2");
+//						Main.addDep("https://maven.fabricmc.net/", "net.fabricmc", "tiny-mappings-parser", "0.2.2.14");
+//						Main.addDep("https://jitpack.io/", "com.github.cpw", "modlauncher", "8.1");
+//						Main.addDep("https://jitpack.io/", "com.github.Mojang", "LegacyLauncher", "a4801b70f8");
+//						MappingApplicator.targetMappings = "INTERMEDIARY";
+//						version = version.substring("fabric-loader-".length());
+//						version = version.substring(version.indexOf("-") + 1);
+//					}
 					String ver = "";
 					for (char c : version.toCharArray()) {
 						if (c == '.' || Character.isDigit(c)) ver += c;

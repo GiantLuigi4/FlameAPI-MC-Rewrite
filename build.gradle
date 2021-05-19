@@ -10,7 +10,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 
 ext {
     flameMCVersion = '5bf04c1d36'
-    flameASMVersion = 'f9fce1e401'
+    flameASMVersion = '951892bd34'
     bytecodeUtilsVersion = '455c3d13b7'
     MCMappingsHelperVersion = '92190f30a4'
 }
@@ -36,7 +36,11 @@ dependencies {
     implementation "com.github.GiantLuigi4:FlameMC:$flameMCVersion"
 //    compileOnly "com.github.GiantLuigi4:FlameASM:$flameASMVersion"
     implementation "com.github.GiantLuigi4:Bytecode-Utils:$bytecodeUtilsVersion"
-    extraLibs "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
+    compileOnly "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
+    testCompileOnly "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
+    extraLibs ("com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion") {
+        exclude group: 'com.google.code.gson'
+    }
     implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
     implementation 'org.codehaus.janino:janino:3.1.2'
     implementation 'org.codehaus.janino:commons-compiler:3.1.2'
@@ -45,7 +49,7 @@ dependencies {
 //    compileOnly files('run/versions/1.16.4-flame/1.16.4-flame.jar')
 //    compileOnly files('run/versions/1.16.5/1.16.5.jar')
 //    implementation files('run/FlameInstaller.jar')
-    implementation files('run/flame_mods/FlameASM-1.0-SNAPSHOT.jar')
+    compileOnly files('run/flame_mods/FlameASM-1.0-SNAPSHOT.jar')
     compileOnly files('run/versions/fabric-loader-0.11.3-1.16.5/fabric-loader-0.11.3-1.16.5.jar')
     compileOnly files('run/versions/1.16.5-forge-36.1.6/1.16.5-forge-36.1.6.jar')
     compileOnly files('run/versions/1.16.5-srg/1.16.5-srg.jar')

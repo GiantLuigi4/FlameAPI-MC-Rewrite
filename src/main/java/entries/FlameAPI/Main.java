@@ -76,14 +76,16 @@ public class Main implements IFlameAPIMod {
 				GameInstance.INSTANCE.dataDirectory = new File(Main.getExecDir() + "\\run");
 			//Bytecode-Utils
 			downloadBytecodeUtils();
-			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "FlameASM", "9eb3bad50f");
+//			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "FlameASM", "9eb3bad50f");
+			
 			//Compilers
 //			addDep("https://repo1.maven.org/maven2/", "org.javassist", "javassist", "3.27.0-GA");
 //			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "janino", "3.1.2");
 //			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler", "3.1.2");
 //			addDep("https://repo1.maven.org/maven2/", "org.codehaus.janino", "commons-compiler-jdk", "3.1.2");
+			
 			//Mappings Helper
-			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "92190f30a4");
+//			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "MCMappingsHelper", "92190f30a4");
 		} catch (Throwable ex) {
 			ex.printStackTrace();
 		}
@@ -108,38 +110,38 @@ public class Main implements IFlameAPIMod {
 //			clazz = BuiltinRegistries.class;
 //			clazz = BlockRegistry.class;
 			
-			File f = new File("mappings/flame_mappings.mappings");
-			if (f.exists()) {
-				byte[] bytes = null;
-				FileInputStream stream = null;
-				ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
-				try {
-					stream = new FileInputStream(f);
-					int b;
-					while ((b = stream.read()) != -1) stream1.write(b);
-					bytes = stream1.toByteArray();
-				} catch (Throwable ignored) {
-					try {
-						try {
-							stream1.close();
-							stream1.flush();
-						} catch (Throwable ignored1) {
-						}
-						if (stream != null) stream1.close();
-					} catch (Throwable ignored1) {
-					}
-				}
-				
-				if (bytes != null) {
-					try {
-						Field f1 = MappingApplicator.class.getDeclaredField("mappingsSystems");
-						f1.setAccessible(true);
-						HashMap<String, MappingsInfo> infos = (HashMap<String, MappingsInfo>) f1.get(null);
-						infos.replace("FLAME", new MappingsInfo(new FlameMapHolder(new String(bytes)), "INTERMEDIARY", "FLAME"));
-					} catch (Throwable ignored) {
-					}
-				}
-			}
+//			File f = new File("mappings/flame_mappings.mappings");
+//			if (f.exists()) {
+//				byte[] bytes = null;
+//				FileInputStream stream = null;
+//				ByteArrayOutputStream stream1 = new ByteArrayOutputStream();
+//				try {
+//					stream = new FileInputStream(f);
+//					int b;
+//					while ((b = stream.read()) != -1) stream1.write(b);
+//					bytes = stream1.toByteArray();
+//				} catch (Throwable ignored) {
+//					try {
+//						try {
+//							stream1.close();
+//							stream1.flush();
+//						} catch (Throwable ignored1) {
+//						}
+//						if (stream != null) stream1.close();
+//					} catch (Throwable ignored1) {
+//					}
+//				}
+//
+//				if (bytes != null) {
+//					try {
+//						Field f1 = MappingApplicator.class.getDeclaredField("mappingsSystems");
+//						f1.setAccessible(true);
+//						HashMap<String, MappingsInfo> infos = (HashMap<String, MappingsInfo>) f1.get(null);
+//						infos.replace("FLAME", new MappingsInfo(new FlameMapHolder(new String(bytes)), "INTERMEDIARY", "FLAME"));
+//					} catch (Throwable ignored) {
+//					}
+//				}
+//			}
 		}
 		
 		MapperTest.init();
