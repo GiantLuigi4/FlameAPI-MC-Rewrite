@@ -8,15 +8,12 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-ext {
-    flameMCVersion = '5bf04c1d36'
-    flameASMVersion = '951892bd34'
-    bytecodeUtilsVersion = '455c3d13b7'
-    MCMappingsHelperVersion = '92190f30a4'
-}
-
 configurations {
     extraLibs
+}
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
 }
 
 repositories {
@@ -32,13 +29,13 @@ repositories {
 dependencies {
 //    testCompile group: 'junit', name: 'junit', version: '4.12'
 
-    implementation 'com.github.GiantLuigi4:FlameMappings:8747faf305'
-    implementation "com.github.GiantLuigi4:FlameMC:$flameMCVersion"
-//    compileOnly "com.github.GiantLuigi4:FlameASM:$flameASMVersion"
-    implementation "com.github.GiantLuigi4:Bytecode-Utils:$bytecodeUtilsVersion"
-    compileOnly "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
-    testCompileOnly "com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion"
-    extraLibs ("com.github.GiantLuigi4:MCMappingsHelper:$MCMappingsHelperVersion") {
+    implementation 'com.github.GiantLuigi4:FlameMappings:master-SNAPSHOT'
+    implementation "com.github.GiantLuigi4:FlameMC:master-SNAPSHOT"
+    compileOnly "com.github.GiantLuigi4:FlameASM:master-SNAPSHOT"
+    implementation "com.github.GiantLuigi4:Bytecode-Utils:master-SNAPSHOT"
+    compileOnly "com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT"
+    testCompileOnly "com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT"
+    extraLibs ("com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT") {
         exclude group: 'com.google.code.gson'
     }
     implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
@@ -149,7 +146,7 @@ dependencies {
 
 //jars the mod directly into flame_mods folder
 jar {
-    File dest = new File(System.getProperty("user.dir") + "\\run\\flame_mods\\")
+    File dest = new File(System.getProperty("user.dir") + File.separator + "run" + File.separator + "flame_mods" + File.separator)
     if (!dest.exists()) {
         dest.getParentFile().mkdirs()
         dest.mkdirs()

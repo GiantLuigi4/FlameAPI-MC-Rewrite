@@ -1,4 +1,1 @@
-rootProject.name = 'FlameAPI-MC-1.16.4'
-gradle.ext.flameMCVersion = 'd41042b077'
-gradle.ext.bytecodeUtilsVersion = '455c3d13b7'
-gradle.ext.MCMappingsHelperVersion = '3edf7efa3d'
+rootProject.name = 'FlameAPI-MC-Rewrite'
