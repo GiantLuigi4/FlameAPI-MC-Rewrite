@@ -1,12 +1,12 @@
 package tfc.flamemc.API;
 
 import tfc.flame.API.utils.logging.Logger;
-import entries.FlameAPI.Main;
-import tfc.flame.FlameURLLoader;
-import tfc.flameasm.remapper.MappingApplicator;
+import tfc.flame.loader.FlameLoader;
+import tfc.flame.loader.util.JDKLoader;
 
 import java.io.File;
 import java.net.URL;
+import java.util.Arrays;
 
 public class GameInstance {
 	public static final GameInstance INSTANCE = new GameInstance();
@@ -39,14 +39,14 @@ public class GameInstance {
 		String assetVersion = "";
 		boolean isMappedVersion = false;
 		
-		FlameURLLoader test = new FlameURLLoader(new URL[0]);
+		FlameLoader test = (FlameLoader) JDKLoader.createLoader(new URL[0]);
 		System.out.println(test.getParent().getClass());
 		try {
 			boolean isAssetIndex = false;
 			boolean isVersion = false;
 			boolean isDir = false;
 			
-			System.out.println(args);
+			System.out.println(Arrays.toString(args));
 			
 			for (String s : args) {
 				if (s.equals("--version")) {

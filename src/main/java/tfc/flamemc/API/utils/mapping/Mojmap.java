@@ -1,5 +1,6 @@
 package tfc.flamemc.API.utils.mapping;
 
+import tfc.flame.API.utils.BiObject;
 import tfc.flame.API.utils.logging.Logger;
 import tfc.flame.API.utils.reflection.Methods;
 import tfc.flamemc.API.GameInstance;
@@ -7,8 +8,8 @@ import tfc.mappings.structure.MappingsClass;
 import tfc.mappings.structure.MappingsMethod;
 import tfc.mappings.structure.MojmapHolder;
 import tfc.mappings.types.Mojang;
-import tfc.utils.BiObject;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicReference;
@@ -40,7 +41,7 @@ public class Mojmap {
 		return getClassFromObsf(GameInstance.INSTANCE.versionMap, name);
 	}
 	
-	public static BiObject<String, java.lang.reflect.Method> getMethodBetter(Class<?> clazz, MappingsClass mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
+	public static BiObject<String, Method> getMethodBetter(Class<?> clazz, MappingsClass mappingsClass, String name, String descriptor, ArrayList<BiObject<String, String>> replacements) {
 		java.lang.reflect.Method returnVal;
 		String info;
 		AtomicReference<MappingsMethod> mA = new AtomicReference<>();

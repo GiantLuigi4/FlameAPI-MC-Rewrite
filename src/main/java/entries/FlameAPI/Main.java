@@ -1,20 +1,14 @@
 package entries.FlameAPI;
 
-import tfc.flame.IFlameAPIMod;
+import tfc.flame.loader.IFlameMod;
 import tfc.flamemc.API.GameInstance;
-import tfc.flameasm.remapper.MappingApplicator;
-import tfc.flameasm.remapper.MappingsInfo;
 import tfc.flamemc.FlameLauncher;
-import tfc.mappings.structure.FlameMapHolder;
+import tfc.flamemc.FlameUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.lang.reflect.Field;
-import java.util.HashMap;
 
-public class Main implements IFlameAPIMod {
-	private static String[] gameArgs;
+public class Main implements IFlameMod {
+	private static final String[] gameArgs;
 	
 	public static String[] getArgs() {
 		return gameArgs;
@@ -22,60 +16,20 @@ public class Main implements IFlameAPIMod {
 	
 	private static final String bytecodeUtilsVersion = "455c3d13b7";
 	
-	/**
-	 * downloads a maven artifact from the internet
-	 *
-	 * @param repo    the repo to download from
-	 * @param path    the path
-	 * @param name    artifact name
-	 * @param version version
-	 */
-	public static void addDep(String repo, String path, String name, String version) {
-		String url = repo + path.replace(".", "/") + "/" + name + "/" + version + "/" + name + "-" + version + ".jar";
-		String name1 = path.replace(".", File.separatorChar + "") + File.separatorChar + name + File.separatorChar + version + File.separatorChar + name + "-" + version + ".jar";
-		try {
-			FlameLauncher.downloadDep(name1, url);
-//			Method m = FlameLauncher.dependencyManager.getClass().getMethod("addFromURL", String.class);
-//			m.invoke(FlameLauncher.dependencyManager, (FlameLauncher.isDev ? "run\\libraries\\" : "\\libraries\\" + name1 + "," + url));
-		} catch (Throwable err) {
-			FlameLauncher.downloadDep(name1, url);
-		}
-	}
-	
-	private static String getGameDir() {
-		return GameInstance.INSTANCE.gameDir;
-	}
-	
-	@Override
-	public void preinit(String[] strings) {
-//		addDep(
-//				"https://files.minecraftforge.net/",
-//				"de.oceanlabs.mcp.mcp_config",
-//				"1.16.5","20210115.111550"
-//		);
-//		MappingApplicator.targetMappings = "OBFUSCATION";
-	}
-	
-	@Override
-	public void init(String[] strings) {
-	}
-	
-	private static String getExecDir() {
-		return GameInstance.INSTANCE.execDir;
-	}
-	
-	@Override
-	public void setupAPI(String[] args) {
-		gameArgs = args;
-		GameInstance.init(args);
+	static {
+		gameArgs = FlameLauncher.gameArgs;
+		GameInstance.init(gameArgs);
 		
 		try {
-			if (!FlameLauncher.isDev)
-				GameInstance.INSTANCE.dataDirectory = new File((Main.getGameDir() == null ? Main.getExecDir() : Main.getGameDir()));
-			else
-				GameInstance.INSTANCE.dataDirectory = new File(Main.getExecDir() + "\\run");
+			if (!FlameUtils.isDev) GameInstance.INSTANCE.dataDirectory = new File((Main.getGameDir() == null ? Main.getExecDir() : Main.getGameDir()));
+			else GameInstance.INSTANCE.dataDirectory = new File(Main.getExecDir() + File.separator + "run");
 			//Bytecode-Utils
-			downloadBytecodeUtils();
+			addDep(
+					"https://jitpack.io/",
+					"com.github.GiantLuigi4",
+					"Bytecode-Utils",
+					bytecodeUtilsVersion
+			);
 //			addDep("https://jitpack.io/", "com.github.GiantLuigi4", "FlameASM", "9eb3bad50f");
 			
 			//Compilers
@@ -91,25 +45,44 @@ public class Main implements IFlameAPIMod {
 		}
 	}
 	
-	private void downloadBytecodeUtils() {
-		addDep(
-				"https://jitpack.io/",
-				"com.github.GiantLuigi4",
-				"Bytecode-Utils",
-				bytecodeUtilsVersion
-		);
+	/**
+	 * downloads a maven artifact from the internet
+	 *
+	 * @param repo    the repo to download from
+	 * @param path    the path
+	 * @param name    artifact name
+	 * @param version version
+	 */
+	public static void addDep(String repo, String path, String name, String version) {
+		String url = repo + path.replace(".", "/") + "/" + name + "/" + version + "/" + name + "-" + version + ".jar";
+		String folder = path.replace(".", File.separator) + File.separator + name + File.separator + version;
+		FlameLauncher.downloadDependency(url, folder, name + "-" + version + ".jar");
+	}
+	
+	private static String getGameDir() {
+		return GameInstance.INSTANCE.gameDir;
 	}
 	
 	@Override
-	public void postinit(String[] strings) {
-		if (FlameLauncher.isDev) {
+	public void preInit() {
+//		addDep(
+//				"https://files.minecraftforge.net/",
+//				"de.oceanlabs.mcp.mcp_config",
+//				"1.16.5","20210115.111550"
+//		);
+//		MappingApplicator.targetMappings = "OBFUSCATION";
+	}
+	
+	@Override
+	public void onInit() {
+		if (FlameUtils.isDev) {
 //			java.lang.Class<?> clazz = Block.class;
 //			clazz = BlockProperties.class;
 //			clazz = ResourceName.class;
 //			clazz = DefaultedRegistry.class;
 //			clazz = BuiltinRegistries.class;
 //			clazz = BlockRegistry.class;
-			
+
 //			File f = new File("mappings/flame_mappings.mappings");
 //			if (f.exists()) {
 //				byte[] bytes = null;
@@ -145,12 +118,20 @@ public class Main implements IFlameAPIMod {
 		}
 		
 		MapperTest.init();
-		
+
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
 
 //		System.out.println(MainRegistry.getBlocks());
 //		Block block = BlockRegistry.register("hi",null);
 
 //		BlockRegistry.register(location.toString(), new Block());
+	}
+	
+	private static String getExecDir() {
+		return GameInstance.INSTANCE.execDir;
+	}
+	
+	private void downloadBytecodeUtils() {
+	
 	}
 }
