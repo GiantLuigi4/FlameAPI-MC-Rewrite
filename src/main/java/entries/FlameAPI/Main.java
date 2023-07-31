@@ -21,8 +21,7 @@ public class Main implements IFlameMod {
 		GameInstance.init(gameArgs);
 		
 		try {
-			if (!FlameUtils.isDev) GameInstance.INSTANCE.dataDirectory = new File((Main.getGameDir() == null ? Main.getExecDir() : Main.getGameDir()));
-			else GameInstance.INSTANCE.dataDirectory = new File(Main.getExecDir() + File.separator + "run");
+			GameInstance.INSTANCE.dataDirectory = FlameUtils.isDev ? new File(Main.getExecDir() + File.separator + "run") : new File((Main.getGameDir() == null ? Main.getExecDir() : Main.getGameDir()));
 			//Bytecode-Utils
 			addDep(
 					"https://jitpack.io/",
@@ -117,8 +116,6 @@ public class Main implements IFlameMod {
 //			}
 		}
 		
-		MapperTest.init();
-
 //		BlockRegistry.register(location.toString(), new Block(PropertiesAccessor.getProperties(BlockRegistry.getStone())));
 
 //		System.out.println(MainRegistry.getBlocks());

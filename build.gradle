@@ -27,21 +27,9 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.GiantLuigi4:FlameMappings:master-SNAPSHOT'
     implementation "com.github.GiantLuigi4:FlameMC:master-SNAPSHOT"
-    compileOnly "com.github.GiantLuigi4:FlameASM:master-SNAPSHOT"
-    implementation "com.github.GiantLuigi4:Bytecode-Utils:master-SNAPSHOT"
-    compileOnly "com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT"
-    testCompileOnly "com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT"
-    extraLibs ("com.github.GiantLuigi4:MCMappingsHelper:master-SNAPSHOT") {
-        exclude group: 'com.google.code.gson'
-    }
-    implementation group: 'org.javassist', name: 'javassist', version: '3.27.0-GA'
-    implementation 'org.codehaus.janino:janino:3.1.2'
-    implementation 'org.codehaus.janino:commons-compiler:3.1.2'
-    implementation 'org.codehaus.janino:commons-compiler-jdk:3.1.2'
+    implementation "com.github.GiantLuigi4:Hookin:master-SNAPSHOT"
 
-    //compileOnly files('run/flame_mods/FlameASM-1.0-SNAPSHOT.jar')
     configurations.compile.extendsFrom(configurations.extraLibs)
 }
 
