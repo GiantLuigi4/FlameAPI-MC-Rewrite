@@ -1,8 +1,6 @@
 import tfc.flamemc.FlameLauncher;
 import tfc.flamemc.FlameUtils;
 
-import java.io.IOException;
-
 public class Test {
 	public static void main(String[] args) {
 		FlameUtils.isDev = true;

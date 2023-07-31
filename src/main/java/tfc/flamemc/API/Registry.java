@@ -1,6 +1,5 @@
 package tfc.flamemc.API;
 
-//TODO: figure out why the remapper doesn't get applied to this class in FlameAPI dev envro
 public class Registry {
 	public enum Register {
 		BLOCKS
@@ -9,7 +8,6 @@ public class Registry {
 //	private static final Method doRegister;
 //	static {
 //		System.out.println("hello");
-//		//TODO: access modifiers instead of reflection
 //		Method m = null;
 //		try {
 //			m = BlockRegistry.class.getDeclaredMethod(
